@@ -20,8 +20,9 @@
                     <ControlTemplate TargetType="Window">
                         <Border Padding="0"
                                 BorderBrush="#FFBDBDBD"
-                                BorderThickness="0">
-                            <Grid Background="White">
+                                BorderThickness="0"
+                                CornerRadius="200">
+                            <Grid>
                                 <Border Background="White">
                                     <Border.Effect>
                                         <DropShadowEffect ShadowDepth="0.5" Opacity="0.2" />
@@ -99,7 +100,7 @@
     </Window.Resources>
 
     <WindowChrome.WindowChrome>
-        <WindowChrome CaptionHeight="42"
+        <WindowChrome CaptionHeight="420"
                       CornerRadius="0"
                       GlassFrameThickness="0"/>
     </WindowChrome.WindowChrome>

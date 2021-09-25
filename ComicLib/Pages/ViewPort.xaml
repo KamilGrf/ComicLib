@@ -18,10 +18,28 @@
         </Grid>
         <Button HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Height="100" Width="100"/>
-        <TextBlock Text="Gorod"
+                Height="100" Width="100">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="White"
+                            x:Name="g">
+                        <TextBlock Text="Www"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   FontFamily="{StaticResource ComicNeueBoldItalic}"
+                                   FontSize="40"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="g" Property="Background" Value="Red"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <TextBlock Text="Gorod" Margin="0, 200, 0, 0"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
-                   />
+                   FontSize="40"/>
     </Grid>
 </Page>
