@@ -107,32 +107,7 @@
     <Grid>
         <Frame x:Name="mainFrame"
                NavigationUIVisibility="Hidden">
-            
+
         </Frame>
     </Grid>
-    
-    <!--<Grid Background="AliceBlue">
-        <DockPanel LastChildFill="True">
-            <Grid Height="50"
-                  DockPanel.Dock="Top"
-                  Background="Orange">
-            </Grid>
-            
-            <Border Height="31"
-                  DockPanel.Dock="Bottom"
-                  Background="Red">
-            </Border>
-            
-            <DockPanel LastChildFill="True"
-                       DockPanel.Dock="Bottom"
-                       Background="Transparent">
-                <Image Source="Samples/03.png"
-                       DockPanel.Dock="Left"/>
-                <Image Source="Samples/03.jpg"
-                       HorizontalAlignment="Right"/>
-            </DockPanel>
-
-            
-        </DockPanel>
-    </Grid>-->
 </Window>
