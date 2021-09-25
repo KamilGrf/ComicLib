@@ -1,0 +1,30 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <FontFamily x:Key="ComicNeueRegular">pack://application:,,,/Fonts/ComicNeue-Regular.ttf#Comic Neue Regular</FontFamily>
+    <FontFamily x:Key="ComicNeueBold">pack://application:,,,/Fonts/ComicNeue-Bold.ttf#Comic Neue Bold</FontFamily>
+    <FontFamily x:Key="ComicNeueBoldItalic">pack://application:,,,/Fonts/ComicNeue-BoldItalic.ttf#Comic Neue Bold Italic</FontFamily>
+    <FontFamily x:Key="ComicNeueItalic">pack://application:,,,/Fonts/ComicNeue-Italic.ttf#Comic Neue Italic</FontFamily>
+    <FontFamily x:Key="ComicNeueLight">pack://application:,,,/Fonts/ComicNeue-Light.ttf#Comic Neue Light</FontFamily>
+    <FontFamily x:Key="ComicNeueLightItalic">pack://application:,,,/Fonts/ComicNeue-LightItalic.ttf#Comic Neue Light Italic</FontFamily>
+
+    <Style TargetType="{x:Type Control}" x:Key="BaseStyle">
+        <Setter Property="FontFamily" Value="{StaticResource ComicNeueRegular}"/>
+        <Setter Property="FontSize" Value="14"/>
+    </Style>
+
+    <Style TargetType="{x:Type TextBlock}" x:Key="BaseTextBlockStyle">
+        <Setter Property="FontFamily" Value="{StaticResource ComicNeueRegular}"/>
+        <Setter Property="FontSize" Value="14"/>
+    </Style>
+
+    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource BaseStyle}"/>
+    <Style TargetType="{x:Type Label}" BasedOn="{StaticResource BaseStyle}"/>
+    <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource BaseStyle}"/>
+    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource BaseTextBlockStyle}"/>
+    <Style TargetType="{x:Type ListView}" BasedOn="{StaticResource BaseStyle}"/>
+
+    <!--<system:String x:Key="PutNewLine">&#x0a;</system:String>-->
+
+</ResourceDictionary>
