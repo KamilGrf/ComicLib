@@ -7,10 +7,9 @@
       mc:Ignorable="d" 
       ShowsNavigationUI="False"
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="ViewPort" WindowTitle="ViewPort"
-      Background="White">
+      Title="ViewPort" WindowTitle="ViewPort">
 
-    <Grid Background="#FF90909E">
+    <Grid>
         <Grid Background="{StaticResource MainBlueBrush}"
               Height="60"
               VerticalAlignment="Top">

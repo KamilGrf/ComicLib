@@ -7,4 +7,7 @@
     <Color x:Key="MouseDownBackground">#FF90909E</Color>
     <SolidColorBrush x:Key="MouseDownBackgroundBrush" Color="{StaticResource MouseDownBackground}"/>
 
+    <Color x:Key="TitleBarBackground">#FFD9D9EE</Color>
+    <SolidColorBrush x:Key="TitleBarBackgroundBrush" Color="{StaticResource TitleBarBackground}"/>
+
 </ResourceDictionary>

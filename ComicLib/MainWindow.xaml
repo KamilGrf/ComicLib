@@ -12,82 +12,31 @@
         MinHeight="918" MinWidth="1124"
         WindowStartupLocation="CenterScreen">
 
-    
+
     <Window.Resources>
-        <Style TargetType="local:MainWindow">
+        <Style TargetType="{x:Type local:MainWindow}">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Window">
-                        <Border Padding="0"
+
+                        <Border Padding="5"
                                 BorderBrush="#FFBDBDBD"
-                                BorderThickness="0"
-                                CornerRadius="200">
+                                BorderThickness="0">
                             <Grid>
-                                <Border Background="White">
+
+                                <!--Window shadow effect-->
+                                <Border Background="White"
+                                        CornerRadius="3">
                                     <Border.Effect>
-                                        <DropShadowEffect ShadowDepth="0.5" Opacity="0.2" />
+                                        <DropShadowEffect ShadowDepth="0.5" Opacity="0.2" 
+                                                          BlurRadius="10" />
                                     </Border.Effect>
                                 </Border>
+
                                 <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="42"/>
-                                        <RowDefinition/>
-                                    </Grid.RowDefinitions>
-                                    
-                                    <Grid Grid.Column="0"
-                                          MouseDown="GridDragMoveMouseDown"
-                                          Background="Transparent"
-                                          WindowChrome.IsHitTestVisibleInChrome="True">
 
-                                        <Grid.ColumnDefinitions>
-                                            <!-- Icon -->
-                                            <ColumnDefinition Width="Auto" />
-                                            <!-- Title -->
-                                            <ColumnDefinition Width="*" />
-                                            <!-- Windows Button -->
-                                            <ColumnDefinition Width="Auto" />
-
-                                        </Grid.ColumnDefinitions>
-
-                                        <!-- Icon -->
-                                        <Button Click="MenuClick">
-                                            <Button.Template>
-                                                <ControlTemplate TargetType="{x:Type Button}">
-                                                    <Border Background="Transparent"
-                                                            Padding="3">
-                                                        <ContentPresenter VerticalAlignment="Center"
-                                                                          HorizontalAlignment="Center"/>
-                                                    </Border>
-                                                </ControlTemplate>
-                                            </Button.Template>
-                                            <Image Source="/Images/books.png" />
-                                        </Button>
-
-                                        <!-- Title -->
-                                        <!--<Viewbox Grid.Column="0" Grid.ColumnSpan="3" Margin="5">
-                                            <StackPanel>
-                                                <TextBlock FontFamily="{StaticResource LatoBold}" FontSize="{StaticResource FontSizeLarge}" Margin="0,0,0,-5">
-                                                    <Run Text="W" Foreground="{StaticResource WordOrangeBrush}" />--><!--
-                                                    --><!--<Run Text="O" Foreground="{StaticResource WordBlueBrush}" />--><!--
-                                                    --><!--<Run Text="R" Foreground="{StaticResource WordRedBrush}" />--><!--
-                                                    --><!--<Run Text="D" Foreground="{StaticResource WordGreenBrush}" />
-                                                </TextBlock>
-                                                <TextBlock Text="by fasetto" Foreground="{StaticResource ForegroundDarkBrush}" TextAlignment="Center" />
-                                            </StackPanel>
-                                        </Viewbox>
-
-                                        --><!-- Window Buttons -->
-                                        <StackPanel Grid.Column="2" Orientation="Horizontal">
-                                            <Button Click="MinimizeClick" Style="{StaticResource WindowControlButton}" Content="_"/>
-                                            <Button Click="MaximizeClick" Style="{StaticResource WindowControlButton}" Content="[ ]"/>
-                                            <Button Click="CloseClick" Style="{StaticResource WindowCloseButton}" Content="X" 
-                                                    Width="40"
-                                                    FontSize="14"/>
-                                        </StackPanel>
-
-                                    </Grid>
-                                    
-                                    <Border Grid.Row="2" Padding="0" ClipToBounds="True">
+                                    <!--Page content-->
+                                    <Border Padding="0" ClipToBounds="True">
                                         <ContentPresenter Content="{TemplateBinding Content}" />
                                     </Border>
                                 </Grid>
@@ -100,14 +49,81 @@
     </Window.Resources>
 
     <WindowChrome.WindowChrome>
-        <WindowChrome CaptionHeight="420"
-                      CornerRadius="0"
+        <WindowChrome ResizeBorderThickness="4" 
+                      CaptionHeight="42"
+                      CornerRadius="5"
                       GlassFrameThickness="0"/>
     </WindowChrome.WindowChrome>
 
+
     <Grid>
+
+        <Grid.RowDefinitions>
+            <!--Title Bar-->
+            <RowDefinition Height="42"/>
+            <!--Page Content-->
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Border Background="{StaticResource TitleBarBackgroundBrush}"
+                CornerRadius="2, 2, 0, 0">
+            <Grid Grid.Column="0"
+                  WindowChrome.IsHitTestVisibleInChrome="True">
+
+                <Grid.ColumnDefinitions>
+                    <!-- Icon -->
+                    <ColumnDefinition Width="Auto" />
+                    <!-- Title -->
+                    <ColumnDefinition Width="*" />
+                    <!-- Windows Button -->
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <!-- Icon -->
+                <Button Click="MenuClick">
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border Background="Transparent"
+                                    Padding="3">
+                                <ContentPresenter VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                    <Image Source="/Images/books.png" />
+                </Button>
+
+                <!-- Title -->
+                <TextBlock Grid.Column="1"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontSize="35"
+                           Margin="85, 0, 0, 0">
+                    <TextBlock.Background>
+                        <RadialGradientBrush>
+                            <GradientStop Color="#FF72FF5C" Offset="0"/>
+                            <GradientStop Color="#FF00EEF9" Offset="1"/>
+                        </RadialGradientBrush>
+                    </TextBlock.Background>
+                    <Run Text="ℭ𝔬𝔪𝔦𝔠" Foreground="Red"/><!--
+                    --><Run Text="𝔏𝔦𝔟" Foreground="Blue"/>
+                </TextBlock>
+
+                <!--Windows Button-->
+                <StackPanel Grid.Column="2" Orientation="Horizontal">
+                    <Button Click="MinimizeClick" Style="{StaticResource WindowControlButton}" Content="_"/>
+                    <Button Click="MaximizeClick" Style="{StaticResource WindowControlButton}" Content="[ ]"/>
+                    <Button Click="CloseClick" Style="{StaticResource WindowCloseButton}" Content="X" 
+                            Width="40"
+                            FontSize="14"/>
+                </StackPanel>
+
+            </Grid>
+        </Border>
+
         <Frame x:Name="mainFrame"
-               NavigationUIVisibility="Hidden">
+               NavigationUIVisibility="Hidden"
+               Grid.Row="1">
 
         </Frame>
     </Grid>
