@@ -6,39 +6,235 @@
       xmlns:local="clr-namespace:ComicLib.Pages"
       mc:Ignorable="d" 
       ShowsNavigationUI="False"
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="900" d:DesignWidth="1100"
       Title="ViewPort" WindowTitle="ViewPort">
 
+    <Page.Template>
+        <ControlTemplate TargetType="Page">
+            <Border Background="{StaticResource ViewPortBackgroundBrush}"
+                    CornerRadius="0, 0, 3, 3">
+                <ContentPresenter/>
+            </Border>
+        </ControlTemplate>
+    </Page.Template>
+
+
+    <Page.Resources>
+        <!--<Style TargetType="Button">
+            <Style.Setters>
+                <Setter Property="Button.Background" Value="Black" />
+                <Setter Property="Button.Foreground" Value="White" />
+                <Setter Property="Button.FontFamily" Value="Verdana" />
+                <Setter Property="Button.Margin" Value="10" />
+            </Style.Setters>
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="Click">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="Width" Duration="0:0:0:0.2" To="50" AutoReverse="True" />
+                                <DoubleAnimation Storyboard.TargetProperty="Height" Duration="0:0:0:0.2" To="50" AutoReverse="True" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>-->
+    </Page.Resources>
+    
+    
     <Grid>
-        <Grid Background="{StaticResource MainBlueBrush}"
-              Height="60"
-              VerticalAlignment="Top">
+        <Grid.RowDefinitions>
             
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+            
+        </Grid.RowDefinitions>
+
+        <Grid Background="{StaticResource MainBlueBrush}"
+              Height="50"
+              VerticalAlignment="Top">
+
+            <Grid.ColumnDefinitions>
+
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+
+            </Grid.ColumnDefinitions>
+
+            <!--Profile Button-->
+            <Button x:Name="b" Grid.Column="2"
+                    Height="40" Width="40"
+                    HorizontalAlignment="Right"
+                    Margin="0, 0, 10, 0"
+                    Click="ProfileClick">
+
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="Transparent">
+                            <ContentPresenter
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"/>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Cursor" Value="Hand"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+                </Button.Template>
+
+                <Image Source="/Images/bam-icon.png"/>
+
+            </Button>
+
         </Grid>
-        <Button HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Height="100" Width="100">
-            <Button.Template>
-                <ControlTemplate TargetType="Button">
-                    <Border Background="White"
-                            x:Name="g">
-                        <TextBlock Text="Www"
-                                   HorizontalAlignment="Center"
+
+        <Border x:Name="profileMenu" 
+                Visibility="Visible"
+                Background="White"
+                CornerRadius="5"
+                Grid.Row="1"
+                Height="350" Width="250"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Margin="0, 10, 10, 0">
+
+            <Border.Effect>
+                <DropShadowEffect ShadowDepth="0.5" Opacity="0.4" 
+                                  BlurRadius="10" />
+            </Border.Effect>
+
+            <StackPanel Margin="10"
+                        Orientation="Vertical">
+
+                <!--Style For ProfileMenu Buttons-->
+                <StackPanel.Resources>
+
+                    <Style TargetType="Button">
+                        <Setter Property="Height" Value="40"/>
+                        <Setter Property="Margin" Value="2"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+
+                                    <Border x:Name="back"
+                                            Background="Transparent"
+                                            CornerRadius="5">
+                                        <ContentPresenter Margin="10, 0"
+                                                          HorizontalAlignment="Left"
+                                                          VerticalAlignment="Center"/>
+                                    </Border>
+
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Cursor" Value="Hand"/>
+                                            <Setter TargetName="back" 
+                                                    Property="Background"
+                                                    Value="Gray"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+
+                </StackPanel.Resources>
+
+
+                <Button>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Images/bam-icon.png"/>
+                        <TextBlock Text="User profile"
                                    VerticalAlignment="Center"
-                                   FontFamily="{StaticResource ComicNeueBoldItalic}"
-                                   FontSize="40"/>
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="g" Property="Background" Value="Red"/>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Button.Template>
-        </Button>
-        <TextBlock Text="Gorod" Margin="0, 200, 0, 0"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   FontSize="40"/>
+                                   Margin="10, 0"
+                                   FontSize="20"
+                                   FontFamily="{StaticResource ComicSans}"/>
+                    </StackPanel>
+                </Button>
+
+                <Button>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Images/bam-icon.png"/>
+                        <TextBlock Text="Профиль пользователя"
+                                   VerticalAlignment="Center"
+                                   Margin="10, 0"
+                                   FontFamily="{StaticResource ComicSans}"/>
+                    </StackPanel>
+                </Button>
+
+                <Button>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Images/bam-icon.png"/>
+                        <TextBlock Text="Профиль пользователя"
+                                   VerticalAlignment="Center"
+                                   Margin="10, 0"/>
+                    </StackPanel>
+                </Button>
+
+                <Button>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Images/bam-icon.png"/>
+                        <TextBlock Text="Профиль пользователя"
+                                   VerticalAlignment="Center"
+                                   Margin="10, 0"/>
+                    </StackPanel>
+                </Button>
+
+                <Button>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Images/bam-icon.png"/>
+                        <TextBlock Text="Профиль пользователя"
+                                   VerticalAlignment="Center"
+                                   Margin="10, 0"/>
+                    </StackPanel>
+                </Button>
+
+            </StackPanel>
+
+        </Border>
     </Grid>
 </Page>
+
+<!--<Grid Background="#FF292929">
+            <Grid Height="50"
+                  Background="{StaticResource MainBlueBrush}"
+                  VerticalAlignment="Top">
+            </Grid>
+            
+            <Grid>
+                <DockPanel LastChildFill="True"
+                       HorizontalAlignment="Center"
+                       Margin="0, 50, 0, 31">
+
+                    <DockPanel LastChildFill="True"
+                           DockPanel.Dock="Bottom"
+                           Background="Transparent">
+                        <Image Source="/Samples/03.png"
+                           DockPanel.Dock="Left"/>
+                        <Image Source="/Samples/03.jpg"
+                           HorizontalAlignment="Right"/>
+                    </DockPanel>
+
+                </DockPanel>
+
+                <Border Background="White"
+                        Height="50" Width="50"
+                        CornerRadius="25"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom"
+                        Margin="0, 0, 50, 60">
+                    <TextBlock Text="1/12"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"/>
+                </Border>
+            </Grid>
+            
+            <Border Height="31"
+                    Background="Red"
+                    VerticalAlignment="Bottom"/>
+        </Grid>-->

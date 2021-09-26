@@ -22,15 +22,18 @@
                         <Border Padding="5"
                                 BorderBrush="#FFBDBDBD"
                                 BorderThickness="0">
+                            
                             <Grid>
 
                                 <!--Window shadow effect-->
                                 <Border Background="White"
                                         CornerRadius="3">
+                                    
                                     <Border.Effect>
                                         <DropShadowEffect ShadowDepth="0.5" Opacity="0.2" 
                                                           BlurRadius="10" />
                                     </Border.Effect>
+                                    
                                 </Border>
 
                                 <Grid>
@@ -39,6 +42,7 @@
                                     <Border Padding="0" ClipToBounds="True">
                                         <ContentPresenter Content="{TemplateBinding Content}" />
                                     </Border>
+                                    
                                 </Grid>
                             </Grid>
                         </Border>
@@ -99,14 +103,17 @@
                            VerticalAlignment="Center"
                            FontSize="35"
                            Margin="85, 0, 0, 0">
+                    
                     <TextBlock.Background>
                         <RadialGradientBrush>
                             <GradientStop Color="#FF72FF5C" Offset="0"/>
                             <GradientStop Color="#FF00EEF9" Offset="1"/>
                         </RadialGradientBrush>
                     </TextBlock.Background>
+                    
                     <Run Text="ℭ𝔬𝔪𝔦𝔠" Foreground="Red"/><!--
                     --><Run Text="𝔏𝔦𝔟" Foreground="Blue"/>
+                    
                 </TextBlock>
 
                 <!--Windows Button-->

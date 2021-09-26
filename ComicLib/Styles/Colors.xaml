@@ -10,4 +10,7 @@
     <Color x:Key="TitleBarBackground">#FFD9D9EE</Color>
     <SolidColorBrush x:Key="TitleBarBackgroundBrush" Color="{StaticResource TitleBarBackground}"/>
 
+    <Color x:Key="ViewPortBackground">#FFFF</Color>
+    <SolidColorBrush x:Key="ViewPortBackgroundBrush" Color="{StaticResource ViewPortBackground}"/>
+
 </ResourceDictionary>

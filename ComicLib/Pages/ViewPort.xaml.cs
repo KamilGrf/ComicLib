@@ -24,5 +24,13 @@ namespace ComicLib.Pages
         {
             InitializeComponent();
         }
+
+        private void ProfileClick(object sender, RoutedEventArgs e)
+        {
+            if (profileMenu.IsVisible)
+                profileMenu.Visibility = Visibility.Hidden;
+            else
+                profileMenu.Visibility = Visibility.Visible;
+        }
     }
 }
