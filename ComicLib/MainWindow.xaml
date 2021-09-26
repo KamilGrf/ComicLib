@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ComicLib"
+        xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         WindowStyle="None"
         AllowsTransparency="True"
@@ -22,18 +23,18 @@
                         <Border Padding="5"
                                 BorderBrush="#FFBDBDBD"
                                 BorderThickness="0">
-                            
+
                             <Grid>
 
                                 <!--Window shadow effect-->
                                 <Border Background="White"
                                         CornerRadius="3">
-                                    
+
                                     <Border.Effect>
                                         <DropShadowEffect ShadowDepth="0.5" Opacity="0.2" 
                                                           BlurRadius="10" />
                                     </Border.Effect>
-                                    
+
                                 </Border>
 
                                 <Grid>
@@ -42,7 +43,7 @@
                                     <Border Padding="0" ClipToBounds="True">
                                         <ContentPresenter Content="{TemplateBinding Content}" />
                                     </Border>
-                                    
+
                                 </Grid>
                             </Grid>
                         </Border>
@@ -98,7 +99,21 @@
                 </Button>
 
                 <!-- Title -->
-                <TextBlock Grid.Column="1"
+                <TextBlock Text="ComicLib"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Center"
+                           Grid.Column="1"
+                           Margin="10, 0"
+                           FontSize="30"
+                           WindowChrome.IsHitTestVisibleInChrome="False">
+                    <TextBlock.Foreground>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="Black" Offset="1"/>
+                            <GradientStop Color="Red"/>
+                        </LinearGradientBrush>
+                    </TextBlock.Foreground>
+                </TextBlock>
+                <!--<TextBlock Grid.Column="1"
                            HorizontalAlignment="Center"
                            VerticalAlignment="Center"
                            FontSize="35"
@@ -111,18 +126,27 @@
                         </RadialGradientBrush>
                     </TextBlock.Background>
                     
-                    <Run Text="ℭ𝔬𝔪𝔦𝔠" Foreground="Red"/><!--
-                    --><Run Text="𝔏𝔦𝔟" Foreground="Blue"/>
+                    <Run Text="ℭ𝔬𝔪𝔦𝔠" Foreground="Red"/>-->
+                <!--
+                    -->
+                <!--<Run Text="𝔏𝔦𝔟" Foreground="Blue"/>
                     
-                </TextBlock>
+                </TextBlock>-->
 
                 <!--Windows Button-->
                 <StackPanel Grid.Column="2" Orientation="Horizontal">
-                    <Button Click="MinimizeClick" Style="{StaticResource WindowControlButton}" Content="_"/>
-                    <Button Click="MaximizeClick" Style="{StaticResource WindowControlButton}" Content="[ ]"/>
-                    <Button Click="CloseClick" Style="{StaticResource WindowCloseButton}" Content="X" 
-                            Width="40"
-                            FontSize="14"/>
+                    <Button Click="MinimizeClick" Style="{StaticResource WindowControlButton}"
+                            Width="40">
+                        <material:PackIcon Kind="WindowMinimize"/>
+                    </Button>
+                    <Button Click="MaximizeClick" Style="{StaticResource WindowControlButton}"
+                            Width="40">
+                        <material:PackIcon x:Name="maximize" Kind="WindowMaximize"/>
+                    </Button>
+                    <Button Click="CloseClick" Style="{StaticResource WindowCloseButton}"
+                            Width="50">
+                        <material:PackIcon Kind="WindowClose"/>
+                    </Button>
                 </StackPanel>
 
             </Grid>

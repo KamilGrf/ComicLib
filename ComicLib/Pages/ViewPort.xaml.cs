@@ -23,14 +23,43 @@ namespace ComicLib.Pages
         public ViewPort()
         {
             InitializeComponent();
+            profileMenu.Visibility = Visibility.Hidden;
         }
 
-        private void ProfileClick(object sender, RoutedEventArgs e)
+        private void ProfileIconClick(object sender, RoutedEventArgs e)
         {
             if (profileMenu.IsVisible)
                 profileMenu.Visibility = Visibility.Hidden;
             else
                 profileMenu.Visibility = Visibility.Visible;
         }
+
+
+        #region Profile Menu Button Clicks
+        private void ProfileClick(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void MineBookmarksClick(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void MineCommentsClick(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SettingsClick(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void AccLeaveClick(object sender, RoutedEventArgs e)
+        {
+
+        }
+        #endregion
     }
 }

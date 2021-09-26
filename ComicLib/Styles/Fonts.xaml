@@ -8,15 +8,14 @@
     <FontFamily x:Key="ComicNeueItalic">pack://application:,,,/Fonts/ComicNeue-Italic.ttf#Comic Neue Italic</FontFamily>
     <FontFamily x:Key="ComicNeueLight">pack://application:,,,/Fonts/ComicNeue-Light.ttf#Comic Neue Light</FontFamily>
     <FontFamily x:Key="ComicNeueLightItalic">pack://application:,,,/Fonts/ComicNeue-LightItalic.ttf#Comic Neue Light Italic</FontFamily>
-    <FontFamily x:Key="ComicSans">pack://application:,,,/Fonts/ComicSansMS.ttf#Comic Sans</FontFamily>
 
     <Style TargetType="{x:Type Control}" x:Key="BaseStyle">
-        <Setter Property="FontFamily" Value="{StaticResource ComicSans}"/>
+        <Setter Property="FontFamily" Value="Comic Sans MS"/>
         <Setter Property="FontSize" Value="14"/>
     </Style>
 
     <Style TargetType="{x:Type TextBlock}" x:Key="BaseTextBlockStyle">
-        <Setter Property="FontFamily" Value="{StaticResource ComicNeueRegular}"/>
+        <Setter Property="FontFamily" Value="Comic Sans MS"/>
         <Setter Property="FontSize" Value="14"/>
     </Style>
 
