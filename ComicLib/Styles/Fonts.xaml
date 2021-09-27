@@ -25,6 +25,4 @@
     <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource BaseTextBlockStyle}"/>
     <Style TargetType="{x:Type ListView}" BasedOn="{StaticResource BaseStyle}"/>
 
-    <!--<system:String x:Key="PutNewLine">&#x0a;</system:String>-->
-
 </ResourceDictionary>

@@ -4,13 +4,19 @@
     <Color x:Key="MainBlue">#FF00B9FF</Color>
     <SolidColorBrush x:Key="MainBlueBrush" Color="{StaticResource MainBlue}"/>
 
-    <Color x:Key="MouseDownBackground">#FF90909E</Color>
-    <SolidColorBrush x:Key="MouseDownBackgroundBrush" Color="{StaticResource MouseDownBackground}"/>
+    <Color x:Key="TitleMouseDownBackground">#FF90909E</Color>
+    <SolidColorBrush x:Key="TitleMouseDownBackgroundBrush" Color="{StaticResource TitleMouseDownBackground}"/>
 
     <Color x:Key="TitleBarBackground">#FFD9D9EE</Color>
     <SolidColorBrush x:Key="TitleBarBackgroundBrush" Color="{StaticResource TitleBarBackground}"/>
 
     <Color x:Key="ViewPortBackground">#FFFF</Color>
     <SolidColorBrush x:Key="ViewPortBackgroundBrush" Color="{StaticResource ViewPortBackground}"/>
+
+    <Color x:Key="ViewPortMouseDownBackground">#FF0099D3</Color>
+    <SolidColorBrush x:Key="ViewPortMouseDownBackgroundBrush" Color="{StaticResource ViewPortMouseDownBackground}"/>
+
+    <Color x:Key="TextBoxBorder">#FFD6D6D6</Color>
+    <SolidColorBrush x:Key="TextBoxBorderBrush" Color="{StaticResource TextBoxBorder}"/>
 
 </ResourceDictionary>

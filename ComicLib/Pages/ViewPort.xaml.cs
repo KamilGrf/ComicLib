@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -24,6 +25,21 @@ namespace ComicLib.Pages
         {
             InitializeComponent();
             profileMenu.Visibility = Visibility.Hidden;
+            searchBorder.Visibility = Visibility.Hidden;
+        }
+
+        private void MainGridMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (searchBorder.IsVisible)
+            {
+                searchBorder.Visibility = Visibility.Hidden;
+                search.Text = "";
+            }
+
+            if (profileMenu.IsVisible)
+            {
+                profileMenu.Visibility = Visibility.Hidden;
+            }
         }
 
         private void ProfileIconClick(object sender, RoutedEventArgs e)
@@ -61,5 +77,42 @@ namespace ComicLib.Pages
 
         }
         #endregion
+
+        private void SearchVisibleClick(object sender, RoutedEventArgs e)
+        {
+            if (searchBorder.IsVisible)
+            {
+                searchBorder.Visibility = Visibility.Hidden;
+                search.Text = "";
+            }
+            else
+            {
+                searchBorder.Visibility = Visibility.Visible;
+            }
+        }
+        private void SearchClick(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SearchPreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!Regex.Match(e.Text, @"[а-яА-Яa-zA-Z.,0-9]").Success)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void SearchTextChanged(object sender, TextChangedEventArgs e)
+        {
+            if ((sender as TextBox).Text != "")
+            {
+                backText.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                backText.Visibility = Visibility.Visible;
+            }
+        }
     }
 }

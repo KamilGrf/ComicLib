@@ -12,196 +12,300 @@
 
     <Page.Template>
         <ControlTemplate TargetType="Page">
+            
             <Border Background="{StaticResource ViewPortBackgroundBrush}"
-                    CornerRadius="0, 0, 3, 3">
+                    CornerRadius="0, 0, 3, 3"
+                    MouseDown="MainGridMouseDown">
                 <ContentPresenter/>
             </Border>
+            
         </ControlTemplate>
     </Page.Template>
 
 
     <Page.Resources>
-        <!--<Style TargetType="Button">
-            <Style.Setters>
-                <Setter Property="Button.Background" Value="Black" />
-                <Setter Property="Button.Foreground" Value="White" />
-                <Setter Property="Button.FontFamily" Value="Verdana" />
-                <Setter Property="Button.Margin" Value="10" />
-            </Style.Setters>
-            <Style.Triggers>
-                <EventTrigger RoutedEvent="Click">
-                    <EventTrigger.Actions>
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <DoubleAnimation Storyboard.TargetProperty="Width" Duration="0:0:0:0.2" To="50" AutoReverse="True" />
-                                <DoubleAnimation Storyboard.TargetProperty="Height" Duration="0:0:0:0.2" To="50" AutoReverse="True" />
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </EventTrigger.Actions>
-                </EventTrigger>
-            </Style.Triggers>
-        </Style>-->
+
+        <Style TargetType="StackPanel" x:Key="StackPanelStyle">
+            <Setter Property="Orientation" Value="Horizontal"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+        
     </Page.Resources>
-    
-    
+
+
     <Grid>
+
         <Grid.RowDefinitions>
-            <!--Title Bar-->
+            <!-- Header -->
             <RowDefinition Height="50"/>
-            <!--Other Content-->
+            <!-- Other Content -->
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <!--Title Bar-->
+        <!-- Header -->
         <Grid Background="{StaticResource MainBlueBrush}"
               Height="50"
               VerticalAlignment="Top">
 
             <Grid.ColumnDefinitions>
 
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
+                <!-- Header Center Menu -->
+                <ColumnDefinition Width="*"/>
+                <!-- Header Right Menu -->
+                <ColumnDefinition Width="Auto"/>
 
             </Grid.ColumnDefinitions>
 
-            <!--Profile Button-->
-            <Button x:Name="b" Grid.Column="2"
-                    Height="40" Width="40"
-                    HorizontalAlignment="Right"
-                    Margin="0, 0, 10, 0"
-                    Click="ProfileIconClick">
+            <!--#region Header Center Menu -->
+            <StackPanel Style="{StaticResource StackPanelStyle}"
+                        Grid.Column="1"
+                        Margin="10, 5">
 
-                <Button.Template>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        
-                        <Border Background="Transparent">
-                            <ContentPresenter
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"/>
-                        </Border>
+                <!-- Catalog Button -->
+                <Button Style="{StaticResource ViewPortHeaderButton}">
 
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Cursor" Value="Hand"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-
-                    </ControlTemplate>
-                </Button.Template>
-
-                <Image x:Name="profileIcon" 
-                       Source="/Images/bam-icon.png"/>
-
-            </Button>
-
-        </Grid>
-
-        <!--Profile Menu-->
-        <Border x:Name="profileMenu" 
-                Visibility="Visible"
-                Background="White"
-                CornerRadius="5"
-                Grid.Row="1"
-                Height="240" Width="250"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Top"
-                Margin="0, 10, 10, 0">
-
-            <Border.Effect>
-                <DropShadowEffect ShadowDepth="0.5" Opacity="0.4" 
-                                  BlurRadius="10" />
-            </Border.Effect>
-
-            <StackPanel Margin="10"
-                        Orientation="Vertical">
-
-                <!--Style For ProfileMenu Buttons-->
-                <StackPanel.Resources>
-
-                    <Style TargetType="material:PackIcon">
-                        <Setter Property="Width" Value="20"/>
-                        <Setter Property="Height" Value="20"/>
-                    </Style>
-
-                    <Style TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlockStyle}">
-                        <Setter Property="VerticalAlignment" Value="Center"/>
-                        <Setter Property="Margin" Value="10, 0"/>
-                    </Style>
-                    
-                    <Style TargetType="Button">
-                        <Setter Property="Height" Value="40"/>
-                        <Setter Property="Margin" Value="2"/>
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="Button">
-
-                                    <Border x:Name="back"
-                                            Background="Transparent"
-                                            CornerRadius="5">
-                                        <ContentPresenter Margin="10, 0"
-                                                          HorizontalAlignment="Left"
-                                                          VerticalAlignment="Center"/>
-                                    </Border>
-
-                                    <ControlTemplate.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Cursor" Value="Hand"/>
-                                            <Setter TargetName="back" 
-                                                    Property="Background"
-                                                    Value="LightGray"/>
-                                        </Trigger>
-                                    </ControlTemplate.Triggers>
-
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-
-                </StackPanel.Resources>
-
-                <!--#region Profile Menu Buttons-->
-                <Button Click="ProfileClick">
-                    <StackPanel Orientation="Horizontal">
-                        <material:PackIcon Kind="User" />
-                        <TextBlock Text="Профиль пользователя"/>
+                    <StackPanel Style="{StaticResource StackPanelStyle}"
+                                Margin="10, 0">
+                        <material:PackIcon Kind="Menu"
+                                           Height="28" Width="28"/>
+                        <TextBlock Text="Каталог"
+                                   Margin="5, 0"
+                                   VerticalAlignment="Center"
+                                   FontSize="20"
+                                   FontWeight="Bold"/>
+                        <material:PackIcon Kind="MenuDown"
+                                           VerticalAlignment="Bottom"
+                                           Height="25" Width="25"/>
                     </StackPanel>
+
                 </Button>
 
-                <Button Click="MineBookmarksClick">
-                    <StackPanel Orientation="Horizontal">
-                        <material:PackIcon Kind="Bookmark"/>
-                        <TextBlock Text="Мои закладки"/>
-                    </StackPanel>
-                </Button>
+                <!-- Find Button -->
+                <Button Style="{StaticResource ViewPortHeaderButton}"
+                        Margin="20, 0"
+                        Click="SearchVisibleClick">
 
-                <Button Click="MineCommentsClick">
-                    <StackPanel Orientation="Horizontal">
-                        <material:PackIcon Kind="Comment"/>
-                        <TextBlock Text="Мои комментарии"/>
+                    <StackPanel Style="{StaticResource StackPanelStyle}"
+                                Margin="10, 0">
+                        <material:PackIcon Kind="Magnify"
+                                           Height="28" Width="28"/>
+                        <TextBlock Text="Поиск"
+                                   Margin="5, 0"
+                                   VerticalAlignment="Center"
+                                   FontSize="20"
+                                   FontWeight="Bold"/>
                     </StackPanel>
-                </Button>
 
-                <Button Click="SettingsClick">
-                    <StackPanel Orientation="Horizontal">
-                        <material:PackIcon Kind="Cog"/>
-                        <TextBlock Text="Настройки"/>
-                    </StackPanel>
                 </Button>
-
-                <Button Click="AccLeaveClick">
-                    <StackPanel Orientation="Horizontal">
-                        <material:PackIcon Kind="ExitToApp"
-                                           Foreground="Red"/>
-                        <TextBlock Text="Выйти"
-                                   Foreground="Red"/>
-                    </StackPanel>
-                </Button>
-                <!--#endregion-->
 
             </StackPanel>
+            <!--#endregion-->
 
-        </Border>
+            <!--#region Search Link -->
+            <Grid Width="600" Margin="0, 5"
+                  Grid.Column="1"
+                  x:Name="searchBorder"
+                  Visibility="Visible">
+
+                <!-- Search Link Background -->
+                <Border Background="White"
+                        CornerRadius="3"/>
+
+                <!-- Search Link Back Text -->
+                <TextBlock x:Name="backText"
+                           Text="Поиск комикса"
+                           Margin="40, 0"
+                           FontSize="20"
+                           VerticalAlignment="Center"
+                           Opacity="0.5"/>
+                
+                <!-- Search Link Text Box -->
+                <TextBox x:Name="search"
+                         VerticalContentAlignment="Center"
+                         Padding="30, 5" MaxLength="25"
+                         FontSize="20" FontFamily="Comic Sans MS"
+                         Style="{StaticResource SearchTextBox}"
+                         PreviewTextInput="SearchPreviewTextInput"
+                         TextChanged="SearchTextChanged"
+                         Background="Transparent"/>
+
+                <!-- Search Button -->
+                <Button Style="{StaticResource ViewPortProfileButton}"
+                        Width="40"
+                        HorizontalAlignment="Left">
+                    <material:PackIcon Kind="Magnify"
+                                    Height="28" Width="28"/>
+                </Button>
+
+                <!-- Close Button -->
+                <Button Style="{StaticResource ViewPortProfileButton}"
+                        Width="40"
+                        HorizontalAlignment="Right"
+                        Click="SearchVisibleClick">
+                    <material:PackIcon Kind="WindowClose"
+                                       Height="28" Width="28"/>
+                </Button>
+
+            </Grid>
+            <!--#endregion-->
+
+
+            <!--#region Header Right Menu -->
+            <StackPanel Grid.Column="2"
+                        Margin="10, 5"
+                        FlowDirection="RightToLeft"
+                        Style="{StaticResource StackPanelStyle}">
+
+                <!-- Profile Button -->
+                <Button Grid.Column="2"
+                        HorizontalAlignment="Right"
+                        Margin="0, 0, 10, 0" Width="40"
+                        Click="ProfileIconClick"
+                        Style="{StaticResource ViewPortProfileButton}">
+
+                    <Image x:Name="profileIcon" 
+                        Source="/Images/bam-icon.png"/>
+
+                </Button>
+
+                <!-- Bookmark Button -->
+                <Button Grid.Column="2"
+                        Style="{StaticResource ViewPortHeaderButton}"
+                        Click="MineBookmarksClick"
+                        Margin="15, 0" Width="40">
+
+                    <material:PackIcon Kind="BookmarkBorder"
+                                   Height="25" Width="25"/>
+
+                </Button>
+
+                <!-- Comic Add Button -->
+                <Button Grid.Column="2" Width="40"
+                        Style="{StaticResource ViewPortHeaderButton}"
+                        Click="MineBookmarksClick">
+
+                    <material:PackIcon Kind="PencilAdd"
+                                   Height="25" Width="25"/>
+
+                </Button>
+
+            </StackPanel>
+            <!--#endregion-->
+            
+        </Grid>
+
+        
+        <!-- Other Page Content -->
+        <Grid Grid.Row="1">
+            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="29*"/>
+                <ColumnDefinition Width="81*"/>
+            </Grid.ColumnDefinitions>
+            
+            <!--#region Profile Menu -->
+            <Button x:Name="profileMenu" 
+                    Visibility="Visible"
+                    Background="White"
+                    Height="240" Width="250"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Grid.Column="1" Margin="0, 10, 10, 0"
+                    Style="{StaticResource MenuTemplate}">
+
+                <StackPanel Orientation="Vertical">
+
+                    <!-- Style For ProfileMenu Buttons -->
+                    <StackPanel.Resources>
+
+                        <Style TargetType="material:PackIcon">
+                            <Setter Property="Width" Value="20"/>
+                            <Setter Property="Height" Value="20"/>
+                        </Style>
+
+                        <Style TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlockStyle}">
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="Margin" Value="10, 0"/>
+                        </Style>
+
+                        <Style TargetType="Button">
+                            <Setter Property="Height" Value="40"/>
+                            <Setter Property="Margin" Value="2"/>
+
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+
+                                        <Border x:Name="back"
+                                            Background="Transparent"
+                                            CornerRadius="5">
+                                            <ContentPresenter Margin="10, 0"
+                                                          HorizontalAlignment="Left"
+                                                          VerticalAlignment="Center"/>
+                                        </Border>
+
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Cursor" Value="Hand"/>
+                                                <Setter TargetName="back" 
+                                                    Property="Background"
+                                                    Value="LightGray"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+
+                    </StackPanel.Resources>
+
+                    <!--#region Profile Menu Buttons -->
+                    <Button Click="ProfileClick">
+                        <StackPanel Orientation="Horizontal">
+                            <material:PackIcon Kind="User" />
+                            <TextBlock Text="Профиль пользователя"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Click="MineBookmarksClick">
+                        <StackPanel Orientation="Horizontal">
+                            <material:PackIcon Kind="Bookmark"/>
+                            <TextBlock Text="Мои закладки"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Click="MineCommentsClick">
+                        <StackPanel Orientation="Horizontal">
+                            <material:PackIcon Kind="Comment"/>
+                            <TextBlock Text="Мои комментарии"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Click="SettingsClick">
+                        <StackPanel Orientation="Horizontal">
+                            <material:PackIcon Kind="Cog"/>
+                            <TextBlock Text="Настройки"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Click="AccLeaveClick">
+                        <StackPanel Orientation="Horizontal">
+                            <material:PackIcon Kind="ExitToApp"
+                                           Foreground="Red"/>
+                            <TextBlock Text="Выйти"
+                                   Foreground="Red"/>
+                        </StackPanel>
+                    </Button>
+                    <!--#endregion-->
+
+                </StackPanel>
+
+            </Button>
+            <!--#endregion-->
+            
+        </Grid>
     </Grid>
 </Page>
 

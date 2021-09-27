@@ -25,8 +25,7 @@
                                 BorderThickness="0">
 
                             <Grid>
-
-                                <!--Window shadow effect-->
+                                <!-- Window Shadow Effect -->
                                 <Border Background="White"
                                         CornerRadius="3">
 
@@ -38,12 +37,10 @@
                                 </Border>
 
                                 <Grid>
-
-                                    <!--Page content-->
+                                    <!-- Page Content -->
                                     <Border Padding="0" ClipToBounds="True">
                                         <ContentPresenter Content="{TemplateBinding Content}" />
                                     </Border>
-
                                 </Grid>
                             </Grid>
                         </Border>
@@ -64,14 +61,15 @@
     <Grid>
 
         <Grid.RowDefinitions>
-            <!--Title Bar-->
+            <!-- Title Bar -->
             <RowDefinition Height="42"/>
-            <!--Page Content-->
+            <!-- Page Content -->
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <Border Background="{StaticResource TitleBarBackgroundBrush}"
+        <Border Background="{StaticResource MainBlueBrush}"
                 CornerRadius="2, 2, 0, 0">
+            
             <Grid Grid.Column="0"
                   WindowChrome.IsHitTestVisibleInChrome="True">
 
@@ -80,7 +78,7 @@
                     <ColumnDefinition Width="Auto" />
                     <!-- Title -->
                     <ColumnDefinition Width="*" />
-                    <!-- Windows Button -->
+                    <!-- Window Buttons -->
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
@@ -113,45 +111,34 @@
                         </LinearGradientBrush>
                     </TextBlock.Foreground>
                 </TextBlock>
-                <!--<TextBlock Grid.Column="1"
-                           HorizontalAlignment="Center"
-                           VerticalAlignment="Center"
-                           FontSize="35"
-                           Margin="85, 0, 0, 0">
-                    
-                    <TextBlock.Background>
-                        <RadialGradientBrush>
-                            <GradientStop Color="#FF72FF5C" Offset="0"/>
-                            <GradientStop Color="#FF00EEF9" Offset="1"/>
-                        </RadialGradientBrush>
-                    </TextBlock.Background>
-                    
-                    <Run Text="ℭ𝔬𝔪𝔦𝔠" Foreground="Red"/>-->
-                <!--
-                    -->
-                <!--<Run Text="𝔏𝔦𝔟" Foreground="Blue"/>
-                    
-                </TextBlock>-->
-
-                <!--Windows Button-->
+                
+                <!-- Window Buttons -->
                 <StackPanel Grid.Column="2" Orientation="Horizontal">
+                    
                     <Button Click="MinimizeClick" Style="{StaticResource WindowControlButton}"
                             Width="40">
-                        <material:PackIcon Kind="WindowMinimize"/>
+                        <material:PackIcon Kind="WindowMinimize"
+                                           Height="15" Width="15"/>
                     </Button>
+                    
                     <Button Click="MaximizeClick" Style="{StaticResource WindowControlButton}"
                             Width="40">
-                        <material:PackIcon x:Name="maximize" Kind="WindowMaximize"/>
+                        <material:PackIcon x:Name="maximize" Kind="WindowMaximize"
+                                           Height="17" Width="17"/>
                     </Button>
+                    
                     <Button Click="CloseClick" Style="{StaticResource WindowCloseButton}"
                             Width="50">
-                        <material:PackIcon Kind="WindowClose"/>
+                        <material:PackIcon Kind="WindowClose"
+                                           Height="20" Width="20"/>
                     </Button>
+                    
                 </StackPanel>
 
             </Grid>
         </Border>
 
+        <!-- Main Frame -->
         <Frame x:Name="mainFrame"
                NavigationUIVisibility="Hidden"
                Grid.Row="1">
