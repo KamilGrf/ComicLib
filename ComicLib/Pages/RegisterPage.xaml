@@ -1,0 +1,25 @@
+﻿<Page x:Class="ComicLib.Pages.RegisterPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ComicLib.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="900" d:DesignWidth="1100"
+      Title="RegisterPage">
+
+    <Page.Template>
+        <ControlTemplate TargetType="Page">
+
+            <Border Background="{StaticResource ViewPortBackgroundBrush}"
+                    CornerRadius="0, 0, 3, 3">
+                <ContentPresenter/>
+            </Border>
+
+        </ControlTemplate>
+    </Page.Template>
+
+    <Grid>
+        
+    </Grid>
+</Page>

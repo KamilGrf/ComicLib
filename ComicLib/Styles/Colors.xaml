@@ -19,4 +19,7 @@
     <Color x:Key="TextBoxBorder">#FFD6D6D6</Color>
     <SolidColorBrush x:Key="TextBoxBorderBrush" Color="{StaticResource TextBoxBorder}"/>
 
+    <Color x:Key="MainGrayBlue">#FF55787E</Color>
+    <SolidColorBrush x:Key="MainGrayBlueBrush" Color="{StaticResource MainGrayBlue}"/>
+
 </ResourceDictionary>

@@ -21,26 +21,64 @@ namespace ComicLib.Pages
     /// </summary>
     public partial class ViewPort : Page
     {
+        public bool IsSender = false;
+
+        public List<Genre> Genres = new List<Genre>
+        {
+            new Genre()
+            { Title = "Драма" },
+            new Genre()
+            { Title = "Комедия" },
+            new Genre()
+            { Title = "Боевик" },
+            new Genre()
+            { Title = "Ужасы" },
+            new Genre()
+            { Title = "Фантастика" }
+        };
+
         public ViewPort()
         {
             InitializeComponent();
             profileMenu.Visibility = Visibility.Hidden;
             searchBorder.Visibility = Visibility.Hidden;
+            catalog.ItemsSource = Genres;
+            catalog.Visibility = Visibility.Hidden;
         }
 
         private void MainGridMouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (searchBorder.IsVisible)
+            if (sender is ListBox)
+                IsSender = true;
+            
+            if (IsSender == false)
+            {
+                ChangeVisible(sender);
+            }
+
+            if (sender is Border)
+                IsSender = false;
+        }
+
+        private void ChangeVisible(object control)
+        {
+            if (searchBorder.IsVisible && !(control is TextBlock))
             {
                 searchBorder.Visibility = Visibility.Hidden;
                 search.Text = "";
             }
 
-            if (profileMenu.IsVisible)
+            if (profileMenu.IsVisible && !(control is Button))
             {
                 profileMenu.Visibility = Visibility.Hidden;
             }
+
+            if (catalog.IsVisible && !(control is ListBox))
+            {
+                catalog.Visibility = Visibility.Hidden;
+            }
         }
+
 
         private void ProfileIconClick(object sender, RoutedEventArgs e)
         {
@@ -48,6 +86,8 @@ namespace ComicLib.Pages
                 profileMenu.Visibility = Visibility.Hidden;
             else
                 profileMenu.Visibility = Visibility.Visible;
+
+            ChangeVisible(new Button());
         }
 
 
@@ -78,6 +118,8 @@ namespace ComicLib.Pages
         }
         #endregion
 
+
+        #region Search Bar Events
         private void SearchVisibleClick(object sender, RoutedEventArgs e)
         {
             if (searchBorder.IsVisible)
@@ -89,7 +131,10 @@ namespace ComicLib.Pages
             {
                 searchBorder.Visibility = Visibility.Visible;
             }
+
+            ChangeVisible(new TextBlock());
         }
+
         private void SearchClick(object sender, RoutedEventArgs e)
         {
 
@@ -114,5 +159,31 @@ namespace ComicLib.Pages
                 backText.Visibility = Visibility.Visible;
             }
         }
+        #endregion
+
+
+        #region Catalog Events
+        private void CatalogClick(object sender, RoutedEventArgs e)
+        {
+            if (catalog.IsVisible)
+                catalog.Visibility = Visibility.Hidden;
+            else
+                catalog.Visibility = Visibility.Visible;
+
+            ChangeVisible(new ListBox());
+        }
+
+        private void CatalogSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (catalog.SelectedIndex == 0)
+            {
+                MessageBox.Show("We Win");
+            }
+            else if (catalog.SelectedIndex == 1)
+            {
+                MessageBox.Show("We lose");
+            }
+        }
+        #endregion
     }
 }

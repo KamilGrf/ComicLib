@@ -26,7 +26,7 @@
 
                             <Grid>
                                 <!-- Window Shadow Effect -->
-                                <Border Background="White"
+                                <Border Background="{StaticResource MainGrayBlueBrush}"
                                         CornerRadius="3">
 
                                     <Border.Effect>
@@ -37,6 +37,15 @@
                                 </Border>
 
                                 <Grid>
+                                    <!-- Page Background Image Brush -->
+                                    <Grid.Background>
+                                        <ImageBrush ImageSource="/Images/comic-background.png"
+                                                    TileMode="Tile"
+                                                    ViewportUnits="Absolute"
+                                                    Viewport="0 0 500 300"
+                                                    Opacity="0.15"/>
+                                    </Grid.Background>
+
                                     <!-- Page Content -->
                                     <Border Padding="0" ClipToBounds="True">
                                         <ContentPresenter Content="{TemplateBinding Content}" />

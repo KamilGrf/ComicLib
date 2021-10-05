@@ -6,19 +6,20 @@
       xmlns:local="clr-namespace:ComicLib.Pages"
       xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
-      ShowsNavigationUI="False"
       d:DesignHeight="900" d:DesignWidth="1100"
       Title="ViewPort" WindowTitle="ViewPort">
 
     <Page.Template>
         <ControlTemplate TargetType="Page">
-            
-            <Border Background="{StaticResource ViewPortBackgroundBrush}"
-                    CornerRadius="0, 0, 3, 3"
-                    MouseDown="MainGridMouseDown">
+
+            <Border CornerRadius="0, 0, 3, 3"
+                    MouseDown="MainGridMouseDown"
+                    Background="Transparent">
+                
                 <ContentPresenter/>
+                
             </Border>
-            
+
         </ControlTemplate>
     </Page.Template>
 
@@ -29,12 +30,12 @@
             <Setter Property="Orientation" Value="Horizontal"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
         </Style>
-        
+
     </Page.Resources>
 
 
     <Grid>
-
+        
         <Grid.RowDefinitions>
             <!-- Header -->
             <RowDefinition Height="50"/>
@@ -59,11 +60,13 @@
 
             <!--#region Header Center Menu -->
             <StackPanel Style="{StaticResource StackPanelStyle}"
-                        Grid.Column="1"
+                        Grid.Column="0"
+                        HorizontalAlignment="Left"
                         Margin="10, 5">
 
                 <!-- Catalog Button -->
-                <Button Style="{StaticResource ViewPortHeaderButton}">
+                <Button Style="{StaticResource ViewPortHeaderButton}"
+                        Click="CatalogClick">
 
                     <StackPanel Style="{StaticResource StackPanelStyle}"
                                 Margin="10, 0">
@@ -103,8 +106,9 @@
             <!--#endregion-->
 
             <!--#region Search Link -->
-            <Grid Width="600" Margin="0, 5"
+            <Grid Margin="5, 5, 20, 5"
                   Grid.Column="1"
+                  HorizontalAlignment="Stretch"
                   x:Name="searchBorder"
                   Visibility="Visible">
 
@@ -119,11 +123,11 @@
                            FontSize="20"
                            VerticalAlignment="Center"
                            Opacity="0.5"/>
-                
+
                 <!-- Search Link Text Box -->
                 <TextBox x:Name="search"
                          VerticalContentAlignment="Center"
-                         Padding="30, 5" MaxLength="25"
+                         Padding="30, 5" MaxLength="70"
                          FontSize="20" FontFamily="Comic Sans MS"
                          Style="{StaticResource SearchTextBox}"
                          PreviewTextInput="SearchPreviewTextInput"
@@ -152,14 +156,13 @@
 
 
             <!--#region Header Right Menu -->
-            <StackPanel Grid.Column="2"
+            <StackPanel Grid.Column="3"
                         Margin="10, 5"
                         FlowDirection="RightToLeft"
                         Style="{StaticResource StackPanelStyle}">
 
                 <!-- Profile Button -->
-                <Button Grid.Column="2"
-                        HorizontalAlignment="Right"
+                <Button HorizontalAlignment="Right"
                         Margin="0, 0, 10, 0" Width="40"
                         Click="ProfileIconClick"
                         Style="{StaticResource ViewPortProfileButton}">
@@ -170,8 +173,7 @@
                 </Button>
 
                 <!-- Bookmark Button -->
-                <Button Grid.Column="2"
-                        Style="{StaticResource ViewPortHeaderButton}"
+                <Button Style="{StaticResource ViewPortHeaderButton}"
                         Click="MineBookmarksClick"
                         Margin="15, 0" Width="40">
 
@@ -181,7 +183,7 @@
                 </Button>
 
                 <!-- Comic Add Button -->
-                <Button Grid.Column="2" Width="40"
+                <Button Width="40"
                         Style="{StaticResource ViewPortHeaderButton}"
                         Click="MineBookmarksClick">
 
@@ -192,22 +194,46 @@
 
             </StackPanel>
             <!--#endregion-->
-            
+
         </Grid>
 
-        
+
         <!-- Other Page Content -->
         <Grid Grid.Row="1">
-            
+
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="29*"/>
                 <ColumnDefinition Width="81*"/>
             </Grid.ColumnDefinitions>
+
+            
+            <!--#region Catalog Menu-->
+            <StackPanel Width="250"
+                        HorizontalAlignment="Left">
+                
+                <ListBox x:Name="catalog" Margin="10"
+                         Style="{StaticResource ListBoxMenuTemplate}"
+                         Padding="10"
+                         MouseDown="MainGridMouseDown"
+                         Visibility="Visible"
+                         SelectionChanged="CatalogSelectionChanged">
+
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Title}"
+                                       Margin="10, 0"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+
+                </ListBox>
+                
+            </StackPanel>
+            <!--#endregion-->
+
             
             <!--#region Profile Menu -->
             <Button x:Name="profileMenu" 
                     Visibility="Visible"
-                    Background="White"
                     Height="240" Width="250"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Top"
@@ -238,8 +264,8 @@
                                     <ControlTemplate TargetType="Button">
 
                                         <Border x:Name="back"
-                                            Background="Transparent"
-                                            CornerRadius="5">
+                                                Background="Transparent"
+                                                CornerRadius="5">
                                             <ContentPresenter Margin="10, 0"
                                                           HorizontalAlignment="Left"
                                                           VerticalAlignment="Center"/>
@@ -304,7 +330,7 @@
 
             </Button>
             <!--#endregion-->
-            
+
         </Grid>
     </Grid>
 </Page>
