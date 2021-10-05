@@ -16,16 +16,16 @@ using System.Windows.Shapes;
 namespace ComicLib.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для RegisterPage.xaml
+    /// Логика взаимодействия для LoginPage.xaml
     /// </summary>
-    public partial class RegisterPage : Page
+    public partial class LoginPage : Page
     {
-        public RegisterPage()
+        public LoginPage()
         {
             InitializeComponent();
         }
 
-        private void RegClick(object sender, RoutedEventArgs e)
+        private void LoginClick(object sender, RoutedEventArgs e)
         {
             if (NavigationService.CanGoBack)
             {
@@ -34,13 +34,13 @@ namespace ComicLib.Pages
             NavigationService.Navigate(new ViewPort());
         }
 
-        private void LoginPageClick(object sender, RoutedEventArgs e)
+        private void RegisterPageClick(object sender, RoutedEventArgs e)
         {
             if (NavigationService.CanGoBack)
             {
                 NavigationService.RemoveBackEntry();
             }
-            NavigationService.Navigate(new LoginPage());
+            NavigationService.Navigate(new RegisterPage());
         }
     }
 }

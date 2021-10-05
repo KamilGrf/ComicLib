@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
+    <!-- Window Control Button -->
     <Style TargetType="Button" x:Key="WindowControlButton">
         
         <Setter Property="Background" Value="Transparent" />
@@ -29,7 +30,7 @@
 
     </Style>
 
-
+    <!-- Window Close Button -->
     <Style TargetType="Button" x:Key="WindowCloseButton" 
            BasedOn="{StaticResource WindowControlButton}">
 
@@ -55,7 +56,7 @@
 
     </Style>
 
-    
+    <!-- View Port Header Button -->
     <Style TargetType="Button" x:Key="ViewPortHeaderButton">
 
         <Setter Property="Height" Value="40"/>
@@ -85,6 +86,7 @@
         
     </Style>
 
+    <!-- Profile Button -->
     <Style TargetType="Button" x:Key="ViewPortProfileButton"
            BasedOn="{StaticResource ViewPortHeaderButton}">
 
@@ -94,6 +96,80 @@
                 <Setter Property="Background" Value="Transparent"/>
             </Trigger>
         </Style.Triggers>
+
+    </Style>
+
+
+    <!-- Authorization Button -->
+    <Style TargetType="Button" x:Key="RegistrationButton">
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+
+                    <Border x:Name="back" 
+                            Background="#FFFFB549"
+                            CornerRadius="10">
+                        <ContentPresenter 
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"/>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Cursor" Value="Hand"/>
+                        </Trigger>
+                        <EventTrigger RoutedEvent="MouseEnter">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation To="#3099C5" Duration="0:0:0.1" Storyboard.TargetName="back" Storyboard.TargetProperty="Background.Color" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation From="#3099C5" Duration="0:0:0.1" Storyboard.TargetName="back" Storyboard.TargetProperty="Background.Color" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </ControlTemplate.Triggers>
+                    
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        
+    </Style>
+    
+    
+    <!-- Text Button -->
+    <Style TargetType="Button" x:Key="TextButton">
+
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontFamily" Value="Comic Sans MS"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+
+                    <Border Background="Transparent">
+                        <TextBlock Text="{TemplateBinding Content}"
+                                   FontSize="{TemplateBinding FontSize}"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   Margin="10, 5"/>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Foreground" Value="#FFFB990C"/>
+                            <Setter Property="Cursor" Value="Hand"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
 
     </Style>
 

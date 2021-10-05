@@ -50,8 +50,9 @@
 
             <Grid.ColumnDefinitions>
 
-                <ColumnDefinition Width="Auto"/>
                 <!-- Header Center Menu -->
+                <ColumnDefinition Width="Auto"/>
+                <!-- Search Link -->
                 <ColumnDefinition Width="*"/>
                 <!-- Header Right Menu -->
                 <ColumnDefinition Width="Auto"/>

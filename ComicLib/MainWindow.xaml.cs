@@ -25,8 +25,8 @@ namespace ComicLib
         {
             InitializeComponent();
 
-            mainFrame.NavigationService.Navigate(new ViewPort());
-            //NavigationService.Content = new ViewPort();   
+            //mainFrame.NavigationService.Navigate(new ViewPort());
+            mainFrame.NavigationService.Navigate(new LoginPage());
         }
 
         private void CloseClick(object sender, RoutedEventArgs e)

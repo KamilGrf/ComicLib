@@ -114,7 +114,11 @@ namespace ComicLib.Pages
 
         private void AccLeaveClick(object sender, RoutedEventArgs e)
         {
-
+            if (NavigationService.CanGoBack)
+            {
+                NavigationService.RemoveBackEntry();
+            }
+            NavigationService.Navigate(new LoginPage());
         }
         #endregion
 
