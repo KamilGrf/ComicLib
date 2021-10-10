@@ -94,7 +94,13 @@ namespace ComicLib.Pages
         #region Profile Menu Button Clicks
         private void ProfileClick(object sender, RoutedEventArgs e)
         {
+            profileMenu.Visibility = Visibility.Hidden;
 
+            if (viewFrame.NavigationService.CanGoBack)
+            {
+                viewFrame.NavigationService.RemoveBackEntry();
+            }
+            viewFrame.NavigationService.Navigate(new ProfileEdit());
         }
 
         private void MineBookmarksClick(object sender, RoutedEventArgs e)

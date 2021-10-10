@@ -169,7 +169,8 @@
                         Style="{StaticResource ViewPortProfileButton}">
 
                     <Image x:Name="profileIcon" 
-                        Source="/Images/bam-icon.png"/>
+                           Source="/Images/bam-icon.png"
+                           Stretch="Fill"/>
 
                 </Button>
 
@@ -207,7 +208,11 @@
                 <ColumnDefinition Width="81*"/>
             </Grid.ColumnDefinitions>
 
-            
+            <Frame x:Name="viewFrame"
+                   Grid.ColumnSpan="2"
+                   NavigationUIVisibility="Hidden"
+                   Focusable="False"/>
+
             <!--#region Catalog Menu-->
             <StackPanel Width="250"
                         HorizontalAlignment="Left">

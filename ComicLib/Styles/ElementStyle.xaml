@@ -2,6 +2,16 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes">
 
+    <!-- Header Text Block -->
+    <Style x:Key="HeaderTextBlock" TargetType="TextBlock">
+        
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="FontSize" Value="25"/>
+        <Setter Property="Margin" Value="20"/>
+        <Setter Property="FontFamily" Value="Comic Sans MS"/>
+        
+    </Style>
+
     <!-- Search Bar Text Box -->
     <Style TargetType="TextBox" x:Key="SearchTextBox">
 

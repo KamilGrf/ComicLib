@@ -114,9 +114,9 @@
                             Style="{StaticResource RegistrationButton}"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
-                            Width="250" Height="70" Click="RegClick">
+                            Width="260" Height="70" Click="RegClick">
 
-                        <TextBlock Text="Зарегистрировать"
+                        <TextBlock Text="Зарегистрироваться"
                                FontSize="25"
                                FontFamily="Comic Sans MS"
                                Foreground="White"/>
