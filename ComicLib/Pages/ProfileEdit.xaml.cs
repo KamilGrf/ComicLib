@@ -45,5 +45,15 @@ namespace ComicLib.Pages
             }
             //(string[])e.Data.GetData(DataFormats.FileDrop)
         }
+
+        private void SaveClick(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Content = null;
+        }
+
+        private void RankChecked(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

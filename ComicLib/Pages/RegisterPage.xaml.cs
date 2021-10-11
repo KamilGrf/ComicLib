@@ -18,7 +18,7 @@ namespace ComicLib.Pages
     /// <summary>
     /// Логика взаимодействия для RegisterPage.xaml
     /// </summary>
-    public partial class RegisterPage : Page
+    public partial class RegisterPage : BasePage
     {
         public RegisterPage()
         {

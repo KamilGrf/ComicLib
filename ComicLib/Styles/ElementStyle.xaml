@@ -3,12 +3,41 @@
                     xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes">
 
     <!-- Header Text Block -->
-    <Style x:Key="HeaderTextBlock" TargetType="TextBlock">
+    <Style TargetType="TextBlock" x:Key="HeaderTextBlock">
         
         <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="FontSize" Value="25"/>
-        <Setter Property="Margin" Value="20"/>
+        <Setter Property="Margin" Value="0, 20, 0, 5"/>
         <Setter Property="FontFamily" Value="Comic Sans MS"/>
+        
+    </Style>
+    
+    <!-- Data Edit Text Box -->
+    <Style TargetType="TextBox" x:Key="DataEditTextBox">
+
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="FontFamily" Value="Comic Sans MS"/>
+        <Setter Property="Padding" Value="10, 0"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TextBox">
+
+                    <Border x:Name="border"
+                            CornerRadius="4"
+                            BorderBrush="{StaticResource TextBoxBorderBrush}"
+                            BorderThickness="2"
+                            Background="{TemplateBinding Background}">
+
+                        <ScrollViewer x:Name="PART_ContentHost"
+                                    Focusable="false"
+                                    HorizontalScrollBarVisibility="Hidden"
+                                    VerticalScrollBarVisibility="Hidden"/>
+                    </Border>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
         
     </Style>
 
@@ -20,9 +49,9 @@
                 <ControlTemplate TargetType="TextBox">
                     
                     <Border x:Name="border"
-                            CornerRadius="3"
+                            CornerRadius="4"
                             BorderBrush="{StaticResource TextBoxBorderBrush}"
-                            BorderThickness="1"
+                            BorderThickness="2"
                             Background="{TemplateBinding Background}">
                         <Grid Margin="6, 0">
                             <ScrollViewer x:Name="PART_ContentHost"
@@ -38,6 +67,9 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Cursor" Value="IBeam"/>
+                        </Trigger>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource MainOrangeBrush}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

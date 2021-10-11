@@ -40,6 +40,7 @@ namespace ComicLib.Pages
         public ViewPort()
         {
             InitializeComponent();
+
             profileMenu.Visibility = Visibility.Hidden;
             searchBorder.Visibility = Visibility.Hidden;
             catalog.ItemsSource = Genres;
@@ -145,6 +146,11 @@ namespace ComicLib.Pages
             ChangeVisible(new TextBlock());
         }
 
+        private void ClearSearchLinkClick(object sender, RoutedEventArgs e)
+        {
+            search.Text = "";
+        }
+
         private void SearchClick(object sender, RoutedEventArgs e)
         {
 
@@ -195,5 +201,7 @@ namespace ComicLib.Pages
             }
         }
         #endregion
+
+        
     }
 }

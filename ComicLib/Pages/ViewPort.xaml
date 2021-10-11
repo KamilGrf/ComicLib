@@ -115,7 +115,8 @@
 
                 <!-- Search Link Background -->
                 <Border Background="White"
-                        CornerRadius="3"/>
+                        CornerRadius="4"
+                        Margin="1"/>
 
                 <!-- Search Link Back Text -->
                 <TextBlock x:Name="backText"
@@ -140,14 +141,14 @@
                         Width="40"
                         HorizontalAlignment="Left">
                     <material:PackIcon Kind="Magnify"
-                                    Height="28" Width="28"/>
+                                       Height="28" Width="28"/>
                 </Button>
 
                 <!-- Close Button -->
                 <Button Style="{StaticResource ViewPortProfileButton}"
                         Width="40"
                         HorizontalAlignment="Right"
-                        Click="SearchVisibleClick">
+                        Click="ClearSearchLinkClick">
                     <material:PackIcon Kind="WindowClose"
                                        Height="28" Width="28"/>
                 </Button>

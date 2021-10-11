@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <Color x:Key="MainBlue">#FF00B9FF</Color>
+    <Color x:Key="MainBlue">#FF93D8F7</Color>
     <SolidColorBrush x:Key="MainBlueBrush" Color="{StaticResource MainBlue}"/>
 
     <Color x:Key="TitleMouseDownBackground">#FF90909E</Color>
@@ -21,5 +21,31 @@
 
     <Color x:Key="MainGrayBlue">#FF55787E</Color>
     <SolidColorBrush x:Key="MainGrayBlueBrush" Color="{StaticResource MainGrayBlue}"/>
+
+    <Color x:Key="MainDimOrange">#FFFFB549</Color>
+    <SolidColorBrush x:Key="MainDimOrangeBrush" Color="{StaticResource MainDimOrange}"/>
+
+    <Color x:Key="MainOrange">#FFFB990C</Color>
+    <SolidColorBrush x:Key="MainOrangeBrush" Color="{StaticResource MainOrange}"/>
+
+    <LinearGradientBrush x:Key="MainYellowRedBackgroundGradient" EndPoint="0.5,1" StartPoint="0.5,0">
+        <GradientStop Color="#FF64571E" Offset="0"/>
+        <GradientStop Color="#FF8F4B4B" Offset="1"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="MainСhildishBackgroundGradient" EndPoint="0.5,1" StartPoint="0.5,0">
+        <GradientStop Color="#FFB6B374" Offset="0"/>
+        <GradientStop Color="#FFD7C0FF" Offset="1"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="MainGreenBlueBackgroundGradient" EndPoint="0.5,1" StartPoint="0.5,0">
+        <GradientStop Color="#FF215168" Offset="0"/>
+        <GradientStop Color="#FF8B8D6A" Offset="1"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="MainDarkBackgroundGradient" EndPoint="1.9,1" StartPoint="0.1,0.1">
+        <GradientStop Color="#FF3E3E3E" Offset="0"/>
+        <GradientStop Color="#FFA0A0A0" Offset="1"/>
+    </LinearGradientBrush>
 
 </ResourceDictionary>

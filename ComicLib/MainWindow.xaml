@@ -25,9 +25,11 @@
                                 BorderThickness="0">
 
                             <Grid>
+
                                 <!-- Window Shadow Effect -->
-                                <Border Background="{StaticResource MainGrayBlueBrush}"
-                                        CornerRadius="3">
+                                <Border x:Name="background"
+                                        CornerRadius="3"
+                                        Background="{StaticResource MainYellowRedBackgroundGradient}">
 
                                     <Border.Effect>
                                         <DropShadowEffect ShadowDepth="0.5" Opacity="0.2" 
@@ -51,6 +53,7 @@
                                         <ContentPresenter Content="{TemplateBinding Content}" />
                                     </Border>
                                 </Grid>
+
                             </Grid>
                         </Border>
                     </ControlTemplate>
@@ -76,9 +79,12 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <Border Background="{StaticResource MainBlueBrush}"
+        <Border
                 CornerRadius="2, 2, 0, 0">
-            
+            <Border.Background>
+                <SolidColorBrush Color="#FF93D8F7"/>
+            </Border.Background>
+
             <Grid Grid.Column="0"
                   WindowChrome.IsHitTestVisibleInChrome="True">
 
@@ -120,28 +126,28 @@
                         </LinearGradientBrush>
                     </TextBlock.Foreground>
                 </TextBlock>
-                
+
                 <!-- Window Buttons -->
                 <StackPanel Grid.Column="2" Orientation="Horizontal">
-                    
+
                     <Button Click="MinimizeClick" Style="{StaticResource WindowControlButton}"
                             Width="40">
                         <material:PackIcon Kind="WindowMinimize"
                                            Height="15" Width="15"/>
                     </Button>
-                    
+
                     <Button Click="MaximizeClick" Style="{StaticResource WindowControlButton}"
                             Width="40">
                         <material:PackIcon x:Name="maximize" Kind="WindowMaximize"
                                            Height="17" Width="17"/>
                     </Button>
-                    
+
                     <Button Click="CloseClick" Style="{StaticResource WindowCloseButton}"
                             Width="50">
                         <material:PackIcon Kind="WindowClose"
                                            Height="20" Width="20"/>
                     </Button>
-                    
+
                 </StackPanel>
 
             </Grid>
