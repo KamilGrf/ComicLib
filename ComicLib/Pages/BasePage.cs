@@ -12,7 +12,10 @@ using System.ComponentModel;
 
 namespace ComicLib.Pages
 {
-    public class BasePage : Page
+    /// <summary>
+    /// Базовая страница для анимации
+    /// </summary>
+    public class BasePage : System.Windows.Controls.Page
     {
         public PageAnimation PageLoadAnimation { get; set; } = PageAnimation.SlideAndFadeInFromRight;
         public PageAnimation PageUnloadAnimation { get; set; } = PageAnimation.SlideAndFadeOutFromLeft;

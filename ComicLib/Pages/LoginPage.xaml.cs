@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ComicLib.Animations;
+using ComicLib.ClassHelpers;
 
 namespace ComicLib.Pages
 {
@@ -28,11 +29,30 @@ namespace ComicLib.Pages
 
         private void LoginClick(object sender, RoutedEventArgs e)
         {
-            if (NavigationService.CanGoBack)
+            string mes = "";
+            if (name.Text == "" || pas.Text == "")
             {
-                NavigationService.RemoveBackEntry();
+                MessageBox.Show("Поля не должны оставаться пустыми");
             }
-            NavigationService.Navigate(new ViewPort());
+            else if (DBHelper.GetUser(name.Text, pas.Text, out mes))
+            {
+                if (NavigationService.CanGoBack)
+                {
+                    NavigationService.RemoveBackEntry();
+                }
+                NavigationService.Navigate(new ViewPort());
+            }
+            else
+            {
+                MessageBox.Show(mes);
+            }
+
+
+            //if (NavigationService.CanGoBack)
+            //{
+            //    NavigationService.RemoveBackEntry();
+            //}
+            //NavigationService.Navigate(new ViewPort());
         }
 
         private void RegisterPageClick(object sender, RoutedEventArgs e)

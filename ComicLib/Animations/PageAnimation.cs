@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace ComicLib.Animations
 {
+    /// <summary>
+    /// Указывает в какую сторону будет выполнятся анимация
+    /// </summary>
     public enum PageAnimation
     {
         None = 0,

@@ -70,7 +70,7 @@
                                FontFamily="Comic Sans MS"
                                HorizontalAlignment="Center"
                                FontSize="30"/>
-                        <TextBox Text="Логин"
+                        <TextBox x:Name="name" Text="Логин"
                              HorizontalAlignment="Center"
                              Width="300"
                              Margin="0, 5"
@@ -87,7 +87,7 @@
                                FontFamily="Comic Sans MS"
                                HorizontalAlignment="Center"
                                FontSize="30"/>
-                        <TextBox Text="Пароль"
+                        <TextBox x:Name="pas" Text="Пароль"
                              HorizontalAlignment="Center"
                              Width="300"
                              Margin="0, 5"

@@ -13,37 +13,29 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ComicLib.ClassHelpers;
 
 namespace ComicLib.Pages
 {
     /// <summary>
     /// Логика взаимодействия для ViewPort.xaml
     /// </summary>
-    public partial class ViewPort : Page
+    public partial class ViewPort : System.Windows.Controls.Page
     {
         public bool IsSender = false;
-
-        public List<Genre> Genres = new List<Genre>
-        {
-            new Genre()
-            { Title = "Драма" },
-            new Genre()
-            { Title = "Комедия" },
-            new Genre()
-            { Title = "Боевик" },
-            new Genre()
-            { Title = "Ужасы" },
-            new Genre()
-            { Title = "Фантастика" }
-        };
 
         public ViewPort()
         {
             InitializeComponent();
 
+            viewFrame.Content = new ComicListPage();
+
+            DataContext = DBHelper.CurrentUser;
+            //DataContext = DBHelper.CurrentUser.Avatar != null ? DBHelper.CurrentUser : null;
+
             profileMenu.Visibility = Visibility.Hidden;
             searchBorder.Visibility = Visibility.Hidden;
-            catalog.ItemsSource = Genres;
+            catalog.ItemsSource = DBHelper.DBContext.Genre.ToList();
             catalog.Visibility = Visibility.Hidden;
         }
 
@@ -199,9 +191,20 @@ namespace ComicLib.Pages
             {
                 MessageBox.Show("We lose");
             }
+            else if (catalog.SelectedIndex == 2)
+            {
+                if (viewFrame.Content is ProfileEdit)
+                {
+                    (viewFrame.Content as ProfileEdit).email.Text = "swdwdwd";
+                }
+            }
         }
+
         #endregion
 
-        
+        private void CreateComicClick(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

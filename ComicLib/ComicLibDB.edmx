@@ -1,0 +1,952 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище ComicLibModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Author">
+          <Key>
+            <PropertyRef Name="Id_Author" />
+          </Key>
+          <Property Name="Id_Author" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="20" />
+          <Property Name="Info" Type="nvarchar" MaxLength="500" />
+          <Property Name="Photo" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Comic">
+          <Key>
+            <PropertyRef Name="Id_Comic" />
+          </Key>
+          <Property Name="Id_Comic" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_User" Type="int" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" />
+          <Property Name="Cover" Type="varbinary(max)" />
+          <Property Name="Info" Type="nvarchar" MaxLength="500" />
+          <Property Name="Year" Type="smallint" />
+        </EntityType>
+        <EntityType Name="ComicAndAuthor">
+          <Key>
+            <PropertyRef Name="Id_ComicAuthor" />
+          </Key>
+          <Property Name="Id_ComicAuthor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_Comic" Type="int" />
+          <Property Name="Id_Author" Type="int" />
+        </EntityType>
+        <EntityType Name="ComicAndComment">
+          <Key>
+            <PropertyRef Name="id_ComicComment" />
+          </Key>
+          <Property Name="id_ComicComment" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_Comic" Type="int" />
+          <Property Name="id_Comment" Type="int" />
+        </EntityType>
+        <EntityType Name="ComicAndGenre">
+          <Key>
+            <PropertyRef Name="Id_ComicGenre" />
+          </Key>
+          <Property Name="Id_ComicGenre" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_Comic" Type="int" />
+          <Property Name="Id_Genre" Type="int" />
+        </EntityType>
+        <EntityType Name="ComicAndPage">
+          <Key>
+            <PropertyRef Name="Id_ComicPage" />
+          </Key>
+          <Property Name="Id_ComicPage" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_Page" Type="int" />
+          <Property Name="Id_Comic" Type="int" />
+        </EntityType>
+        <EntityType Name="ComicAndTag">
+          <Key>
+            <PropertyRef Name="Id_ComicTag" />
+          </Key>
+          <Property Name="Id_ComicTag" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_Comic" Type="int" />
+          <Property Name="Id_Tag" Type="int" />
+        </EntityType>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="Id_Comment" />
+          </Key>
+          <Property Name="Id_Comment" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Text" Type="nvarchar" MaxLength="255" />
+          <Property Name="Date" Type="date" />
+          <Property Name="Rating" Type="smallint" />
+        </EntityType>
+        <EntityType Name="Genre">
+          <Key>
+            <PropertyRef Name="Id_Genre" />
+          </Key>
+          <Property Name="Id_Genre" Type="int" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Page">
+          <Key>
+            <PropertyRef Name="Id_Page" />
+          </Key>
+          <Property Name="Id_Page" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Photo" Type="varbinary(max)" />
+          <Property Name="Number" Type="smallint" />
+        </EntityType>
+        <EntityType Name="Tag">
+          <Key>
+            <PropertyRef Name="Id_Tag" />
+          </Key>
+          <Property Name="Id_Tag" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id_User" />
+          </Key>
+          <Property Name="Id_User" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="20" />
+          <Property Name="Email" Type="nvarchar" MaxLength="70" />
+          <Property Name="Password" Type="nvarchar" MaxLength="30" />
+          <Property Name="Avatar" Type="varbinary(max)" />
+          <Property Name="Rank" Type="numeric" Precision="1" Scale="0" />
+        </EntityType>
+        <EntityType Name="UserAndComment">
+          <Key>
+            <PropertyRef Name="Id_UserComment" />
+          </Key>
+          <Property Name="Id_UserComment" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_User" Type="int" />
+          <Property Name="Id_Comment" Type="int" />
+        </EntityType>
+        <EntityType Name="UserAndFavorite">
+          <Key>
+            <PropertyRef Name="Id_Favorite" />
+          </Key>
+          <Property Name="Id_Favorite" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_Comic" Type="int" />
+          <Property Name="Id_User" Type="int" />
+        </EntityType>
+        <Association Name="FK_Comic_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Comic" Type="Self.Comic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id_User" />
+            </Principal>
+            <Dependent Role="Comic">
+              <PropertyRef Name="Id_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ComicAndAuthor_Author">
+          <End Role="Author" Type="Self.Author" Multiplicity="0..1" />
+          <End Role="ComicAndAuthor" Type="Self.ComicAndAuthor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Author">
+              <PropertyRef Name="Id_Author" />
+            </Principal>
+            <Dependent Role="ComicAndAuthor">
+              <PropertyRef Name="Id_Author" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ComicAndAuthor_Comic">
+          <End Role="Comic" Type="Self.Comic" Multiplicity="0..1" />
+          <End Role="ComicAndAuthor" Type="Self.ComicAndAuthor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comic">
+              <PropertyRef Name="Id_Comic" />
+            </Principal>
+            <Dependent Role="ComicAndAuthor">
+              <PropertyRef Name="Id_Comic" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ComicAndComment_Comic">
+          <End Role="Comic" Type="Self.Comic" Multiplicity="0..1" />
+          <End Role="ComicAndComment" Type="Self.ComicAndComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comic">
+              <PropertyRef Name="Id_Comic" />
+            </Principal>
+            <Dependent Role="ComicAndComment">
+              <PropertyRef Name="id_Comic" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ComicAndComment_Comment">
+          <End Role="Comment" Type="Self.Comment" Multiplicity="0..1" />
+          <End Role="ComicAndComment" Type="Self.ComicAndComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comment">
+              <PropertyRef Name="Id_Comment" />
+            </Principal>
+            <Dependent Role="ComicAndComment">
+              <PropertyRef Name="id_Comment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ComicAndGenre_Comic">
+          <End Role="Comic" Type="Self.Comic" Multiplicity="0..1" />
+          <End Role="ComicAndGenre" Type="Self.ComicAndGenre" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comic">
+              <PropertyRef Name="Id_Comic" />
+            </Principal>
+            <Dependent Role="ComicAndGenre">
+              <PropertyRef Name="Id_Comic" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ComicAndGenre_Genre">
+          <End Role="Genre" Type="Self.Genre" Multiplicity="0..1" />
+          <End Role="ComicAndGenre" Type="Self.ComicAndGenre" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genre">
+              <PropertyRef Name="Id_Genre" />
+            </Principal>
+            <Dependent Role="ComicAndGenre">
+              <PropertyRef Name="Id_Genre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ComicAndPage_Comic">
+          <End Role="Comic" Type="Self.Comic" Multiplicity="0..1" />
+          <End Role="ComicAndPage" Type="Self.ComicAndPage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comic">
+              <PropertyRef Name="Id_Comic" />
+            </Principal>
+            <Dependent Role="ComicAndPage">
+              <PropertyRef Name="Id_Comic" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ComicAndPage_Page">
+          <End Role="Page" Type="Self.Page" Multiplicity="0..1" />
+          <End Role="ComicAndPage" Type="Self.ComicAndPage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Page">
+              <PropertyRef Name="Id_Page" />
+            </Principal>
+            <Dependent Role="ComicAndPage">
+              <PropertyRef Name="Id_Page" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ComicAndTag_Comic">
+          <End Role="Comic" Type="Self.Comic" Multiplicity="0..1" />
+          <End Role="ComicAndTag" Type="Self.ComicAndTag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comic">
+              <PropertyRef Name="Id_Comic" />
+            </Principal>
+            <Dependent Role="ComicAndTag">
+              <PropertyRef Name="Id_Comic" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ComicAndTag_Tag">
+          <End Role="Tag" Type="Self.Tag" Multiplicity="0..1" />
+          <End Role="ComicAndTag" Type="Self.ComicAndTag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tag">
+              <PropertyRef Name="Id_Tag" />
+            </Principal>
+            <Dependent Role="ComicAndTag">
+              <PropertyRef Name="Id_Tag" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserAndComment_Comment">
+          <End Role="Comment" Type="Self.Comment" Multiplicity="0..1" />
+          <End Role="UserAndComment" Type="Self.UserAndComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comment">
+              <PropertyRef Name="Id_Comment" />
+            </Principal>
+            <Dependent Role="UserAndComment">
+              <PropertyRef Name="Id_Comment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserAndComment_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="UserAndComment" Type="Self.UserAndComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id_User" />
+            </Principal>
+            <Dependent Role="UserAndComment">
+              <PropertyRef Name="Id_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserAndFavorite_Comic">
+          <End Role="Comic" Type="Self.Comic" Multiplicity="0..1" />
+          <End Role="UserAndFavorite" Type="Self.UserAndFavorite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comic">
+              <PropertyRef Name="Id_Comic" />
+            </Principal>
+            <Dependent Role="UserAndFavorite">
+              <PropertyRef Name="Id_Comic" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserAndFavorite_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="UserAndFavorite" Type="Self.UserAndFavorite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id_User" />
+            </Principal>
+            <Dependent Role="UserAndFavorite">
+              <PropertyRef Name="Id_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище ComicLibModelContainer">
+          <EntitySet Name="Author" EntityType="Self.Author" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Comic" EntityType="Self.Comic" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ComicAndAuthor" EntityType="Self.ComicAndAuthor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ComicAndComment" EntityType="Self.ComicAndComment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ComicAndGenre" EntityType="Self.ComicAndGenre" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ComicAndPage" EntityType="Self.ComicAndPage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ComicAndTag" EntityType="Self.ComicAndTag" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Genre" EntityType="Self.Genre" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Page" EntityType="Self.Page" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tag" EntityType="Self.Tag" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserAndComment" EntityType="Self.UserAndComment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserAndFavorite" EntityType="Self.UserAndFavorite" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Comic_User" Association="Self.FK_Comic_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Comic" EntitySet="Comic" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ComicAndAuthor_Author" Association="Self.FK_ComicAndAuthor_Author">
+            <End Role="Author" EntitySet="Author" />
+            <End Role="ComicAndAuthor" EntitySet="ComicAndAuthor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ComicAndAuthor_Comic" Association="Self.FK_ComicAndAuthor_Comic">
+            <End Role="Comic" EntitySet="Comic" />
+            <End Role="ComicAndAuthor" EntitySet="ComicAndAuthor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ComicAndComment_Comic" Association="Self.FK_ComicAndComment_Comic">
+            <End Role="Comic" EntitySet="Comic" />
+            <End Role="ComicAndComment" EntitySet="ComicAndComment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ComicAndComment_Comment" Association="Self.FK_ComicAndComment_Comment">
+            <End Role="Comment" EntitySet="Comment" />
+            <End Role="ComicAndComment" EntitySet="ComicAndComment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ComicAndGenre_Comic" Association="Self.FK_ComicAndGenre_Comic">
+            <End Role="Comic" EntitySet="Comic" />
+            <End Role="ComicAndGenre" EntitySet="ComicAndGenre" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ComicAndGenre_Genre" Association="Self.FK_ComicAndGenre_Genre">
+            <End Role="Genre" EntitySet="Genre" />
+            <End Role="ComicAndGenre" EntitySet="ComicAndGenre" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ComicAndPage_Comic" Association="Self.FK_ComicAndPage_Comic">
+            <End Role="Comic" EntitySet="Comic" />
+            <End Role="ComicAndPage" EntitySet="ComicAndPage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ComicAndPage_Page" Association="Self.FK_ComicAndPage_Page">
+            <End Role="Page" EntitySet="Page" />
+            <End Role="ComicAndPage" EntitySet="ComicAndPage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ComicAndTag_Comic" Association="Self.FK_ComicAndTag_Comic">
+            <End Role="Comic" EntitySet="Comic" />
+            <End Role="ComicAndTag" EntitySet="ComicAndTag" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ComicAndTag_Tag" Association="Self.FK_ComicAndTag_Tag">
+            <End Role="Tag" EntitySet="Tag" />
+            <End Role="ComicAndTag" EntitySet="ComicAndTag" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserAndComment_Comment" Association="Self.FK_UserAndComment_Comment">
+            <End Role="Comment" EntitySet="Comment" />
+            <End Role="UserAndComment" EntitySet="UserAndComment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserAndComment_User" Association="Self.FK_UserAndComment_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserAndComment" EntitySet="UserAndComment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserAndFavorite_Comic" Association="Self.FK_UserAndFavorite_Comic">
+            <End Role="Comic" EntitySet="Comic" />
+            <End Role="UserAndFavorite" EntitySet="UserAndFavorite" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserAndFavorite_User" Association="Self.FK_UserAndFavorite_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserAndFavorite" EntitySet="UserAndFavorite" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ComicLibModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Author">
+          <Key>
+            <PropertyRef Name="Id_Author" />
+          </Key>
+          <Property Name="Id_Author" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Info" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="ComicAndAuthor" Relationship="Self.FK_ComicAndAuthor_Author" FromRole="Author" ToRole="ComicAndAuthor" />
+        </EntityType>
+        <EntityType Name="Comic">
+          <Key>
+            <PropertyRef Name="Id_Comic" />
+          </Key>
+          <Property Name="Id_Comic" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_User" Type="Int32" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Cover" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Info" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Year" Type="Int16" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Comic_User" FromRole="Comic" ToRole="User" />
+          <NavigationProperty Name="ComicAndAuthor" Relationship="Self.FK_ComicAndAuthor_Comic" FromRole="Comic" ToRole="ComicAndAuthor" />
+          <NavigationProperty Name="ComicAndComment" Relationship="Self.FK_ComicAndComment_Comic" FromRole="Comic" ToRole="ComicAndComment" />
+          <NavigationProperty Name="ComicAndGenre" Relationship="Self.FK_ComicAndGenre_Comic" FromRole="Comic" ToRole="ComicAndGenre" />
+          <NavigationProperty Name="ComicAndPage" Relationship="Self.FK_ComicAndPage_Comic" FromRole="Comic" ToRole="ComicAndPage" />
+          <NavigationProperty Name="ComicAndTag" Relationship="Self.FK_ComicAndTag_Comic" FromRole="Comic" ToRole="ComicAndTag" />
+          <NavigationProperty Name="UserAndFavorite" Relationship="Self.FK_UserAndFavorite_Comic" FromRole="Comic" ToRole="UserAndFavorite" />
+        </EntityType>
+        <EntityType Name="ComicAndAuthor">
+          <Key>
+            <PropertyRef Name="Id_ComicAuthor" />
+          </Key>
+          <Property Name="Id_ComicAuthor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_Comic" Type="Int32" />
+          <Property Name="Id_Author" Type="Int32" />
+          <NavigationProperty Name="Author" Relationship="Self.FK_ComicAndAuthor_Author" FromRole="ComicAndAuthor" ToRole="Author" />
+          <NavigationProperty Name="Comic" Relationship="Self.FK_ComicAndAuthor_Comic" FromRole="ComicAndAuthor" ToRole="Comic" />
+        </EntityType>
+        <EntityType Name="ComicAndComment">
+          <Key>
+            <PropertyRef Name="id_ComicComment" />
+          </Key>
+          <Property Name="id_ComicComment" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_Comic" Type="Int32" />
+          <Property Name="id_Comment" Type="Int32" />
+          <NavigationProperty Name="Comic" Relationship="Self.FK_ComicAndComment_Comic" FromRole="ComicAndComment" ToRole="Comic" />
+          <NavigationProperty Name="Comment" Relationship="Self.FK_ComicAndComment_Comment" FromRole="ComicAndComment" ToRole="Comment" />
+        </EntityType>
+        <EntityType Name="ComicAndGenre">
+          <Key>
+            <PropertyRef Name="Id_ComicGenre" />
+          </Key>
+          <Property Name="Id_ComicGenre" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_Comic" Type="Int32" />
+          <Property Name="Id_Genre" Type="Int32" />
+          <NavigationProperty Name="Comic" Relationship="Self.FK_ComicAndGenre_Comic" FromRole="ComicAndGenre" ToRole="Comic" />
+          <NavigationProperty Name="Genre" Relationship="Self.FK_ComicAndGenre_Genre" FromRole="ComicAndGenre" ToRole="Genre" />
+        </EntityType>
+        <EntityType Name="ComicAndPage">
+          <Key>
+            <PropertyRef Name="Id_ComicPage" />
+          </Key>
+          <Property Name="Id_ComicPage" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_Page" Type="Int32" />
+          <Property Name="Id_Comic" Type="Int32" />
+          <NavigationProperty Name="Comic" Relationship="Self.FK_ComicAndPage_Comic" FromRole="ComicAndPage" ToRole="Comic" />
+          <NavigationProperty Name="Page" Relationship="Self.FK_ComicAndPage_Page" FromRole="ComicAndPage" ToRole="Page" />
+        </EntityType>
+        <EntityType Name="ComicAndTag">
+          <Key>
+            <PropertyRef Name="Id_ComicTag" />
+          </Key>
+          <Property Name="Id_ComicTag" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_Comic" Type="Int32" />
+          <Property Name="Id_Tag" Type="Int32" />
+          <NavigationProperty Name="Comic" Relationship="Self.FK_ComicAndTag_Comic" FromRole="ComicAndTag" ToRole="Comic" />
+          <NavigationProperty Name="Tag" Relationship="Self.FK_ComicAndTag_Tag" FromRole="ComicAndTag" ToRole="Tag" />
+        </EntityType>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="Id_Comment" />
+          </Key>
+          <Property Name="Id_Comment" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Text" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="Rating" Type="Int16" />
+          <NavigationProperty Name="ComicAndComment" Relationship="Self.FK_ComicAndComment_Comment" FromRole="Comment" ToRole="ComicAndComment" />
+          <NavigationProperty Name="UserAndComment" Relationship="Self.FK_UserAndComment_Comment" FromRole="Comment" ToRole="UserAndComment" />
+        </EntityType>
+        <EntityType Name="Genre">
+          <Key>
+            <PropertyRef Name="Id_Genre" />
+          </Key>
+          <Property Name="Id_Genre" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ComicAndGenre" Relationship="Self.FK_ComicAndGenre_Genre" FromRole="Genre" ToRole="ComicAndGenre" />
+        </EntityType>
+        <EntityType Name="Page">
+          <Key>
+            <PropertyRef Name="Id_Page" />
+          </Key>
+          <Property Name="Id_Page" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Number" Type="Int16" />
+          <NavigationProperty Name="ComicAndPage" Relationship="Self.FK_ComicAndPage_Page" FromRole="Page" ToRole="ComicAndPage" />
+        </EntityType>
+        <EntityType Name="Tag">
+          <Key>
+            <PropertyRef Name="Id_Tag" />
+          </Key>
+          <Property Name="Id_Tag" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ComicAndTag" Relationship="Self.FK_ComicAndTag_Tag" FromRole="Tag" ToRole="ComicAndTag" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id_User" />
+          </Key>
+          <Property Name="Id_User" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Avatar" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Rank" Type="Decimal" Precision="1" Scale="0" />
+          <NavigationProperty Name="Comic" Relationship="Self.FK_Comic_User" FromRole="User" ToRole="Comic" />
+          <NavigationProperty Name="UserAndComment" Relationship="Self.FK_UserAndComment_User" FromRole="User" ToRole="UserAndComment" />
+          <NavigationProperty Name="UserAndFavorite" Relationship="Self.FK_UserAndFavorite_User" FromRole="User" ToRole="UserAndFavorite" />
+        </EntityType>
+        <EntityType Name="UserAndComment">
+          <Key>
+            <PropertyRef Name="Id_UserComment" />
+          </Key>
+          <Property Name="Id_UserComment" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_User" Type="Int32" />
+          <Property Name="Id_Comment" Type="Int32" />
+          <NavigationProperty Name="Comment" Relationship="Self.FK_UserAndComment_Comment" FromRole="UserAndComment" ToRole="Comment" />
+          <NavigationProperty Name="User" Relationship="Self.FK_UserAndComment_User" FromRole="UserAndComment" ToRole="User" />
+        </EntityType>
+        <EntityType Name="UserAndFavorite">
+          <Key>
+            <PropertyRef Name="Id_Favorite" />
+          </Key>
+          <Property Name="Id_Favorite" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_Comic" Type="Int32" />
+          <Property Name="Id_User" Type="Int32" />
+          <NavigationProperty Name="Comic" Relationship="Self.FK_UserAndFavorite_Comic" FromRole="UserAndFavorite" ToRole="Comic" />
+          <NavigationProperty Name="User" Relationship="Self.FK_UserAndFavorite_User" FromRole="UserAndFavorite" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_ComicAndAuthor_Author">
+          <End Role="Author" Type="Self.Author" Multiplicity="0..1" />
+          <End Role="ComicAndAuthor" Type="Self.ComicAndAuthor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Author">
+              <PropertyRef Name="Id_Author" />
+            </Principal>
+            <Dependent Role="ComicAndAuthor">
+              <PropertyRef Name="Id_Author" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comic_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Comic" Type="Self.Comic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id_User" />
+            </Principal>
+            <Dependent Role="Comic">
+              <PropertyRef Name="Id_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ComicAndAuthor_Comic">
+          <End Role="Comic" Type="Self.Comic" Multiplicity="0..1" />
+          <End Role="ComicAndAuthor" Type="Self.ComicAndAuthor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comic">
+              <PropertyRef Name="Id_Comic" />
+            </Principal>
+            <Dependent Role="ComicAndAuthor">
+              <PropertyRef Name="Id_Comic" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ComicAndComment_Comic">
+          <End Role="Comic" Type="Self.Comic" Multiplicity="0..1" />
+          <End Role="ComicAndComment" Type="Self.ComicAndComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comic">
+              <PropertyRef Name="Id_Comic" />
+            </Principal>
+            <Dependent Role="ComicAndComment">
+              <PropertyRef Name="id_Comic" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ComicAndGenre_Comic">
+          <End Role="Comic" Type="Self.Comic" Multiplicity="0..1" />
+          <End Role="ComicAndGenre" Type="Self.ComicAndGenre" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comic">
+              <PropertyRef Name="Id_Comic" />
+            </Principal>
+            <Dependent Role="ComicAndGenre">
+              <PropertyRef Name="Id_Comic" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ComicAndPage_Comic">
+          <End Role="Comic" Type="Self.Comic" Multiplicity="0..1" />
+          <End Role="ComicAndPage" Type="Self.ComicAndPage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comic">
+              <PropertyRef Name="Id_Comic" />
+            </Principal>
+            <Dependent Role="ComicAndPage">
+              <PropertyRef Name="Id_Comic" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ComicAndTag_Comic">
+          <End Role="Comic" Type="Self.Comic" Multiplicity="0..1" />
+          <End Role="ComicAndTag" Type="Self.ComicAndTag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comic">
+              <PropertyRef Name="Id_Comic" />
+            </Principal>
+            <Dependent Role="ComicAndTag">
+              <PropertyRef Name="Id_Comic" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserAndFavorite_Comic">
+          <End Role="Comic" Type="Self.Comic" Multiplicity="0..1" />
+          <End Role="UserAndFavorite" Type="Self.UserAndFavorite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comic">
+              <PropertyRef Name="Id_Comic" />
+            </Principal>
+            <Dependent Role="UserAndFavorite">
+              <PropertyRef Name="Id_Comic" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ComicAndComment_Comment">
+          <End Role="Comment" Type="Self.Comment" Multiplicity="0..1" />
+          <End Role="ComicAndComment" Type="Self.ComicAndComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comment">
+              <PropertyRef Name="Id_Comment" />
+            </Principal>
+            <Dependent Role="ComicAndComment">
+              <PropertyRef Name="id_Comment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ComicAndGenre_Genre">
+          <End Role="Genre" Type="Self.Genre" Multiplicity="0..1" />
+          <End Role="ComicAndGenre" Type="Self.ComicAndGenre" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genre">
+              <PropertyRef Name="Id_Genre" />
+            </Principal>
+            <Dependent Role="ComicAndGenre">
+              <PropertyRef Name="Id_Genre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ComicAndPage_Page">
+          <End Role="Page" Type="Self.Page" Multiplicity="0..1" />
+          <End Role="ComicAndPage" Type="Self.ComicAndPage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Page">
+              <PropertyRef Name="Id_Page" />
+            </Principal>
+            <Dependent Role="ComicAndPage">
+              <PropertyRef Name="Id_Page" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ComicAndTag_Tag">
+          <End Role="Tag" Type="Self.Tag" Multiplicity="0..1" />
+          <End Role="ComicAndTag" Type="Self.ComicAndTag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tag">
+              <PropertyRef Name="Id_Tag" />
+            </Principal>
+            <Dependent Role="ComicAndTag">
+              <PropertyRef Name="Id_Tag" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserAndComment_Comment">
+          <End Role="Comment" Type="Self.Comment" Multiplicity="0..1" />
+          <End Role="UserAndComment" Type="Self.UserAndComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comment">
+              <PropertyRef Name="Id_Comment" />
+            </Principal>
+            <Dependent Role="UserAndComment">
+              <PropertyRef Name="Id_Comment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserAndComment_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="UserAndComment" Type="Self.UserAndComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id_User" />
+            </Principal>
+            <Dependent Role="UserAndComment">
+              <PropertyRef Name="Id_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserAndFavorite_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="UserAndFavorite" Type="Self.UserAndFavorite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id_User" />
+            </Principal>
+            <Dependent Role="UserAndFavorite">
+              <PropertyRef Name="Id_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ComicLibEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Author" EntityType="Self.Author" />
+          <EntitySet Name="Comic" EntityType="Self.Comic" />
+          <EntitySet Name="ComicAndAuthor" EntityType="Self.ComicAndAuthor" />
+          <EntitySet Name="ComicAndComment" EntityType="Self.ComicAndComment" />
+          <EntitySet Name="ComicAndGenre" EntityType="Self.ComicAndGenre" />
+          <EntitySet Name="ComicAndPage" EntityType="Self.ComicAndPage" />
+          <EntitySet Name="ComicAndTag" EntityType="Self.ComicAndTag" />
+          <EntitySet Name="Comment" EntityType="Self.Comment" />
+          <EntitySet Name="Genre" EntityType="Self.Genre" />
+          <EntitySet Name="Page" EntityType="Self.Page" />
+          <EntitySet Name="Tag" EntityType="Self.Tag" />
+          <EntitySet Name="User" EntityType="Self.User" />
+          <EntitySet Name="UserAndComment" EntityType="Self.UserAndComment" />
+          <EntitySet Name="UserAndFavorite" EntityType="Self.UserAndFavorite" />
+          <AssociationSet Name="FK_ComicAndAuthor_Author" Association="Self.FK_ComicAndAuthor_Author">
+            <End Role="Author" EntitySet="Author" />
+            <End Role="ComicAndAuthor" EntitySet="ComicAndAuthor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comic_User" Association="Self.FK_Comic_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Comic" EntitySet="Comic" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ComicAndAuthor_Comic" Association="Self.FK_ComicAndAuthor_Comic">
+            <End Role="Comic" EntitySet="Comic" />
+            <End Role="ComicAndAuthor" EntitySet="ComicAndAuthor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ComicAndComment_Comic" Association="Self.FK_ComicAndComment_Comic">
+            <End Role="Comic" EntitySet="Comic" />
+            <End Role="ComicAndComment" EntitySet="ComicAndComment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ComicAndGenre_Comic" Association="Self.FK_ComicAndGenre_Comic">
+            <End Role="Comic" EntitySet="Comic" />
+            <End Role="ComicAndGenre" EntitySet="ComicAndGenre" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ComicAndPage_Comic" Association="Self.FK_ComicAndPage_Comic">
+            <End Role="Comic" EntitySet="Comic" />
+            <End Role="ComicAndPage" EntitySet="ComicAndPage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ComicAndTag_Comic" Association="Self.FK_ComicAndTag_Comic">
+            <End Role="Comic" EntitySet="Comic" />
+            <End Role="ComicAndTag" EntitySet="ComicAndTag" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserAndFavorite_Comic" Association="Self.FK_UserAndFavorite_Comic">
+            <End Role="Comic" EntitySet="Comic" />
+            <End Role="UserAndFavorite" EntitySet="UserAndFavorite" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ComicAndComment_Comment" Association="Self.FK_ComicAndComment_Comment">
+            <End Role="Comment" EntitySet="Comment" />
+            <End Role="ComicAndComment" EntitySet="ComicAndComment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ComicAndGenre_Genre" Association="Self.FK_ComicAndGenre_Genre">
+            <End Role="Genre" EntitySet="Genre" />
+            <End Role="ComicAndGenre" EntitySet="ComicAndGenre" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ComicAndPage_Page" Association="Self.FK_ComicAndPage_Page">
+            <End Role="Page" EntitySet="Page" />
+            <End Role="ComicAndPage" EntitySet="ComicAndPage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ComicAndTag_Tag" Association="Self.FK_ComicAndTag_Tag">
+            <End Role="Tag" EntitySet="Tag" />
+            <End Role="ComicAndTag" EntitySet="ComicAndTag" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserAndComment_Comment" Association="Self.FK_UserAndComment_Comment">
+            <End Role="Comment" EntitySet="Comment" />
+            <End Role="UserAndComment" EntitySet="UserAndComment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserAndComment_User" Association="Self.FK_UserAndComment_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserAndComment" EntitySet="UserAndComment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserAndFavorite_User" Association="Self.FK_UserAndFavorite_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserAndFavorite" EntitySet="UserAndFavorite" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище ComicLibModelContainer" CdmEntityContainer="ComicLibEntities">
+          <EntitySetMapping Name="Author">
+            <EntityTypeMapping TypeName="ComicLibModel.Author">
+              <MappingFragment StoreEntitySet="Author">
+                <ScalarProperty Name="Id_Author" ColumnName="Id_Author" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Info" ColumnName="Info" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Comic">
+            <EntityTypeMapping TypeName="ComicLibModel.Comic">
+              <MappingFragment StoreEntitySet="Comic">
+                <ScalarProperty Name="Id_Comic" ColumnName="Id_Comic" />
+                <ScalarProperty Name="Id_User" ColumnName="Id_User" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Cover" ColumnName="Cover" />
+                <ScalarProperty Name="Info" ColumnName="Info" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ComicAndAuthor">
+            <EntityTypeMapping TypeName="ComicLibModel.ComicAndAuthor">
+              <MappingFragment StoreEntitySet="ComicAndAuthor">
+                <ScalarProperty Name="Id_ComicAuthor" ColumnName="Id_ComicAuthor" />
+                <ScalarProperty Name="Id_Comic" ColumnName="Id_Comic" />
+                <ScalarProperty Name="Id_Author" ColumnName="Id_Author" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ComicAndComment">
+            <EntityTypeMapping TypeName="ComicLibModel.ComicAndComment">
+              <MappingFragment StoreEntitySet="ComicAndComment">
+                <ScalarProperty Name="id_ComicComment" ColumnName="id_ComicComment" />
+                <ScalarProperty Name="id_Comic" ColumnName="id_Comic" />
+                <ScalarProperty Name="id_Comment" ColumnName="id_Comment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ComicAndGenre">
+            <EntityTypeMapping TypeName="ComicLibModel.ComicAndGenre">
+              <MappingFragment StoreEntitySet="ComicAndGenre">
+                <ScalarProperty Name="Id_ComicGenre" ColumnName="Id_ComicGenre" />
+                <ScalarProperty Name="Id_Comic" ColumnName="Id_Comic" />
+                <ScalarProperty Name="Id_Genre" ColumnName="Id_Genre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ComicAndPage">
+            <EntityTypeMapping TypeName="ComicLibModel.ComicAndPage">
+              <MappingFragment StoreEntitySet="ComicAndPage">
+                <ScalarProperty Name="Id_ComicPage" ColumnName="Id_ComicPage" />
+                <ScalarProperty Name="Id_Page" ColumnName="Id_Page" />
+                <ScalarProperty Name="Id_Comic" ColumnName="Id_Comic" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ComicAndTag">
+            <EntityTypeMapping TypeName="ComicLibModel.ComicAndTag">
+              <MappingFragment StoreEntitySet="ComicAndTag">
+                <ScalarProperty Name="Id_ComicTag" ColumnName="Id_ComicTag" />
+                <ScalarProperty Name="Id_Comic" ColumnName="Id_Comic" />
+                <ScalarProperty Name="Id_Tag" ColumnName="Id_Tag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Comment">
+            <EntityTypeMapping TypeName="ComicLibModel.Comment">
+              <MappingFragment StoreEntitySet="Comment">
+                <ScalarProperty Name="Id_Comment" ColumnName="Id_Comment" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Genre">
+            <EntityTypeMapping TypeName="ComicLibModel.Genre">
+              <MappingFragment StoreEntitySet="Genre">
+                <ScalarProperty Name="Id_Genre" ColumnName="Id_Genre" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Page">
+            <EntityTypeMapping TypeName="ComicLibModel.Page">
+              <MappingFragment StoreEntitySet="Page">
+                <ScalarProperty Name="Id_Page" ColumnName="Id_Page" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tag">
+            <EntityTypeMapping TypeName="ComicLibModel.Tag">
+              <MappingFragment StoreEntitySet="Tag">
+                <ScalarProperty Name="Id_Tag" ColumnName="Id_Tag" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="ComicLibModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Id_User" ColumnName="Id_User" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Avatar" ColumnName="Avatar" />
+                <ScalarProperty Name="Rank" ColumnName="Rank" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserAndComment">
+            <EntityTypeMapping TypeName="ComicLibModel.UserAndComment">
+              <MappingFragment StoreEntitySet="UserAndComment">
+                <ScalarProperty Name="Id_UserComment" ColumnName="Id_UserComment" />
+                <ScalarProperty Name="Id_User" ColumnName="Id_User" />
+                <ScalarProperty Name="Id_Comment" ColumnName="Id_Comment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserAndFavorite">
+            <EntityTypeMapping TypeName="ComicLibModel.UserAndFavorite">
+              <MappingFragment StoreEntitySet="UserAndFavorite">
+                <ScalarProperty Name="Id_Favorite" ColumnName="Id_Favorite" />
+                <ScalarProperty Name="Id_Comic" ColumnName="Id_Comic" />
+                <ScalarProperty Name="Id_User" ColumnName="Id_User" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

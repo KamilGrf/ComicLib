@@ -202,6 +202,9 @@
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter Property="Control.Visibility" Value="Hidden" />
                         </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Cursor" Value="Hand"/>
+                        </Trigger>
 
                         <Trigger Property="IsChecked" Value="True">
 

@@ -11,17 +11,31 @@ using System.Windows.Media.Imaging;
 
 namespace ComicLib
 {
+    /// <summary>
+    /// Предоставляет функционал для преобразования изображений
+    /// </summary>
     public class ImageConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            byte[] img = (byte[])value;
-            MemoryStream byteStream = new MemoryStream(img);
-            BitmapImage image = new BitmapImage();
-            image.BeginInit();
-            image.StreamSource = byteStream;
-            image.EndInit();
-            return image;
+            if (value != null)
+            {
+                byte[] img = (byte[])value;
+
+                using (MemoryStream byteStream = new MemoryStream(img))
+                {
+                    BitmapImage image = new BitmapImage();
+                    image.BeginInit();
+                    image.CacheOption = BitmapCacheOption.OnLoad;
+                    image.StreamSource = byteStream;
+                    image.EndInit();
+                    return image;
+                }
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

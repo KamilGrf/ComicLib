@@ -92,6 +92,7 @@
 
                     <StackPanel Style="{StaticResource StackPanelStyle}"
                                 Margin="10, 0">
+                        
                         <material:PackIcon Kind="Magnify"
                                            Height="28" Width="28"/>
                         <TextBlock Text="Поиск"
@@ -140,8 +141,10 @@
                 <Button Style="{StaticResource ViewPortProfileButton}"
                         Width="40"
                         HorizontalAlignment="Left">
-                    <material:PackIcon Kind="Magnify"
-                                       Height="28" Width="28"/>
+                    
+                    <material:PackIcon 
+                        Kind="Magnify"
+                        Height="28" Width="28"/>
                 </Button>
 
                 <!-- Close Button -->
@@ -149,8 +152,10 @@
                         Width="40"
                         HorizontalAlignment="Right"
                         Click="ClearSearchLinkClick">
-                    <material:PackIcon Kind="WindowClose"
-                                       Height="28" Width="28"/>
+                    
+                    <material:PackIcon 
+                        Kind="WindowClose"
+                        Height="28" Width="28"/>
                 </Button>
 
             </Grid>
@@ -169,10 +174,15 @@
                         Click="ProfileIconClick"
                         Style="{StaticResource ViewPortProfileButton}">
 
-                    <Image x:Name="profileIcon" 
-                           Source="/Images/bam-icon.png"
-                           Stretch="Fill"/>
-
+                    <Grid>
+                        <Image x:Name="profileIcon" 
+                               Source="{Binding Avatar, Converter={StaticResource ImgConvert}}"
+                               Stretch="Fill"/>
+                        <material:PackIcon 
+                            Kind="Account"
+                            Width="30"
+                            Height="30"/>
+                    </Grid>
                 </Button>
 
                 <!-- Bookmark Button -->
@@ -180,19 +190,19 @@
                         Click="MineBookmarksClick"
                         Margin="15, 0" Width="40">
 
-                    <material:PackIcon Kind="BookmarkBorder"
-                                   Height="25" Width="25"/>
-
+                    <material:PackIcon 
+                        Kind="BookmarkBorder"
+                        Height="25" Width="25"/>
                 </Button>
 
                 <!-- Comic Add Button -->
                 <Button Width="40"
                         Style="{StaticResource ViewPortHeaderButton}"
-                        Click="MineBookmarksClick">
+                        Click="CreateComicClick">
 
-                    <material:PackIcon Kind="PencilAdd"
-                                   Height="25" Width="25"/>
-
+                    <material:PackIcon 
+                        Kind="PencilAdd"
+                        Height="25" Width="25"/>
                 </Button>
 
             </StackPanel>
@@ -223,6 +233,7 @@
                          Padding="10"
                          MouseDown="MainGridMouseDown"
                          Visibility="Visible"
+                         SelectionMode="Single"
                          SelectionChanged="CatalogSelectionChanged">
 
                     <ListBox.ItemTemplate>

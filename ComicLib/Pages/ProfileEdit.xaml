@@ -23,7 +23,6 @@
 
         </Style>
 
-
     </Page.Resources>
 
 
@@ -68,6 +67,7 @@
         </Border>
         <!--#endregion-->
 
+        <!-- Main Border -->
         <Border Style="{StaticResource BorderStyle}"
                 Background="White">
 
@@ -77,6 +77,17 @@
             </Border.Effect>
 
             <Grid>
+
+                <Button Height="60" Width="60"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Margin="50"
+                        Style="{StaticResource RegistrationButton}">
+
+                    <material:PackIcon Kind="NavigateBefore"
+                                       Height="60" Width="60"/>
+                </Button>
+                
                 <StackPanel>
 
                     <!-- Avatar Edit -->
@@ -112,21 +123,32 @@
                                    RadiusX="5" RadiusY="5"/>
                         </Grid>
 
+                        <!-- Avatar Image -->
                         <Grid Margin="30, 0, 0, 0">
                             <Border Background="White"
-                                CornerRadius="2">
+                                    CornerRadius="2">
 
                                 <Border.Effect>
                                     <DropShadowEffect 
-                                    ShadowDepth="0.5" Opacity="0.2" 
-                                    BlurRadius="10" />
+                                        ShadowDepth="0.5" Opacity="0.2" 
+                                        BlurRadius="10" />
                                 </Border.Effect>
 
-                                <Image x:Name="ava"
-                                   Stretch="Fill"
-                                   Width="150" Height="150"/>
-
+                                <Grid>
+                                    <material:PackIcon 
+                                        Kind="AccountBoxOutline"
+                                        Width="100"
+                                        Height="100"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"/>
+                                    <Image x:Name="ava"
+                                       Source="{Binding Avatar, Converter={StaticResource ImgConvert}}"
+                                       Stretch="Fill"
+                                       Width="150" Height="150"/>
+                                </Grid>
+                               
                             </Border>
+                            
                         </Grid>
 
                     </StackPanel>
@@ -134,38 +156,42 @@
                     <!-- Nickname Edit -->
                     <TextBlock Text="Никнейм"
                            Style="{StaticResource HeaderTextBlock}"/>
-                    <TextBox x:Name="nick" 
-                         Style="{StaticResource DataEditTextBox}"
-                         HorizontalAlignment="Center"
-                         MaxLength="20"
-                         Height="40" Width="450"
-                         FontSize="20"/>
+                    <TextBox x:Name="nick" Text="{Binding Name}"
+                             BorderBrush="{StaticResource TextBoxBorderBrush}"
+                             BorderThickness="2"
+                             Style="{StaticResource DataEditTextBox}"
+                             HorizontalAlignment="Center"
+                             MaxLength="20"
+                             Height="40" Width="450"
+                             FontSize="20"/>
 
                     <!-- Email Edit -->
                     <TextBlock Text="Почта"
                            Style="{StaticResource HeaderTextBlock}"/>
-                    <TextBox x:Name="email"
-                         Style="{StaticResource DataEditTextBox}"
-                         HorizontalAlignment="Center"
-                         Height="40" Width="900"
-                         MaxLength="70"
-                         FontSize="20"/>
+                    <TextBox x:Name="email" Text="{Binding Email}"
+                             BorderBrush="{StaticResource TextBoxBorderBrush}"
+                             Style="{StaticResource DataEditTextBox}"
+                             HorizontalAlignment="Center"
+                             Height="40" Width="900"
+                             MaxLength="70"
+                             FontSize="20"/>
 
                     <!-- Password Edit -->
                     <TextBlock Text="Пароль"
                            Style="{StaticResource HeaderTextBlock}"/>
-                    <TextBox x:Name="pas"
-                         Style="{StaticResource DataEditTextBox}"
-                         HorizontalAlignment="Center"
-                         Height="40" Width="650"
-                         MaxLength="30"
-                         FontSize="20"/>
+                    <TextBox x:Name="pas" Text="{Binding Password}"
+                             BorderBrush="{StaticResource TextBoxBorderBrush}"
+                             Style="{StaticResource DataEditTextBox}"
+                             HorizontalAlignment="Center"
+                             Height="40" Width="650"
+                             MaxLength="30"
+                             FontSize="20"/>
 
                     <!-- Save Button -->
                     <Button Style="{StaticResource RegistrationButton}"
-                        Height="60" Width="200"
-                        Margin="0, 60, 0, 0" FontSize="20"
-                        Click="SaveClick">
+                            Height="60" Width="200"
+                            Margin="0, 60, 0, 0" FontSize="20"
+                            Click="SaveClick">
 
                         <TextBlock Text="Сохранить"
                                FontSize="25"/>

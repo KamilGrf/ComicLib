@@ -24,9 +24,6 @@ namespace ComicLib
         public MainWindow()
         {
             InitializeComponent();
-
-            //mainFrame.NavigationService.Navigate(new ViewPort());
-            mainFrame.NavigationService.Navigate(new LoginPage());
         }
 
         private void CloseClick(object sender, RoutedEventArgs e)
@@ -56,17 +53,7 @@ namespace ComicLib
             Point pointToWindow = Mouse.GetPosition(this);
             Point pointToScreen = PointToScreen(pointToWindow);
 
-            //SystemCommands.ShowSystemMenu(this, Mouse.GetPosition(Application.Current.MainWindow));
             SystemCommands.ShowSystemMenu(this, pointToScreen);
-        }
-
-        private void GridDragMoveMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (WindowState == WindowState.Maximized)
-            {
-                WindowState = WindowState.Normal;
-            }
-            DragMove();
         }
     }
 }
