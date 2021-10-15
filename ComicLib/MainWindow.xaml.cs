@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ComicLib.Pages;
+using ComicLib.ClassHelpers;
 
 namespace ComicLib
 {
@@ -24,6 +25,8 @@ namespace ComicLib
         public MainWindow()
         {
             InitializeComponent();
+
+            DBHelper.Authors = DBHelper.DBContext.Author.ToList();
         }
 
         private void CloseClick(object sender, RoutedEventArgs e)

@@ -22,15 +22,24 @@ namespace ComicLib.Pages
     public partial class ComicListPage : System.Windows.Controls.Page
     {
         public double ComicListWidth { get { return mainPage.ActualWidth - (dp.Margin.Left + dp.Margin.Right) - filterBorder.ActualWidth - filterBorder.Margin.Left; } }
-        public double BorderWidth { get; set; } = 300;
+        public double BorderWidth { get; set; } = 335;
         public ComicListPage()
         {
             InitializeComponent();
 
+            if (NavigationService != null)
+            {
+                if (NavigationService.CanGoBack)
+                {
+                    NavigationService.RemoveBackEntry();
+                }
+            }
+            
+
             comicList.ItemsSource = DBHelper.DBContext.Comic.ToList();
         }
 
-        private void mainPage_SizeChanged(object sender, SizeChangedEventArgs e)
+        private void MainPageSizeChanged(object sender, SizeChangedEventArgs e)
         {
             comicList.Width = ComicListWidth;
 

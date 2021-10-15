@@ -14,12 +14,14 @@ namespace ComicLib.ClassHelpers
     public static class DBHelper
     {
         /// <summary>
-        /// 
+        /// Хранилище подключенной базы данных
         /// </summary>
         public static ComicLibEntities DBContext { get; set; } = new ComicLibEntities();
 
         public static BitmapImage Image { get; set; }
         public static User CurrentUser { get; set; }
+
+        public static List<Author> Authors { get; set; }
 
 
         /// <summary>

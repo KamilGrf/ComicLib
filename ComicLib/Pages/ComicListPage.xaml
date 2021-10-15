@@ -8,7 +8,7 @@
       d:DesignHeight="900" d:DesignWidth="1100"
       Title="ComicListPage"
       x:Name="mainPage"
-      SizeChanged="mainPage_SizeChanged">
+      SizeChanged="MainPageSizeChanged">
 
     <Grid>
         

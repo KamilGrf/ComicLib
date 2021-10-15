@@ -108,6 +108,9 @@
     <Compile Include="Page.cs">
       <DependentUpon>ComicLibDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Pages\AuthorAdd.xaml.cs">
+      <DependentUpon>AuthorAdd.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\ComicCreatePage.xaml.cs">
       <DependentUpon>ComicCreatePage.xaml</DependentUpon>
     </Compile>
@@ -150,6 +153,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\AuthorAdd.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\ComicCreatePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

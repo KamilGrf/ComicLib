@@ -65,6 +65,16 @@
                         HorizontalAlignment="Left"
                         Margin="10, 5">
 
+                <!-- Home Button -->
+                <Button Style="{StaticResource ViewPortHeaderButton}"
+                        Width="40"
+                        Click="HomeClick"
+                        Margin="0, 0, 20, 0">
+                    <material:PackIcon 
+                            Kind="Home"
+                            Height="28" Width="28"/>
+                </Button>
+
                 <!-- Catalog Button -->
                 <Button Style="{StaticResource ViewPortHeaderButton}"
                         Click="CatalogClick">
@@ -175,13 +185,13 @@
                         Style="{StaticResource ViewPortProfileButton}">
 
                     <Grid>
-                        <Image x:Name="profileIcon" 
-                               Source="{Binding Avatar, Converter={StaticResource ImgConvert}}"
-                               Stretch="Fill"/>
                         <material:PackIcon 
                             Kind="Account"
                             Width="30"
                             Height="30"/>
+                        <Image x:Name="profileIcon" 
+                               Source="{Binding Avatar, Converter={StaticResource ImgConvert}}"
+                               Stretch="Fill"/>
                     </Grid>
                 </Button>
 
@@ -248,10 +258,53 @@
             </StackPanel>
             <!--#endregion-->
 
+            <Grid Grid.Column="1"
+                    Width="220"
+                    Margin="0, 10, 70, 0"
+                    HorizontalAlignment="Right">
+                
+                <ListBox x:Name="editComic" 
+                         Style="{StaticResource ListBoxMenuTemplate}"
+                         Padding="10" Height="112"
+                         VerticalAlignment="Top"
+                         MouseDown="MainGridMouseDown"
+                         Visibility="Visible"
+                         SelectionMode="Single"
+                         SelectionChanged="EditComicSelectionChanged">
+
+                    <ListBoxItem>
+                        <StackPanel Orientation="Horizontal">
+                            <material:PackIcon Kind="PlusBox"
+                                               Height="20" Width="20"/>
+                            <TextBlock Text="Добавить мангу"
+                                       Margin="10, 0"/>
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem>
+                        <StackPanel Orientation="Horizontal">
+                            <material:PackIcon Kind="ListStatus"
+                                               Height="20" Width="20"/>
+                            <TextBlock Text="Мои добавления"
+                                       Margin="10, 0"/>
+                            <Border CornerRadius="2"
+                                    Background="Black"
+                                    Width="15">
+                                <TextBlock x:Name="numOfComics"
+                                           HorizontalAlignment="Center"
+                                       Text="1"
+                                       Foreground="White"/>
+                            </Border>
+                            
+                        </StackPanel>
+                    </ListBoxItem>
+
+                </ListBox>
+                
+            </Grid>
             
             <!--#region Profile Menu -->
             <Button x:Name="profileMenu" 
-                    Visibility="Visible"
+                    Visibility="Hidden"
                     Height="240" Width="250"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Top"

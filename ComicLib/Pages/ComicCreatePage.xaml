@@ -4,21 +4,230 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ComicLib.Pages"
+      xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
       d:DesignHeight="900" d:DesignWidth="1100"
       Title="ComicCreatePage">
+
 
     <Grid>
 
         <Border Background="White"
                 CornerRadius="4"
-                Margin="80">
+                Margin="30, 30, 30, 50">
 
             <Grid>
-                
+
+                <!-- Back Button -->
+                <Button Height="60" Width="60"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Margin="25"
+                        Style="{StaticResource RegistrationButton}"
+                        Click="GetBackClick">
+
+                    <material:PackIcon Kind="NavigateBefore"
+                                       Height="60" Width="60"/>
+                </Button>
+
+                <StackPanel Orientation="Vertical">
+
+                    <!-- Header Text -->
+                    <TextBlock Text="Создание комикса"
+                               Style="{StaticResource HeaderTextBlock}"
+                               VerticalAlignment="Top"
+                               FontWeight="Bold"/>
+
+                    <Grid Margin="0, 20">
+                        <Grid.ColumnDefinitions>
+                            <!-- Cover -->
+                            <ColumnDefinition/>
+                            <!-- Splitter -->
+                            <ColumnDefinition Width="2"/>
+                            <!-- Other Comic Info -->
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Cover -->
+                        <StackPanel Grid.Column="0">
+                            <TextBlock Style="{StaticResource HeaderTextBlock}"
+                                       Text="Обложка"/>
+
+                            <StackPanel Orientation="Horizontal"
+                                        HorizontalAlignment="Center">
+
+                                <!-- Image Drag And Drop Place -->
+                                <Button Style="{StaticResource ImageDragAndDropPlace}"
+                                        Content="Нажмите или перетащите сюда изображение для загрузки"
+                                        Drop="ImageDrop" Height="200"
+                                        Click="ImageOpenClick"/>
+
+                                <!-- Avatar Image -->
+                                <Grid Margin="30, 0, 0, 0">
+                                    <Border Background="White"
+                                            CornerRadius="2">
+
+                                        <Border.Effect>
+                                            <DropShadowEffect 
+                                                ShadowDepth="0.5" Opacity="0.2" 
+                                                BlurRadius="10" />
+                                        </Border.Effect>
+
+                                        <Grid>
+                                            <material:PackIcon 
+                                                    Kind="FileImageOutline"
+                                                    Width="50"
+                                                    Height="50"
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"/>
+                                            <Image x:Name="cover"
+                                                   Source="{Binding Avatar, Converter={StaticResource ImgConvert}}"
+                                                   Stretch="Fill"
+                                                   Width="150" Height="200"/>
+                                            <Button x:Name="deleteButton" Style="{StaticResource DeleteButton}"
+                                                    VerticalAlignment="Top"
+                                                    HorizontalAlignment="Left"
+                                                    Height="35"
+                                                    Visibility="Visible"
+                                                    Click="DeleteButtonClick"/>
+                                        </Grid>
+
+                                    </Border>
+                                </Grid>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <!-- Splitter -->
+                        <Rectangle Grid.Column="1"
+                                   Fill="{StaticResource MainOrangeBrush}"
+                                   RadiusX="1" RadiusY="1"/>
+
+                        <!-- Comic Text Info -->
+                        <StackPanel Orientation="Vertical"
+                                    Grid.Column="2">
+
+                            <!-- Comic Title -->
+                            <TextBlock Style="{StaticResource HeaderTextBlock}"
+                                       Text="Название комикса"/>
+                            <TextBox Style="{StaticResource DataEditTextBox}"
+                                     TextWrapping="Wrap"
+                                     Height="70"
+                                     MaxLength="50"
+                                     FontSize="20"
+                                     Margin="50, 0"/>
+
+                            <!-- Comic Author -->
+                            <TextBlock Style="{StaticResource HeaderTextBlock}"
+                                       Text="Автор"/>
+                            <Grid Margin="60, 0">
+
+                                <!-- Author Find -->
+                                <TextBox x:Name="authorFind" 
+                                         Style="{StaticResource DataEditTextBox}"
+                                         Height="40" Margin="10, 0, 50, 0"
+                                         MaxLength="20"
+                                         HorizontalContentAlignment="Left"
+                                         MinWidth="300"
+                                         TextChanged="AuthorFindTextChanged"/>
+
+                                <Button Style="{StaticResource RegistrationButton}"
+                                        Width="40"
+                                        HorizontalAlignment="Right"
+                                        Click="AuthorAddClick">
+                                    <material:PackIcon 
+                                        Kind="Add"
+                                        Height="40" Width="40"/>
+                                </Button>
+                            </Grid>
+
+                            <StackPanel Orientation="Horizontal"
+                                        Margin="70, 5">
+
+                                <!-- First Author Element -->
+                                <Border x:Name="authorTagA"
+                                        Visibility="Hidden"
+                                        CornerRadius="3"
+                                        Background="{StaticResource MainOrangeBrush}">
+                                    <StackPanel Orientation="Horizontal"
+                                                VerticalAlignment="Center">
+                                        <TextBlock x:Name="authorA" 
+                                                    VerticalAlignment="Center"
+                                                    Foreground="White"
+                                                    Margin="5, 0, 0, 0"/>
+                                        <Rectangle Fill="White"
+                                                    Height="20"
+                                                    Margin="5, 0, 0, 0"
+                                                    Width="1"
+                                                    RadiusY="0.5" RadiusX="0.5"/>
+                                        <Button Style="{StaticResource DeleteElementButton}"
+                                                Height="30" Width="30"
+                                                Click="AuthorARemoveClick">
+                                            <material:PackIcon 
+                                                Kind="Close"
+                                                Foreground="White"
+                                                VerticalAlignment="Center"/>
+                                        </Button>
+
+                                    </StackPanel>
+                                </Border>
+
+                                <!-- Second Author Element -->
+                                <Border x:Name="authorTagB"
+                                        Visibility="Hidden"
+                                        CornerRadius="3"
+                                        Margin="10, 0"
+                                        Background="{StaticResource MainOrangeBrush}">
+                                    <StackPanel Orientation="Horizontal"
+                                                VerticalAlignment="Center">
+                                        <TextBlock x:Name="authorB" 
+                                                   VerticalAlignment="Center"
+                                                   Foreground="White"
+                                                   Margin="5, 0, 0, 0"/>
+                                        <Rectangle Fill="White"
+                                                   Height="20"
+                                                   Margin="5, 0, 0, 0"
+                                                   Width="1"
+                                                   RadiusY="0.5" RadiusX="0.5"/>
+                                        <Button Style="{StaticResource DeleteElementButton}"
+                                                Height="30" Width="30"
+                                                Click="AuthorBRemoveClick">
+                                            <material:PackIcon 
+                                                Kind="Close"
+                                                Foreground="White"
+                                                VerticalAlignment="Center"/>
+                                        </Button>
+
+                                    </StackPanel>
+                                </Border>
+
+                            </StackPanel>
+
+                            <!-- Authors List -->
+                            <ListBox x:Name="authorList" Margin="60, 0"
+                                     Style="{StaticResource ListBoxAuthorTemplate}"
+                                     Visibility="Visible"
+                                     SelectionMode="Single"
+                                     SelectionChanged="AuthorListSelectionChanged"
+                                     Padding="10"
+                                     Height="155">
+
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Name}"
+                                                   Margin="10, 0"/>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+
+                            </ListBox>
+
+                        </StackPanel>
+
+                        <Frame x:Name="authorAddFrame"
+                               NavigationUIVisibility="Hidden"
+                               Grid.Column="2"/>
+                    </Grid>
+                </StackPanel>
             </Grid>
-            
         </Border>
-        
     </Grid>
 </Page>

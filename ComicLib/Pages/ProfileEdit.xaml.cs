@@ -15,6 +15,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ComicLib.ClassHelpers;
+using Microsoft.Win32;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ComicLib.Pages
 {
@@ -41,25 +43,19 @@ namespace ComicLib.Pages
             InitializeComponent();
 
             DataContext = DBHelper.CurrentUser;
-            //if (DBHelper.CurrentUser.Avatar != null)
-            //{
-            //    using (MemoryStream byteStream = new MemoryStream(DBHelper.CurrentUser.Avatar))
-            //    {
-            //        BitmapImage image = new BitmapImage();
-            //        image.BeginInit();
-            //        image.CacheOption = BitmapCacheOption.OnLoad;
-            //        image.StreamSource = byteStream;
-            //        image.EndInit();
-            //        ava.Source = image;
-            //    }
-            //}
+
+            if (DBHelper.CurrentUser.Avatar == null)
+            {
+                deleteButton.Visibility = Visibility.Hidden;
+            }
+
             if (DBHelper.CurrentUser.Rank == 2)
             {
                 rank.IsChecked = true;
             }
         }
 
-        private void Image_Drop(object sender, DragEventArgs e)
+        private void ImageDrop(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
@@ -68,13 +64,25 @@ namespace ComicLib.Pages
                 if (Path.EndsWith(".png") || Path.EndsWith(".jpg") || Path.EndsWith(".jpeg"))
                 {
                     ImageConverter converter = new ImageConverter();
-                    BitmapImage image = converter.BitmapImageConvert(Path);
-
-                    //ava.Source = new BitmapImage(new Uri(path));
-                    ava.Source = image;
+                    ava.Source = converter.BitmapImageConvert(Path);
+                    deleteButton.Visibility = Visibility.Visible;
                 }
             }
-            //(string[])e.Data.GetData(DataFormats.FileDrop)
+        }
+
+        private void ImageOpenClick(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                Filter = "Image Files(*.png;*.jpg;*.jpeg)|*.png;*.jpg;*.jpeg"
+            };
+            if (openFileDialog.ShowDialog() == true)
+            {
+                Path = openFileDialog.FileName;
+                ImageConverter converter = new ImageConverter();
+                ava.Source = converter.BitmapImageConvert(Path);
+                deleteButton.Visibility = Visibility.Visible;
+            }
         }
 
         private void SaveClick(object sender, RoutedEventArgs e)
@@ -89,13 +97,13 @@ namespace ComicLib.Pages
                 User user = DBHelper.DBContext.User.Where(u => u.Id_User == mainUser.Id_User).FirstOrDefault();
 
                 if (email.Text != null)
-                {
                     user.Email = email.Text;
-                }
-                if (ava.Source != null)
-                {
+
+                if (Path != null)
                     user.Avatar = File.ReadAllBytes(Path);
-                }
+                else
+                    user.Avatar = null;
+
                 user.Name = nick.Text;
                 user.Password = pas.Text;
                 user.Rank = Rank;
@@ -104,11 +112,19 @@ namespace ComicLib.Pages
 
                 DBHelper.CurrentUser = user;
 
-                ImageConverter converter = new ImageConverter();
-                BitmapImage image = converter.BitmapImageConvert(Path);
+                if (Path != null)
+                {
+                    ImageConverter converter = new ImageConverter();
+                    BitmapImage image = converter.BitmapImageConvert(Path);
 
-                DBHelper.Image = image;
-                (OtherHelper.MainWindow.mainFrame.Content as ViewPort).profileIcon.Source = image;
+                    DBHelper.Image = image;
+                    (OtherHelper.MainWindow.mainFrame.Content as ViewPort).profileIcon.Source = image;
+                }
+                else
+                {
+                    (OtherHelper.MainWindow.mainFrame.Content as ViewPort).profileIcon.Source = null;
+                }
+                
 
                 if (NavigationService.CanGoBack)
                 {
@@ -121,6 +137,25 @@ namespace ComicLib.Pages
         private void RankChecked(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void GetBackClick(object sender, RoutedEventArgs e)
+        {
+            if (NavigationService.CanGoBack)
+            {
+                NavigationService.RemoveBackEntry();
+            }
+            NavigationService.Navigate(new ComicListPage());
+        }
+
+        private void DeleteButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (ava.Source != null)
+            {
+                ava.Source = null;
+                Path = null;
+                deleteButton.Visibility = Visibility.Hidden;
+            }
         }
     }
 }

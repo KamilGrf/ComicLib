@@ -29,12 +29,11 @@ namespace ComicLib.Pages
 
         private void LoginClick(object sender, RoutedEventArgs e)
         {
-            string mes = "";
             if (name.Text == "" || pas.Text == "")
             {
                 MessageBox.Show("Поля не должны оставаться пустыми");
             }
-            else if (DBHelper.GetUser(name.Text, pas.Text, out mes))
+            else if (DBHelper.GetUser(name.Text, pas.Text, out string mes))
             {
                 if (NavigationService.CanGoBack)
                 {

@@ -31,12 +31,14 @@ namespace ComicLib.Pages
             viewFrame.Content = new ComicListPage();
 
             DataContext = DBHelper.CurrentUser;
-            //DataContext = DBHelper.CurrentUser.Avatar != null ? DBHelper.CurrentUser : null;
 
             profileMenu.Visibility = Visibility.Hidden;
             searchBorder.Visibility = Visibility.Hidden;
             catalog.ItemsSource = DBHelper.DBContext.Genre.ToList();
             catalog.Visibility = Visibility.Hidden;
+            editComic.Visibility = Visibility.Hidden;
+
+            numOfComics.Text = DBHelper.CurrentUser.Comic.Count.ToString();
         }
 
         private void MainGridMouseDown(object sender, MouseButtonEventArgs e)
@@ -46,29 +48,34 @@ namespace ComicLib.Pages
             
             if (IsSender == false)
             {
-                ChangeVisible(sender);
+                ChangeVisible(0);
             }
 
             if (sender is Border)
                 IsSender = false;
         }
 
-        private void ChangeVisible(object control)
+        private void ChangeVisible(int control)
         {
-            if (searchBorder.IsVisible && !(control is TextBlock))
+            if (searchBorder.IsVisible && !(control == 1))
             {
                 searchBorder.Visibility = Visibility.Hidden;
                 search.Text = "";
             }
 
-            if (profileMenu.IsVisible && !(control is Button))
+            if (profileMenu.IsVisible && !(control == 2))
             {
                 profileMenu.Visibility = Visibility.Hidden;
             }
 
-            if (catalog.IsVisible && !(control is ListBox))
+            if (catalog.IsVisible && !(control == 3))
             {
                 catalog.Visibility = Visibility.Hidden;
+            }
+
+            if (editComic.IsVisible && !(control == 4))
+            {
+                editComic.Visibility = Visibility.Hidden;
             }
         }
 
@@ -79,8 +86,9 @@ namespace ComicLib.Pages
                 profileMenu.Visibility = Visibility.Hidden;
             else
                 profileMenu.Visibility = Visibility.Visible;
+            editComic.Visibility = Visibility.Hidden;
 
-            ChangeVisible(new Button());
+            ChangeVisible(2);
         }
 
 
@@ -89,11 +97,14 @@ namespace ComicLib.Pages
         {
             profileMenu.Visibility = Visibility.Hidden;
 
-            if (viewFrame.NavigationService.CanGoBack)
+            if (!(viewFrame.Content is ProfileEdit))
             {
-                viewFrame.NavigationService.RemoveBackEntry();
+                if (viewFrame.NavigationService.CanGoBack)
+                {
+                    viewFrame.NavigationService.RemoveBackEntry();
+                }
+                viewFrame.NavigationService.Navigate(new ProfileEdit());
             }
-            viewFrame.NavigationService.Navigate(new ProfileEdit());
         }
 
         private void MineBookmarksClick(object sender, RoutedEventArgs e)
@@ -135,7 +146,7 @@ namespace ComicLib.Pages
                 searchBorder.Visibility = Visibility.Visible;
             }
 
-            ChangeVisible(new TextBlock());
+            ChangeVisible(1);
         }
 
         private void ClearSearchLinkClick(object sender, RoutedEventArgs e)
@@ -178,7 +189,7 @@ namespace ComicLib.Pages
             else
                 catalog.Visibility = Visibility.Visible;
 
-            ChangeVisible(new ListBox());
+            ChangeVisible(3);
         }
 
         private void CatalogSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -204,7 +215,45 @@ namespace ComicLib.Pages
 
         private void CreateComicClick(object sender, RoutedEventArgs e)
         {
+            if (editComic.IsVisible)
+                editComic.Visibility = Visibility.Hidden;
+            else
+                editComic.Visibility = Visibility.Visible;
 
+            profileMenu.Visibility = Visibility.Hidden;
+
+            ChangeVisible(4);
+        }
+
+        private void HomeClick(object sender, RoutedEventArgs e)
+        {
+            ChangeVisible(0);
+
+            if (!(viewFrame.Content is ComicListPage))
+            {
+                if (viewFrame.NavigationService.CanGoBack)
+                {
+                    viewFrame.NavigationService.RemoveBackEntry();
+                }
+                viewFrame.NavigationService.Navigate(new ComicListPage());
+            }
+        }
+
+        private void EditComicSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (editComic.SelectedIndex == 0)
+            {
+                if (!(viewFrame.Content is ComicCreatePage))
+                {
+                    if (viewFrame.NavigationService.CanGoBack)
+                    {
+                        viewFrame.NavigationService.RemoveBackEntry();
+                    }
+                    viewFrame.NavigationService.Navigate(new ComicCreatePage(null));
+                }
+                editComic.SelectedItem = null;
+            }
+            editComic.Visibility = Visibility.Hidden;
         }
     }
 }
