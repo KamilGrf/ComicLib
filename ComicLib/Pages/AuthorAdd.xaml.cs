@@ -75,7 +75,8 @@ namespace ComicLib.Pages
             DBHelper.DBContext.SaveChanges();
             DBHelper.Authors = DBHelper.DBContext.Author.ToList();
 
-            ((OtherHelper.MainWindow.mainFrame.Content as ViewPort).viewFrame.Content as ComicCreatePage).authorList.ItemsSource = DBHelper.Authors;
+            ((OtherHelper.MainWindow.mainFrame.Content as ViewPort).viewFrame.Content as ComicCreatePage).listGrid.Children.Clear();
+            ((OtherHelper.MainWindow.mainFrame.Content as ViewPort).viewFrame.Content as ComicCreatePage).AuthorsListBoxCreate(DBHelper.Authors);
             NavigationService.Content = null;
         }
 

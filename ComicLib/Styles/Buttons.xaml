@@ -213,21 +213,8 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Cursor" Value="Hand"/>
+                            <Setter TargetName="back" Property="Background" Value="#3099C5"/>
                         </Trigger>
-                        <EventTrigger RoutedEvent="MouseEnter">
-                            <BeginStoryboard>
-                                <Storyboard>
-                                    <ColorAnimation To="#3099C5" Duration="0:0:0.1" Storyboard.TargetName="back" Storyboard.TargetProperty="Background.Color" />
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </EventTrigger>
-                        <EventTrigger RoutedEvent="MouseLeave">
-                            <BeginStoryboard>
-                                <Storyboard>
-                                    <ColorAnimation From="#3099C5" Duration="0:0:0.1" Storyboard.TargetName="back" Storyboard.TargetProperty="Background.Color" />
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </EventTrigger>
                     </ControlTemplate.Triggers>
                     
                 </ControlTemplate>
@@ -354,6 +341,5 @@
             </Setter.Value>
         </Setter>
     </Style>
-
 
 </ResourceDictionary>

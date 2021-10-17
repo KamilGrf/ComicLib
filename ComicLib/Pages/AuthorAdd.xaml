@@ -6,14 +6,24 @@
       xmlns:local="clr-namespace:ComicLib.Pages"
       xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
-      d:DesignHeight="650" d:DesignWidth="469"
+      d:DesignHeight="700" d:DesignWidth="469"
       Title="AuthorAdd">
+
+    <Page.CacheMode>
+        <BitmapCache/>
+    </Page.CacheMode>
 
     <Grid Background="White">
 
         <StackPanel Grid.Column="0">
+            <TextBlock Text="Добавление персоны"
+                       Style="{StaticResource HeaderTextBlock}"
+                       FontWeight="Bold"
+                       Margin="0, 0, 0, 5"/>
+            
             <TextBlock Style="{StaticResource HeaderTextBlock}"
-                       Text="Фотография"/>
+                       Text="Фотография"
+                       Margin="0, 10, 0, 5"/>
 
             <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Center">
@@ -36,7 +46,7 @@
                         </Border.Effect>
 
                         <Grid>
-                            <material:PackIcon 
+                            <material:PackIcon
                                 Kind="FileImageOutline"
                                 Width="50"
                                 Height="50"
@@ -61,12 +71,16 @@
             <!-- Author Name -->
             <TextBlock Style="{StaticResource HeaderTextBlock}"
                        Text="Имя или псевдоним"/>
+            <TextBlock Text="Введите имя на русском или на английском"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Opacity="0.8"/>
             <TextBox x:Name="name" 
-                     Style="{StaticResource DataEditTextBox}"
-                     FontSize="15"
-                     Height="40"
-                     MaxLength="20"
-                     Margin="50, 0"/>
+                    Style="{StaticResource DataEditTextBox}"
+                    FontSize="15"
+                    MaxLength="20"
+                    Margin="50, 0"
+                    Height="40"/>
 
             <!-- Author Info -->
             <TextBlock Style="{StaticResource HeaderTextBlock}"
@@ -80,7 +94,7 @@
                      VerticalContentAlignment="Top"
                      MaxLength="500"
                      TextWrapping="Wrap"
-                     Height="150"/>
+                     Height="110"/>
 
             <StackPanel Orientation="Horizontal"
                         Margin="0, 40"

@@ -22,11 +22,10 @@ namespace ComicLib.Pages
     public partial class ComicListPage : System.Windows.Controls.Page
     {
         public double ComicListWidth { get { return mainPage.ActualWidth - (dp.Margin.Left + dp.Margin.Right) - filterBorder.ActualWidth - filterBorder.Margin.Left; } }
-        public double BorderWidth { get; set; } = 335;
         public ComicListPage()
         {
             InitializeComponent();
-
+            
             if (NavigationService != null)
             {
                 if (NavigationService.CanGoBack)
@@ -34,19 +33,20 @@ namespace ComicLib.Pages
                     NavigationService.RemoveBackEntry();
                 }
             }
-            
+
+            //List<Comic> w = new List<Comic>();
+            //for (int i = 0; i < 50; i++)
+            //{
+            //    w.Add(DBHelper.DBContext.Comic.ToList()[4]);
+            //}
 
             comicList.ItemsSource = DBHelper.DBContext.Comic.ToList();
+            //comicList.ItemsSource = w;
         }
 
         private void MainPageSizeChanged(object sender, SizeChangedEventArgs e)
         {
             comicList.Width = ComicListWidth;
-
-            if (ComicListWidth <= 1504 && ComicListWidth >= 1350)
-            {
-                BorderWidth = ComicListWidth / 5;
-            }
         }
     }
 }

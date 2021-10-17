@@ -8,8 +8,11 @@
       mc:Ignorable="d" 
       d:DesignHeight="900" d:DesignWidth="1100"
       Title="RegisterPage">
-
     
+    <local:BasePage.CacheMode>
+        <BitmapCache/>
+    </local:BasePage.CacheMode>
+
     <Grid>
         <StackPanel Orientation="Vertical"
                     VerticalAlignment="Center"

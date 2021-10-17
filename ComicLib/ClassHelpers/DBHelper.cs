@@ -22,11 +22,11 @@ namespace ComicLib.ClassHelpers
         public static User CurrentUser { get; set; }
 
         public static List<Author> Authors { get; set; }
+        public static List<Comic> Comics { get; set; }
 
 
         /// <summary>
         /// Проверяет наличие учетной записи.
-        /// Функция получения пользователя из базы данных
         /// </summary>
         /// <param name="login"></param>
         /// <param name="pas"></param>

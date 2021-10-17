@@ -27,6 +27,7 @@ namespace ComicLib
             InitializeComponent();
 
             DBHelper.Authors = DBHelper.DBContext.Author.ToList();
+            DBHelper.Comics = DBHelper.DBContext.Comic.ToList();
         }
 
         private void CloseClick(object sender, RoutedEventArgs e)

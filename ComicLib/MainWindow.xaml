@@ -13,7 +13,6 @@
         MinHeight="918" MinWidth="1124"
         WindowStartupLocation="CenterScreen">
 
-
     <Window.Resources>
         <Style TargetType="{x:Type local:MainWindow}">
             <Setter Property="Template">
@@ -69,6 +68,9 @@
                       GlassFrameThickness="0"/>
     </WindowChrome.WindowChrome>
 
+    <Window.CacheMode>
+        <BitmapCache/>
+    </Window.CacheMode>
 
     <Grid>
 

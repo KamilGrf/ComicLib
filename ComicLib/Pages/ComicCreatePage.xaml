@@ -7,12 +7,16 @@
       xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
       d:DesignHeight="900" d:DesignWidth="1100"
-      Title="ComicCreatePage">
+      Title="ComicCreatePage"
+      SizeChanged="PageSizeChanged">
 
+    <Page.CacheMode>
+        <BitmapCache/>
+    </Page.CacheMode>
 
     <Grid>
 
-        <Border Background="White"
+        <Border x:Name="mainBorder" Background="White"
                 CornerRadius="4"
                 Margin="30, 30, 30, 50">
 
@@ -30,15 +34,18 @@
                                        Height="60" Width="60"/>
                 </Button>
 
-                <StackPanel Orientation="Vertical">
+                <DockPanel>
 
                     <!-- Header Text -->
                     <TextBlock Text="Создание комикса"
+                               DockPanel.Dock="Top"
                                Style="{StaticResource HeaderTextBlock}"
                                VerticalAlignment="Top"
                                FontWeight="Bold"/>
 
-                    <Grid Margin="0, 20">
+                    <Grid x:Name="mainGrid" 
+                          DockPanel.Dock="Top"
+                          Margin="0, 10, 0, 0">
                         <Grid.ColumnDefinitions>
                             <!-- Cover -->
                             <ColumnDefinition/>
@@ -51,7 +58,8 @@
                         <!-- Cover -->
                         <StackPanel Grid.Column="0">
                             <TextBlock Style="{StaticResource HeaderTextBlock}"
-                                       Text="Обложка"/>
+                                       Text="Обложка"
+                                       Margin="0, 0, 0, 10"/>
 
                             <StackPanel Orientation="Horizontal"
                                         HorizontalAlignment="Center">
@@ -95,10 +103,37 @@
                                     </Border>
                                 </Grid>
                             </StackPanel>
+
+                            <!-- Comic Year -->
+                            <TextBlock Style="{StaticResource HeaderTextBlock}"
+                                       Text="Год "/>
+                            <TextBlock Text="Введите год выпуска комикса"
+                                       HorizontalAlignment="Center"
+                                       Opacity="0.8"/>
+                            <TextBox x:Name="year"
+                                     Style="{StaticResource DataEditTextBox}"
+                                     Width="200" Height="40"
+                                     FontSize="20"
+                                     MaxLength="4"/>
+
+                            <!-- Comic Info -->
+                            <TextBlock Style="{StaticResource HeaderTextBlock}"
+                                       Text="Описание"
+                                       Margin="0, 20, 0, 10"/>
+                            <TextBox x:Name="info"
+                                     TextWrapping="Wrap"
+                                     MaxLength="500"
+                                     Style="{StaticResource DataEditTextBox}"
+                                     HorizontalContentAlignment="Left"
+                                     VerticalContentAlignment="Top"
+                                     Padding="10" FontSize="15"
+                                     Height="85" Margin="50, 0"/>
+
                         </StackPanel>
 
                         <!-- Splitter -->
-                        <Rectangle Grid.Column="1"
+                        <Rectangle x:Name="splitter" 
+                                   Grid.Column="1"
                                    Fill="{StaticResource MainOrangeBrush}"
                                    RadiusX="1" RadiusY="1"/>
 
@@ -108,12 +143,14 @@
 
                             <!-- Comic Title -->
                             <TextBlock Style="{StaticResource HeaderTextBlock}"
-                                       Text="Название комикса"/>
-                            <TextBox Style="{StaticResource DataEditTextBox}"
+                                       Text="Название комикса"
+                                       Margin="0, 0, 0, 10"/>
+                            <TextBox x:Name="title" 
+                                     Style="{StaticResource DataEditTextBox}"
                                      TextWrapping="Wrap"
-                                     Height="70"
+                                     Height="50"
                                      MaxLength="50"
-                                     FontSize="20"
+                                     FontSize="15"
                                      Margin="50, 0"/>
 
                             <!-- Comic Author -->
@@ -140,8 +177,10 @@
                                 </Button>
                             </Grid>
 
-                            <StackPanel Orientation="Horizontal"
-                                        Margin="70, 5">
+                            <StackPanel x:Name="elementsPanel" 
+                                        Orientation="Horizontal"
+                                        Margin="70, 5"
+                                        Visibility="Visible">
 
                                 <!-- First Author Element -->
                                 <Border x:Name="authorTagA"
@@ -202,31 +241,41 @@
 
                             </StackPanel>
 
-                            <!-- Authors List -->
-                            <ListBox x:Name="authorList" Margin="60, 0"
-                                     Style="{StaticResource ListBoxAuthorTemplate}"
-                                     Visibility="Visible"
-                                     SelectionMode="Single"
-                                     SelectionChanged="AuthorListSelectionChanged"
-                                     Padding="10"
-                                     Height="155">
+                            <!-- Authors Lists -->
+                            <Grid x:Name="listGrid"/>
 
-                                <ListBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Name}"
-                                                   Margin="10, 0"/>
-                                    </DataTemplate>
-                                </ListBox.ItemTemplate>
-
-                            </ListBox>
 
                         </StackPanel>
 
+                        <!-- Author Add Frame -->
                         <Frame x:Name="authorAddFrame"
                                NavigationUIVisibility="Hidden"
-                               Grid.Column="2"/>
+                               Grid.Column="2"
+                               ContentRendered="AuthorAddFrameContentRendered"/>
                     </Grid>
-                </StackPanel>
+
+                    <Grid Margin="0, 0, 0, 10"
+                          DockPanel.Dock="Bottom">
+
+                        <!-- Save Button -->
+                        <StackPanel VerticalAlignment="Bottom"
+                                    Margin="0, 0, 0, 30">
+                            <TextBlock Text="Хотите сохранить комикс?"
+                                       HorizontalAlignment="Center"
+                                       Margin="0, 0, 0, 5"/>
+                            <Button Style="{StaticResource RegistrationButton}"
+                                    Grid.Column="1"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Bottom"
+                                    Height="60" Width="200"
+                                    Click="ComicAddClick">
+                                <TextBlock Text="Сохранить"
+                                       FontSize="28"/>
+                            </Button>
+                        </StackPanel>
+
+                    </Grid>
+                </DockPanel>
             </Grid>
         </Border>
     </Grid>

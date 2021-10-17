@@ -9,6 +9,10 @@
       d:DesignHeight="900" d:DesignWidth="1100"
       Title="ViewPort" WindowTitle="ViewPort">
 
+    <Page.CacheMode>
+        <BitmapCache/>
+    </Page.CacheMode>
+
     <Page.Template>
         <ControlTemplate TargetType="Page">
 
@@ -276,7 +280,7 @@
                         <StackPanel Orientation="Horizontal">
                             <material:PackIcon Kind="PlusBox"
                                                Height="20" Width="20"/>
-                            <TextBlock Text="Добавить мангу"
+                            <TextBlock Text="Добавить комикс"
                                        Margin="10, 0"/>
                         </StackPanel>
                     </ListBoxItem>
@@ -291,8 +295,8 @@
                                     Width="15">
                                 <TextBlock x:Name="numOfComics"
                                            HorizontalAlignment="Center"
-                                       Text="1"
-                                       Foreground="White"/>
+                                           Text="1"
+                                           Foreground="White"/>
                             </Border>
                             
                         </StackPanel>
