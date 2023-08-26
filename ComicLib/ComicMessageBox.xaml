@@ -1,0 +1,148 @@
+﻿<Window x:Class="ComicLib.ComicMessageBox"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ComicLib"
+        xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        mc:Ignorable="d"
+        AllowsTransparency="True"
+        Background="Transparent"
+        Height="918" Width="1124"
+        x:Name="mesBoxWindow"
+        Title="ComicMessageBox" >
+
+    <Window.Style>
+        <Style TargetType="Window">
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="Loaded">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            
+                            <DoubleAnimation 
+                                d:IsOptimized="True"
+                                Duration="0:0:0:0.1"
+                                From="0"
+                                To="1"
+                                Storyboard.TargetProperty="Opacity"/>
+                            
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Style>
+    
+    <Window.Effect>
+        <DropShadowEffect ShadowDepth="0.5" Opacity="0.6" 
+                          BlurRadius="10" 
+                          Color="Black"/>
+    </Window.Effect>
+
+    <Window.CacheMode>
+        <BitmapCache/>
+    </Window.CacheMode>
+    
+
+    <Border x:Name="border" 
+            Margin="5"
+            CornerRadius="3">
+        
+        <Border.Background>
+            <SolidColorBrush Color="Gray"
+                             Opacity="0.2"/>
+        </Border.Background>
+        
+        <Border CornerRadius="4"
+                Margin="10"
+                Height="210"
+                Width="310"
+                Background="White">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="42"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0"
+                        Background="#FF93D8F7"
+                        CornerRadius="4, 4, 0, 0">
+                    <Grid>
+
+                        <TextBlock x:Name="headerText"
+                                   Text="Успешно"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Left"
+                                   FontSize="20"
+                                   FontWeight="Bold"
+                                   Margin="10, 0"/>
+
+                        <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Right">
+                            <Button Style="{StaticResource WindowCloseButton}"
+                                    Width="42"
+                                    Click="WindowCloseClick">
+                                <material:PackIcon 
+                                    Kind="Close"
+                                    Height="30" Width="30"
+                                    HorizontalAlignment="Center"/>
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+
+                </Border>
+
+                <Grid Grid.Row="1">
+
+                    <StackPanel Orientation="Horizontal" Margin="15, 30"
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Top">
+
+                        <material:PackIcon x:Name="icon"
+                                           Kind="Error"
+                                           Margin="0, 0, 10, 0"
+                                           Height="35" Width="35"
+                                           Visibility="Visible"
+                                           Foreground="Red"
+                                           VerticalAlignment="Center"/>
+                        <TextBlock x:Name="mes"
+                                   Width="200"
+                                   Grid.Column="1"
+                                   FontSize="16"
+                                   TextAlignment="Center"
+                                   TextWrapping="Wrap"/>
+                    </StackPanel>
+                   
+
+                    <Grid VerticalAlignment="Bottom"
+                          Margin="0, 20, 0, 10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <Button x:Name="notOk"
+                                Grid.Column="0"
+                                Style="{StaticResource RegistrationButton}"
+                                Height="40" Width="100"
+                                Click="NotOkClick">
+                            <TextBlock Text="Отмена"
+                                   FontSize="20"/>
+                        </Button>
+
+                        <Button x:Name="ok"
+                                Grid.Column="1"
+                                Style="{StaticResource RegistrationButton}"
+                                Height="40" Width="100"
+                                Click="OkClick">
+                            <TextBlock Text="Ок"
+                                   FontSize="20"/>
+                        </Button>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Border>
+    </Border>
+</Window>

@@ -9,18 +9,14 @@
       d:DesignHeight="700" d:DesignWidth="469"
       Title="AuthorAdd">
 
-    <Page.CacheMode>
-        <BitmapCache/>
-    </Page.CacheMode>
-
     <Grid Background="White">
 
-        <StackPanel Grid.Column="0">
+        <StackPanel>
             <TextBlock Text="Добавление персоны"
                        Style="{StaticResource HeaderTextBlock}"
                        FontWeight="Bold"
                        Margin="0, 0, 0, 5"/>
-            
+
             <TextBlock Style="{StaticResource HeaderTextBlock}"
                        Text="Фотография"
                        Margin="0, 10, 0, 5"/>
@@ -30,6 +26,7 @@
 
                 <!-- Image Drag And Drop Place -->
                 <Button Style="{StaticResource ImageDragAndDropPlace}"
+                        Background="Transparent"
                         Content="Нажмите или перетащите сюда изображение для загрузки"
                         Drop="ImageDrop" Height="150"
                         Click="ImageOpenClick"/>
@@ -63,7 +60,6 @@
                                     Visibility="Visible"
                                     Click="DeleteButtonClick"/>
                         </Grid>
-
                     </Border>
                 </Grid>
             </StackPanel>
@@ -77,9 +73,9 @@
                         Opacity="0.8"/>
             <TextBox x:Name="name" 
                     Style="{StaticResource DataEditTextBox}"
-                    FontSize="15"
+                    FontSize="20"
                     MaxLength="20"
-                    Margin="50, 0"
+                    Margin="100, 0"
                     Height="40"/>
 
             <!-- Author Info -->
@@ -105,7 +101,6 @@
                 <Button Style="{StaticResource RegistrationButton}"
                         Width="150"
                         Click="CancelClick">
-
                     <TextBlock Text="Отмена"
                                FontSize="22"/>
                 </Button>
@@ -115,13 +110,10 @@
                         Width="150" 
                         Margin="55, 0, 0, 0" 
                         Click="SaveClick">
-
                     <TextBlock Text="Сохранить"
                            FontSize="22"/>
                 </Button>
-
             </StackPanel>
         </StackPanel>
-
     </Grid>
 </Page>

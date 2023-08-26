@@ -5,116 +5,811 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ComicLib.Pages"
       xmlns:loc="clr-namespace:ComicLib"
+      xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
       d:DesignHeight="900" d:DesignWidth="1100"
       Title="ComicListPage"
-      x:Name="mainPage"
-      SizeChanged="MainPageSizeChanged">
+      x:Name="mainPage">
 
-    <Page.CacheMode>
-        <BitmapCache/>
-    </Page.CacheMode>
-    
-    <Grid>
+    <Page.Resources>
         
-        <DockPanel x:Name="dp" Margin="50"
-                   LastChildFill="False">
+        <!-- Genres Border Animation Style -->
+        <Style TargetType="Border" x:Key="GenreBorderFilter">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=genreButton, Path=IsChecked}" Value="True">
+                    <DataTrigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
 
-            <Border Background="White"
-                    CornerRadius="5">
-                <ListView x:Name="comicList"
-                          Background="Transparent"
-                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                          DockPanel.Dock="Left"
-                          BorderThickness="0"
-                          Width="800"
-                          Padding="10, 20, 10, 20">
+                                <!-- Sliding From The Right Side Animation -->
+                                <DoubleAnimation 
+                                    Duration="0:0:0:0.25" 
+                                    From="0"
+                                    To="300"
+                                    Storyboard.TargetProperty="Width"/>
+                                <!--<ThicknessAnimation Duration="0:0:0:0.25"
+                                                    From="0, 0, -300, 0"
+                                                    To="0, 0, 0, 0"
+                                                    Storyboard.TargetProperty="Margin"/>
+                                <DoubleAnimation Duration="0:0:0:0.25"
+                                                 From="0"
+                                                 To="1"
+                                                 Storyboard.TargetProperty="Opacity"/>-->
 
-                    <ListView.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapPanel x:Name="wrp" 
-                                       Orientation="Horizontal"
-                                       IsItemsHost="True"
-                                       HorizontalAlignment="Center"/>
-                        </ItemsPanelTemplate>
-                    </ListView.ItemsPanel>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </DataTrigger.EnterActions>
+                    <DataTrigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard>
 
-                    <ListView.Resources>
-                        <ControlTemplate x:Key="listViewComicItem"
-                                        TargetType="ListViewItem">
+                                <!-- Sliding To The Right Animation -->
+                                <DoubleAnimation 
+                                    Duration="0:0:0:0.25" 
+                                    From="300"
+                                    To="0"
+                                    Storyboard.TargetProperty="Width"/>
+                                <!--<ThicknessAnimation Duration="0:0:0:0.25"
+                                                    From="0, 0, 0, 0"
+                                                    To="0, 0, -300, 0"
+                                                    Storyboard.TargetProperty="Margin"/>
+                                <DoubleAnimation Duration="0:0:0:0.25"
+                                                 From="1"
+                                                 To="0"
+                                                 Storyboard.TargetProperty="Opacity"/>-->
 
-                            <Border x:Name="brd" 
-                                    Background="Gainsboro"
-                                    CornerRadius="5"
-                                    Padding="5"
-                                    Margin="10"
-                                    Width="189">
-                                <WrapPanel>
-                                    <Grid>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </DataTrigger.ExitActions>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
 
-                                        <Image Source="{Binding Cover, Converter={StaticResource ImgConvert}}"
-                                                Stretch="Fill"/>
+        <!-- Tags Border Animation Style -->
+        <Style TargetType="Border" x:Key="TagsFilterBorder">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=tagButton, Path=IsChecked}" Value="True">
+                    <DataTrigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
 
-                                        <Border VerticalAlignment="Bottom"
-                                                HorizontalAlignment="Stretch"
-                                                Height="150">
-                                            <Border.Background>
-                                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                                    <GradientStop Color="#00000000" Offset="0"/>
-                                                    <GradientStop Color="Black" Offset="1"/>
-                                                </LinearGradientBrush>
-                                            </Border.Background>
-                                        </Border>
+                                <!-- Sliding From The Right Side Animation -->
+                                <DoubleAnimation 
+                                    Duration="0:0:0:0.25" 
+                                    From="0"
+                                    To="300"
+                                    Storyboard.TargetProperty="Width"/>
 
-                                        <Border Background="Transparent">
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </DataTrigger.EnterActions>
+                    <DataTrigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard>
 
-                                            <Border.Effect>
-                                                <DropShadowEffect 
-                                                    ShadowDepth="1" Opacity="0.7" 
-                                                    BlurRadius="10" />
-                                            </Border.Effect>
+                                <!-- Sliding To The Right Animation -->
+                                <DoubleAnimation 
+                                    Duration="0:0:0:0.25" 
+                                    From="300"
+                                    To="0"
+                                    Storyboard.TargetProperty="Width"/>
 
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </DataTrigger.ExitActions>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Authors Border Animation Style -->
+        <Style TargetType="Border" x:Key="AuthorFilterBorder">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=authorButton, Path=IsChecked}" Value="True">
+                    <DataTrigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+
+                                <!-- Sliding From The Right Side Animation -->
+                                <DoubleAnimation 
+                                    Duration="0:0:0:0.25" 
+                                    From="0"
+                                    To="300"
+                                    Storyboard.TargetProperty="Width"/>
+
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </DataTrigger.EnterActions>
+                    <DataTrigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+
+                                <!-- Sliding To The Right Animation -->
+                                <DoubleAnimation 
+                                    Duration="0:0:0:0.25" 
+                                    From="300"
+                                    To="0"
+                                    Storyboard.TargetProperty="Width"/>
+
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </DataTrigger.ExitActions>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Style For Authors Filter List Box -->
+        <Style TargetType="ListBox" x:Key="AuthorStyle">
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Hidden"/>
+
+            <Setter Property="ItemContainerStyle">
+                <Setter.Value>
+                    <Style TargetType="{x:Type ListBoxItem}">
+                        <Setter Property="Margin" Value="5"/>
+                        <Setter Property="Padding" Value="5"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListBoxItem">
+
+                                    <Border x:Name="brd"
+                                            Height="30"
+                                            Background="Transparent">
+                                        <StackPanel Orientation="Horizontal">
+                                            <CheckBox x:Name="a"
+                                                    IsEnabled="False"
+                                                    VerticalAlignment="Center"
+                                                    Margin="20, 0, 10, 0"/>
+                                            <!-- Author Name -->
+                                            <TextBlock Text="{Binding Name}"
+                                                    FontSize="15"
+                                                    VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Border>
+
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Cursor" Value="Hand"/>
+                                        </Trigger>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter TargetName="a" Property="IsChecked" Value="True"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Style For Genres and Tags Filter List Box -->
+        <Style TargetType="ListBox" x:Key="TagAndGenreStyle">
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Hidden"/>
+
+            <Setter Property="ItemContainerStyle">
+                <Setter.Value>
+                    <Style TargetType="{x:Type ListBoxItem}">
+                        <Setter Property="Margin" Value="5"/>
+                        <Setter Property="Padding" Value="5, 5, 0, 5"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListBoxItem">
+
+                                    <Border x:Name="brd"
+                                            Height="30"
+                                            Background="Transparent">
+                                        <StackPanel Orientation="Horizontal">
+                                            <CheckBox x:Name="a"
+                                                    IsEnabled="False"
+                                                    VerticalAlignment="Center"
+                                                    Margin="20, 0, 10, 0"/>
+                                            <!-- Genre or Tag Title -->
                                             <TextBlock Text="{Binding Title}"
-                                                        Margin="2, 0, 2, 4"
-                                                        FontSize="18"
-                                                        Foreground="White"
-                                                        FontWeight="Bold"
-                                                        VerticalAlignment="Bottom"
-                                                        TextWrapping="Wrap"
-                                                        HorizontalAlignment="Center" 
-                                                        OpacityMask="Black">
-                                            </TextBlock>
-                                        </Border>
+                                                       FontSize="15"
+                                                       VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Border>
 
-                                    </Grid>
-                                </WrapPanel>
-                            </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Cursor" Value="Hand"/>
+                                        </Trigger>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter TargetName="a" Property="IsChecked" Value="True"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
 
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Cursor" Value="Hand"/>
-                                    <Setter TargetName="brd" Property="Background" Value="Gray"/>
-                                </Trigger>
-                            </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
 
-                        </ControlTemplate>
+    <Grid>
 
-                        <Style TargetType="ListViewItem">
-                            <Setter Property="Template" Value="{StaticResource listViewComicItem}"/>
-                        </Style>
+        <Grid x:Name="dp" Margin="40">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="40"/>
+                <ColumnDefinition Width="300"/>
+            </Grid.ColumnDefinitions>
 
-                    </ListView.Resources>
-                </ListView>
-            </Border>
-
-            <Border x:Name="filterBorder" Width="300" 
-                    DockPanel.Dock="Right"
-                    Background="White"
+            <!-- Comic List Border -->
+            <Border Background="White"
+                    Grid.Column="0"
                     CornerRadius="5"
-                    Margin="20, 0, 0, 0">
+                    Padding="2">
 
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                              VerticalScrollBarVisibility="Visible">
+
+                    <Grid>
+                        <!-- Catalog Header -->
+                        <TextBlock Text="Каталог комиксов"
+                                   VerticalAlignment="Top"
+                                   HorizontalAlignment="Left"
+                                   FontSize="21"
+                                   FontWeight="Bold"
+                                   Margin="30, 20"/>
+
+                        <!-- Comic Finder -->
+                        <Grid HorizontalAlignment="Stretch"
+                              VerticalAlignment="Top"
+                              Margin="30, 65, 135, 0">
+                            <TextBlock x:Name="findBack" 
+                                       Text="Поиск по названию..."
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Center"
+                                       Margin="20, 0"
+                                       FontSize="15"
+                                       Opacity="0.5"/>
+
+                            <!-- Find Link -->
+                            <TextBox x:Name="comicFind"
+                                     Background="Transparent"
+                                     FontFamily="Comic Sans MS"
+                                     Style="{StaticResource SearchTextBox}"
+                                     VerticalContentAlignment="Center"
+                                     HorizontalContentAlignment="Left"
+                                     TextChanged="ComicFindTextChanged"
+                                     FontSize="16"
+                                     Padding="10, 0"
+                                     Height="40"
+                                     MaxLength="20"/>
+                        </Grid>
+
+                        <!-- Find Button -->
+                        <Button Style="{StaticResource RegistrationButtonX2}"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Top"
+                                Margin="20, 65"
+                                Height="40" Width="100"
+                                Click="FindClick">
+                            <TextBlock Text="Найти"
+                                       FontSize="16"
+                                       Foreground="White"/>
+                        </Button>
+
+                        <!-- Comic List -->
+                        <ListView x:Name="comicList"
+                                  Background="Transparent"
+                                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                  ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                  BorderThickness="0"
+                                  HorizontalAlignment="Stretch"
+                                  SelectionChanged="ComicListSelectionChanged"
+                                  Margin="0, 120, 0, 20">
+
+                            <ListView.Template>
+                                <ControlTemplate>
+                                    <ItemsPresenter></ItemsPresenter>
+                                </ControlTemplate>
+                            </ListView.Template>
+
+                            <ListView.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel x:Name="wrp" 
+                                           Orientation="Horizontal"
+                                           IsItemsHost="True"
+                                           HorizontalAlignment="Center"/>
+                                </ItemsPanelTemplate>
+                            </ListView.ItemsPanel>
+
+                            <ListView.Resources>
+                                <ControlTemplate x:Key="ListViewComicItem"
+                                                 TargetType="ListViewItem">
+
+                                    <Border x:Name="brd" 
+                                            Background="Gainsboro"
+                                            CornerRadius="5"
+                                            Padding="5"
+                                            Margin="10"
+                                            Width="189">
+                                        <WrapPanel>
+                                            <Grid>
+                                                <!-- Comic Cover -->
+                                                <Image Source="{Binding Cover, Converter={StaticResource ImgConvert}}"
+                                                       Stretch="Fill"
+                                                       Height="280"/>
+
+                                                <!-- Fogging -->
+                                                <Border VerticalAlignment="Bottom"
+                                                        HorizontalAlignment="Stretch"
+                                                        Height="150">
+                                                    <Border.Background>
+                                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                            <GradientStop Color="#00000000" Offset="0"/>
+                                                            <GradientStop Color="Black" Offset="1"/>
+                                                        </LinearGradientBrush>
+                                                    </Border.Background>
+                                                </Border>
+
+                                                <!-- Comic Title -->
+                                                <Border Background="Transparent">
+
+                                                    <Border.Effect>
+                                                        <DropShadowEffect 
+                                                            ShadowDepth="1" Opacity="0.7" 
+                                                            BlurRadius="10" />
+                                                    </Border.Effect>
+
+                                                    <TextBlock Text="{Binding Title}"
+                                                               Margin="2, 0, 2, 4"
+                                                               FontSize="18"
+                                                               Foreground="White"
+                                                               FontWeight="Bold"
+                                                               VerticalAlignment="Bottom"
+                                                               TextWrapping="Wrap"
+                                                               HorizontalAlignment="Center" 
+                                                               OpacityMask="Black"/>
+                                                </Border>
+
+                                            </Grid>
+                                        </WrapPanel>
+                                    </Border>
+
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Cursor" Value="Hand"/>
+                                            <Setter TargetName="brd" Property="Background" Value="Gray"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+
+                                </ControlTemplate>
+
+                                <Style TargetType="ListViewItem">
+                                    <Setter Property="Template" Value="{StaticResource ListViewComicItem}"/>
+                                </Style>
+
+                            </ListView.Resources>
+                        </ListView>
+
+                        <!-- No Elements Text Block -->
+                        <TextBlock x:Name="noElements" 
+                                   Visibility="Hidden"
+                                   Text="Нет элементов"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   FontSize="25"/>
+                    </Grid>
+                </ScrollViewer>
             </Border>
 
-        </DockPanel>
+
+            <!-- Filter -->
+            <Border x:Name="filterBorder"
+                    MinWidth="300"
+                    Grid.Column="2"
+                    Background="White"
+                    CornerRadius="5">
+
+                <Grid>
+                    <StackPanel Margin="10">
+                        <StackPanel.Resources>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="FontSize" Value="17"/>
+                                <Setter Property="FontFamily" Value="Comic Sans MS"/>
+                            </Style>
+                        </StackPanel.Resources>
+
+                        <TextBlock Text="Фильтры:"
+                                   HorizontalAlignment="Center"
+                                   Margin="0, 10"/>
+
+                        <!-- Horizontal Splitter -->
+                        <Rectangle Grid.Column="2"
+                                       Height="2"
+                                       Margin="30, 10"
+                                       Fill="{StaticResource MainOrangeBrush}"/>
+
+                        <!-- Genres Filter -->
+                        <ToggleButton x:Name="genreButton" 
+                                      Height="50"
+                                      Style="{StaticResource FilterToggleButton}"
+                                      Checked="GenreToggleButtonChecked">
+                            <Grid>
+                                <TextBlock Text="Жанры"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Left"
+                                           Margin="10, 0"/>
+                                <!-- Genres Chosen Filters -->
+                                <TextBlock Text="Любые"
+                                           MaxWidth="170"
+                                           FontSize="14"
+                                           Opacity="0.6"
+                                           x:Name="genres"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Right"
+                                           Margin="30, 0, 15, 0"/>
+                            </Grid>
+                        </ToggleButton>
+
+                        <!-- Tags Filter -->
+                        <ToggleButton x:Name="tagButton" 
+                                      Height="50"
+                                      Style="{StaticResource FilterToggleButton}"
+                                      Checked="TagToggleButtonChecked">
+                            <Grid>
+                                <TextBlock Text="Теги"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Left"
+                                           Margin="10, 0"/>
+                                <!-- Tags Chosen Filters -->
+                                <TextBlock Text="Любые"
+                                           MaxWidth="170"
+                                           FontSize="14"
+                                           Opacity="0.6"
+                                           x:Name="tags"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Right"
+                                           Margin="30, 0, 15, 0"/>
+                            </Grid>
+                        </ToggleButton>
+
+                        <!-- Author Filter -->
+                        <ToggleButton x:Name="authorButton" 
+                                      Height="50"
+                                      Style="{StaticResource FilterToggleButton}"
+                                      Checked="AuthorToggleButtonChecked">
+                            <Grid>
+                                <TextBlock Text="Авторы"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Left"
+                                           Margin="10, 0"/>
+                                <!-- Authors Chosen Filters -->
+                                <TextBlock Text="Любые"
+                                           MaxWidth="170"
+                                           FontSize="14"
+                                           Opacity="0.6"
+                                           x:Name="authors"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Right"
+                                           Margin="30, 0, 15, 0"/>
+                            </Grid>
+                        </ToggleButton>
+
+                        <!-- Comic Page Number -->
+                        <TextBlock Text="Количество страниц"
+                                   HorizontalAlignment="Left"
+                                   Margin="10"/>
+                        <Grid Height="30"
+                              Margin="10, 5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="60"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Num From -->
+                            <Grid>
+                                <TextBlock x:Name="numFromBack"
+                                           Text="От"
+                                           FontFamily="Comic Sans MS"
+                                           HorizontalAlignment="Left"
+                                           VerticalAlignment="Center"
+                                           FontSize="14"
+                                           Margin="14, 0"
+                                           Opacity="0.7"/>
+                                <TextBox x:Name="numFrom"
+                                         PreviewKeyDown="TextBoxPreviewKeyDown"
+                                         PreviewTextInput="NumFromPreviewTextInput"
+                                         MaxLength="2"
+                                         FontSize="14"
+                                         FontWeight="Bold"
+                                         Style="{StaticResource RegularTextBox}"
+                                         Background="Transparent"
+                                         TextChanged="NumFromTextChanged"/>
+                            </Grid>
+
+                            <material:PackIcon Kind="Minus" Grid.Column="1"
+                                               Height="25" Width="30"
+                                               Opacity="0.5"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"/>
+
+                            <!-- Num To -->
+                            <Grid Grid.Column="2">
+                                <TextBlock x:Name="numToBack"
+                                           Text="До"
+                                           FontFamily="Comic Sans MS"
+                                           HorizontalAlignment="Left"
+                                           VerticalAlignment="Center"
+                                           FontSize="14"
+                                           Margin="14, 0"
+                                           Opacity="0.7"/>
+                                <TextBox x:Name="numTo"
+                                         PreviewKeyDown="TextBoxPreviewKeyDown"
+                                         PreviewTextInput="NumFromPreviewTextInput"
+                                         MaxLength="2"
+                                         FontSize="14"
+                                         FontWeight="Bold"
+                                         Style="{StaticResource RegularTextBox}"
+                                         Background="Transparent"
+                                         TextChanged="NumToTextChanged"/>
+                            </Grid>
+
+                        </Grid>
+
+                        <!-- Comic Year -->
+                        <TextBlock Text="Год выпуска"
+                                   HorizontalAlignment="Left"
+                                   Margin="10"/>
+                        <Grid Height="30"
+                              Margin="10, 5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="60"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Year From -->
+                            <Grid>
+                                <TextBlock x:Name="yearFromBack"
+                                           Text="От"
+                                           FontFamily="Comic Sans MS"
+                                           HorizontalAlignment="Left"
+                                           VerticalAlignment="Center"
+                                           FontSize="14"
+                                           Margin="14, 0"
+                                           Opacity="0.7"/>
+                                <TextBox x:Name="yearFrom"
+                                         PreviewKeyDown="TextBoxPreviewKeyDown"
+                                         PreviewTextInput="NumFromPreviewTextInput"
+                                         MaxLength="4"
+                                         FontSize="14"
+                                         FontWeight="Bold"
+                                         Style="{StaticResource RegularTextBox}"
+                                         Background="Transparent"
+                                         TextChanged="YearFromTextChanged"/>
+                            </Grid>
+
+                            <material:PackIcon Kind="Minus" Grid.Column="1"
+                                               Height="25" Width="30"
+                                               Opacity="0.5"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"/>
+                            <!-- Year To -->
+                            <Grid Grid.Column="2">
+                                <TextBlock x:Name="yearToBack"
+                                           Text="До"
+                                           FontFamily="Comic Sans MS"
+                                           HorizontalAlignment="Left"
+                                           VerticalAlignment="Center"
+                                           FontSize="14"
+                                           Margin="14, 0"
+                                           Opacity="0.7"/>
+                                <TextBox x:Name="yearTo"
+                                         PreviewKeyDown="TextBoxPreviewKeyDown"
+                                         PreviewTextInput="NumFromPreviewTextInput"
+                                         MaxLength="4"
+                                         FontSize="14"
+                                         FontWeight="Bold"
+                                         Style="{StaticResource RegularTextBox}"
+                                         Background="Transparent"
+                                         TextChanged="YearToTextChanged"/>
+                            </Grid>
+                        </Grid>
+                    </StackPanel>
+
+                    <!-- Bottom Buttons -->
+                    <Grid VerticalAlignment="Bottom"
+                          Height="40"
+                          Margin="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Reset Button -->
+                        <Button Style="{StaticResource RegistrationButtonX2}"
+                                Click="ResetClick">
+                            <TextBlock Text="Сбросить"
+                                       Foreground="White"
+                                       FontSize="17"/>
+                        </Button>
+
+                        <!-- Show Button -->
+                        <Button Style="{StaticResource RegistrationButtonX2}"
+                                Grid.Column="2"
+                                Click="ShowClick">
+                            <TextBlock Text="Показать"
+                                       Foreground="White"
+                                       FontSize="17"/>
+                        </Button>
+                    </Grid>
+
+                    <!-- Genre Filter Border -->
+                    <Border Style="{StaticResource GenreBorderFilter}"
+                            Background="White" 
+                            CornerRadius="5"
+                            HorizontalAlignment="Right"
+                            Width="0">
+
+                        <Grid>
+                            <!-- Filter Close Button -->
+                            <Button Style="{StaticResource FilterButton}"
+                                    VerticalAlignment="Top"
+                                    HorizontalAlignment="Left"
+                                    Height="40" Width="100"
+                                    Margin="10"
+                                    Click="FilterBackClick">
+                                <StackPanel Orientation="Horizontal"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center">
+                                    <material:PackIcon Kind="ArrowLeft"
+                                                       VerticalAlignment="Center"
+                                                       Width="20" Height="20"
+                                                       Foreground="Black"/>
+                                    <TextBlock Text="Жанры"
+                                               FontSize="17"/>
+                                </StackPanel>
+                            </Button>
+
+                            <!-- Horizontal Splitter -->
+                            <Rectangle Grid.Column="2"
+                                       Height="2"
+                                       Margin="30, 65"
+                                       VerticalAlignment="Top"
+                                       Fill="{StaticResource MainOrangeBrush}"/>
+
+                            <!-- Genre Filter List -->
+                            <ListBox SelectionMode="Multiple"
+                                     x:Name="genreFilterList"
+                                     Margin="0, 80, 0, 50"
+                                     SelectionChanged="GenreFilterListSelectionChanged"
+                                     Style="{StaticResource TagAndGenreStyle}"/>
+
+                            <!-- Choise Button -->
+                            <Button Style="{StaticResource RegistrationButtonX2}"
+                                    VerticalAlignment="Bottom"
+                                    HorizontalAlignment="Center"
+                                    Height="35" Width="150"
+                                    Margin="10"
+                                    Click="FilterBackClick">
+                                <TextBlock Text="Выбрать"
+                                           Foreground="White"
+                                           FontSize="17"/>
+                            </Button>
+                        </Grid>
+                    </Border>
+
+                    <!-- Tag Filter Border -->
+                    <Border Style="{StaticResource TagsFilterBorder}"
+                            Background="White" 
+                            CornerRadius="5"
+                            HorizontalAlignment="Right"
+                            Width="0">
+
+                        <Grid>
+                            <!-- Filter Close Button -->
+                            <Button Style="{StaticResource FilterButton}"
+                                    VerticalAlignment="Top"
+                                    HorizontalAlignment="Left"
+                                    Height="40" Width="100"
+                                    Margin="10"
+                                    Click="FilterBackClick">
+                                <StackPanel Orientation="Horizontal"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center">
+                                    <material:PackIcon Kind="ArrowLeft"
+                                                       VerticalAlignment="Center"
+                                                       Width="20" Height="20"
+                                                       Foreground="Black"/>
+                                    <TextBlock Text="Теги"
+                                               FontSize="17"/>
+                                </StackPanel>
+                            </Button>
+
+                            <!-- Horizontal Splitter -->
+                            <Rectangle Grid.Column="2"
+                                       Height="2"
+                                       Margin="30, 65"
+                                       VerticalAlignment="Top"
+                                       Fill="{StaticResource MainOrangeBrush}"/>
+
+                            <!-- Tag Filter List -->
+                            <ListBox SelectionMode="Multiple"
+                                     x:Name="tagFilterList"
+                                     SelectionChanged="TagFilterListSelectionChanged"
+                                     Margin="0, 80, 0, 50"
+                                     Style="{StaticResource TagAndGenreStyle}"/>
+
+                            <!-- Choise Button -->
+                            <Button Style="{StaticResource RegistrationButtonX2}"
+                                    VerticalAlignment="Bottom"
+                                    HorizontalAlignment="Center"
+                                    Height="35" Width="150"
+                                    Margin="10"
+                                    Click="FilterBackClick">
+                                <TextBlock Text="Выбрать"
+                                           Foreground="White"
+                                           FontSize="17"/>
+                            </Button>
+                        </Grid>
+                    </Border>
+
+                    <!-- Author Filter Border -->
+                    <Border Style="{StaticResource AuthorFilterBorder}"
+                            Background="White" 
+                            CornerRadius="5"
+                            HorizontalAlignment="Right"
+                            Width="0">
+
+                        <Grid>
+                            <!-- Filter Close Button -->
+                            <Button Style="{StaticResource FilterButton}"
+                                    VerticalAlignment="Top"
+                                    HorizontalAlignment="Left"
+                                    Height="40" Width="100"
+                                    Margin="10"
+                                    Click="FilterBackClick">
+                                <StackPanel Orientation="Horizontal"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center">
+                                    <material:PackIcon Kind="ArrowLeft"
+                                                       VerticalAlignment="Center"
+                                                       Width="20" Height="20"
+                                                       Foreground="Black"/>
+                                    <TextBlock Text="Авторы"
+                                               FontSize="17"/>
+                                </StackPanel>
+                            </Button>
+
+                            <!-- Horizontal Splitter -->
+                            <Rectangle Grid.Column="2"
+                                       Height="2"
+                                       Margin="30, 65"
+                                       VerticalAlignment="Top"
+                                       Fill="{StaticResource MainOrangeBrush}"/>
+
+                            <!-- Author Filter List -->
+                            <ListBox SelectionMode="Multiple"
+                                     x:Name="authorFilterList"
+                                     Margin="0, 80, 0, 50"
+                                     Style="{StaticResource AuthorStyle}"
+                                     SelectionChanged="AuthorFilterListSelectionChanged"/>
+
+                            <!-- Choise Button -->
+                            <Button Style="{StaticResource RegistrationButtonX2}"
+                                    VerticalAlignment="Bottom"
+                                    HorizontalAlignment="Center"
+                                    Height="35" Width="150"
+                                    Margin="10"
+                                    Click="FilterBackClick">
+                                <TextBlock Text="Выбрать"
+                                           Foreground="White"
+                                           FontSize="17"/>
+                            </Button>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </Border>
+        </Grid>
     </Grid>
 </Page>

@@ -10,9 +10,46 @@
       Title="ComicCreatePage"
       SizeChanged="PageSizeChanged">
 
-    <Page.CacheMode>
-        <BitmapCache/>
-    </Page.CacheMode>
+    <Page.Resources>
+        <Style TargetType="StackPanel" x:Key="StackPanelElement">
+            <Setter Property="Orientation" Value="Horizontal"/>
+            <Setter Property="Margin" Value="50, 5"/>
+            <Setter Property="Visibility" Value="Hidden"/>
+            <Setter Property="Height" Value="0"/>
+        </Style>
+        <Style TargetType="WrapPanel" x:Key="WrapPanelElement">
+            <Setter Property="Orientation" Value="Horizontal"/>
+            <Setter Property="Margin" Value="50, 5"/>
+            <Setter Property="Visibility" Value="Hidden"/>
+            <Setter Property="Height" Value="0"/>
+        </Style>
+        <Style TargetType="Border" x:Key="BorderElement">
+            <Setter Property="Background" Value="{StaticResource MainOrangeBrush}"/>
+            <Setter Property="Visibility" Value="Hidden"/>
+            <Setter Property="CornerRadius" Value="3"/>
+            <Setter Property="Margin" Value="0, 5, 10, 0"/>
+        </Style>
+        <Style TargetType="Rectangle" x:Key="Splitter">
+            <Setter Property="Fill" Value="White"/>
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="Margin" Value="5, 0, 0, 0"/>
+            <Setter Property="Width" Value="1"/>
+            <Setter Property="RadiusX" Value="0.5"/>
+            <Setter Property="RadiusY" Value="0.5"/>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="ElementName">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Margin" Value="5, 0, 0, 0"/>
+            <Setter Property="FontFamily" Value="Comic Sans MS"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+        <Style TargetType="material:PackIcon" x:Key="CrossElement">
+            <Setter Property="Kind" Value="Close"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+    </Page.Resources>
 
     <Grid>
 
@@ -66,6 +103,7 @@
 
                                 <!-- Image Drag And Drop Place -->
                                 <Button Style="{StaticResource ImageDragAndDropPlace}"
+                                        Background="Transparent"
                                         Content="Нажмите или перетащите сюда изображение для загрузки"
                                         Drop="ImageDrop" Height="200"
                                         Click="ImageOpenClick"/>
@@ -89,7 +127,7 @@
                                                     HorizontalAlignment="Center"
                                                     VerticalAlignment="Center"/>
                                             <Image x:Name="cover"
-                                                   Source="{Binding Avatar, Converter={StaticResource ImgConvert}}"
+                                                   Source="{Binding Cover, Converter={StaticResource ImgConvert}}"
                                                    Stretch="Fill"
                                                    Width="150" Height="200"/>
                                             <Button x:Name="deleteButton" Style="{StaticResource DeleteButton}"
@@ -106,11 +144,15 @@
 
                             <!-- Comic Year -->
                             <TextBlock Style="{StaticResource HeaderTextBlock}"
-                                       Text="Год "/>
-                            <TextBlock Text="Введите год выпуска комикса"
+                                       Text="Год"
+                                       Margin="0, 20, 0, 0"/>
+                            <TextBlock x:Name="yearMSG" Text="Введите год выпуска комикса"
                                        HorizontalAlignment="Center"
                                        Opacity="0.8"/>
                             <TextBox x:Name="year"
+                                     Text="{Binding Year}"
+                                     TextChanged="YearTextChanged"
+                                     PreviewTextInput="YearPreviewTextInput"
                                      Style="{StaticResource DataEditTextBox}"
                                      Width="200" Height="40"
                                      FontSize="20"
@@ -119,15 +161,20 @@
                             <!-- Comic Info -->
                             <TextBlock Style="{StaticResource HeaderTextBlock}"
                                        Text="Описание"
-                                       Margin="0, 20, 0, 10"/>
+                                       Margin="0, 20, 0, 0"/>
+                            <TextBlock x:Name="infoMSG" Text="Введите краткое описание комикса"
+                                       HorizontalAlignment="Center"/>
                             <TextBox x:Name="info"
+                                     Text="{Binding Info}"
+                                     TextChanged="InfoTextChanged"
+                                     PreviewTextInput="RegularTextPreviewTextInput"
                                      TextWrapping="Wrap"
                                      MaxLength="500"
                                      Style="{StaticResource DataEditTextBox}"
                                      HorizontalContentAlignment="Left"
                                      VerticalContentAlignment="Top"
                                      Padding="10" FontSize="15"
-                                     Height="85" Margin="50, 0"/>
+                                     Height="87" Margin="50, 0"/>
 
                         </StackPanel>
 
@@ -144,106 +191,238 @@
                             <!-- Comic Title -->
                             <TextBlock Style="{StaticResource HeaderTextBlock}"
                                        Text="Название комикса"
-                                       Margin="0, 0, 0, 10"/>
+                                       Margin="0"/>
+                            <TextBlock x:Name="titleMSG" Text="Введите название будующего комикса"
+                                       HorizontalAlignment="Center"/>
                             <TextBox x:Name="title" 
+                                     Text="{Binding Title}"
                                      Style="{StaticResource DataEditTextBox}"
                                      TextWrapping="Wrap"
-                                     Height="50"
+                                     MinHeight="40" Height="Auto"
+                                     TextChanged="TitleTextChanged"
+                                     PreviewTextInput="RegularTextPreviewTextInput"
                                      MaxLength="50"
-                                     FontSize="15"
+                                     FontSize="18"
                                      Margin="50, 0"/>
 
-                            <!-- Comic Author -->
-                            <TextBlock Style="{StaticResource HeaderTextBlock}"
-                                       Text="Автор"/>
-                            <Grid Margin="60, 0">
+                            <!--#region Authors-->
+                            <StackPanel  Margin="60, 0"
+                                         x:Name="authorBack">
+                                
+                                <!-- Comic Author -->
+                                <TextBlock Style="{StaticResource HeaderTextBlock}"
+                                           Text="Автор"
+                                           Margin="0, 10, 0, 5"/>
 
-                                <!-- Author Find -->
-                                <TextBox x:Name="authorFind" 
-                                         Style="{StaticResource DataEditTextBox}"
-                                         Height="40" Margin="10, 0, 50, 0"
-                                         MaxLength="20"
-                                         HorizontalContentAlignment="Left"
-                                         MinWidth="300"
-                                         TextChanged="AuthorFindTextChanged"/>
+                                <Grid>
+                                    <!-- Author Find -->
+                                    <TextBox x:Name="authorFind" 
+                                             Style="{StaticResource DataEditTextBox}"
+                                             Height="40" Margin="10, 0, 50, 0"
+                                             MaxLength="20" FontSize="15"
+                                             GotFocus="AuthorFindGotFocus"
+                                             HorizontalContentAlignment="Left"
+                                             MinWidth="300"
+                                             TextChanged="AuthorFindTextChanged"/>
 
-                                <Button Style="{StaticResource RegistrationButton}"
-                                        Width="40"
-                                        HorizontalAlignment="Right"
-                                        Click="AuthorAddClick">
-                                    <material:PackIcon 
-                                        Kind="Add"
-                                        Height="40" Width="40"/>
-                                </Button>
-                            </Grid>
+                                    <!-- Author Add Button -->
+                                    <Button Style="{StaticResource RegistrationButton}"
+                                            Width="40"
+                                            HorizontalAlignment="Right"
+                                            Click="AuthorAddClick">
+                                        <material:PackIcon 
+                                            Kind="Add"
+                                            Height="40" Width="40"/>
+                                    </Button>
+                                </Grid>
+                            </StackPanel>
 
-                            <StackPanel x:Name="elementsPanel" 
-                                        Orientation="Horizontal"
-                                        Margin="70, 5"
-                                        Visibility="Visible">
-
+                            <!--#region Authors Elements-->
+                            <StackPanel x:Name="authorElementsPanel" 
+                                        Style="{StaticResource StackPanelElement}">
                                 <!-- First Author Element -->
                                 <Border x:Name="authorTagA"
-                                        Visibility="Hidden"
-                                        CornerRadius="3"
-                                        Background="{StaticResource MainOrangeBrush}">
-                                    <StackPanel Orientation="Horizontal"
-                                                VerticalAlignment="Center">
+                                        Style="{StaticResource BorderElement}">
+                                    <StackPanel Orientation="Horizontal">
                                         <TextBlock x:Name="authorA" 
-                                                    VerticalAlignment="Center"
-                                                    Foreground="White"
-                                                    Margin="5, 0, 0, 0"/>
-                                        <Rectangle Fill="White"
-                                                    Height="20"
-                                                    Margin="5, 0, 0, 0"
-                                                    Width="1"
-                                                    RadiusY="0.5" RadiusX="0.5"/>
+                                                   Style="{StaticResource ElementName}"/>
+                                        <Rectangle Style="{StaticResource Splitter}"/>
                                         <Button Style="{StaticResource DeleteElementButton}"
-                                                Height="30" Width="30"
                                                 Click="AuthorARemoveClick">
-                                            <material:PackIcon 
-                                                Kind="Close"
-                                                Foreground="White"
-                                                VerticalAlignment="Center"/>
+                                            <material:PackIcon Style="{StaticResource CrossElement}"/>
                                         </Button>
-
                                     </StackPanel>
                                 </Border>
 
                                 <!-- Second Author Element -->
                                 <Border x:Name="authorTagB"
-                                        Visibility="Hidden"
-                                        CornerRadius="3"
-                                        Margin="10, 0"
-                                        Background="{StaticResource MainOrangeBrush}">
-                                    <StackPanel Orientation="Horizontal"
-                                                VerticalAlignment="Center">
+                                        Style="{StaticResource BorderElement}">
+                                    <StackPanel Orientation="Horizontal">
                                         <TextBlock x:Name="authorB" 
-                                                   VerticalAlignment="Center"
-                                                   Foreground="White"
-                                                   Margin="5, 0, 0, 0"/>
-                                        <Rectangle Fill="White"
-                                                   Height="20"
-                                                   Margin="5, 0, 0, 0"
-                                                   Width="1"
-                                                   RadiusY="0.5" RadiusX="0.5"/>
+                                                   Style="{StaticResource ElementName}"/>
+                                        <Rectangle Style="{StaticResource Splitter}"/>
                                         <Button Style="{StaticResource DeleteElementButton}"
-                                                Height="30" Width="30"
                                                 Click="AuthorBRemoveClick">
-                                            <material:PackIcon 
-                                                Kind="Close"
-                                                Foreground="White"
-                                                VerticalAlignment="Center"/>
+                                            <material:PackIcon Style="{StaticResource CrossElement}"/>
                                         </Button>
+                                    </StackPanel>
+                                </Border>
+                            </StackPanel>
+                            <!--#endregion-->
 
+                            <!-- Authors Lists -->
+                            <Grid x:Name="listGrid"
+                                  Visibility="Hidden"
+                                  IsVisibleChanged="ListsIsVisibleChanged"/>
+                            <!--#endregion-->
+                            
+
+                            <!--#region Genres-->
+                            <StackPanel x:Name="genreBack"
+                                        Margin="60, 0">
+
+                                <!-- Comic Genre -->
+                                <TextBlock Style="{StaticResource HeaderTextBlock}"
+                                           Text="Жанр"
+                                           Margin="0, 10, 0, 5"/>
+
+                                <!-- Genre Find -->
+                                <TextBox x:Name="genreFind" 
+                                         Style="{StaticResource DataEditTextBox}"
+                                         Height="40" Margin="10, 0, 10, 0"
+                                         MaxLength="20" FontSize="15"
+                                         GotFocus="GenreFindGotFocus"
+                                         HorizontalContentAlignment="Left"
+                                         MinWidth="300"
+                                         TextChanged="GenreFindTextChanged"/>
+                            </StackPanel>
+
+                            <!--#region Genres Elements-->
+                            <WrapPanel x:Name="genreElementsPanel"
+                                       Style="{StaticResource WrapPanelElement}">
+                                <!-- First Genre Element -->
+                                <Border x:Name="genreTagA"
+                                        Style="{StaticResource BorderElement}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock x:Name="genreA" 
+                                                   Style="{StaticResource ElementName}"/>
+                                        <Rectangle Style="{StaticResource Splitter}"/>
+                                        <Button Style="{StaticResource DeleteElementButton}"
+                                                Click="GenreARemoveClick">
+                                            <material:PackIcon Style="{StaticResource CrossElement}"/>
+                                        </Button>
                                     </StackPanel>
                                 </Border>
 
+                                <!-- Second Genre Element -->
+                                <Border x:Name="genreTagB"
+                                        Style="{StaticResource BorderElement}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock x:Name="genreB" 
+                                                   Style="{StaticResource ElementName}"/>
+                                        <Rectangle Style="{StaticResource Splitter}"/>
+                                        <Button Style="{StaticResource DeleteElementButton}"
+                                                Click="GenreBRemoveClick">
+                                            <material:PackIcon Style="{StaticResource CrossElement}"/>
+                                        </Button>
+                                    </StackPanel>
+                                </Border>
+
+                                <!-- Third Genre Element -->
+                                <Border x:Name="genreTagC"
+                                        Style="{StaticResource BorderElement}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock x:Name="genreC" 
+                                                   Style="{StaticResource ElementName}"/>
+                                        <Rectangle Style="{StaticResource Splitter}"/>
+                                        <Button Style="{StaticResource DeleteElementButton}"
+                                                Click="GenreCRemoveClick">
+                                            <material:PackIcon Style="{StaticResource CrossElement}"/>
+                                        </Button>
+                                    </StackPanel>
+                                </Border>
+                            </WrapPanel>
+                            <!--#endregion-->
+
+                            <!-- Genres Lists -->
+                            <Grid x:Name="listGenre"
+                                  Visibility="Hidden"
+                                  IsVisibleChanged="ListsIsVisibleChanged"/>
+                            <!--#endregion-->
+
+                                
+                            <!--#region Tags-->
+                            <StackPanel Margin="60, 0"
+                                        x:Name="tagBack">
+                                
+                                <!-- Comic Tag -->
+                                <TextBlock Style="{StaticResource HeaderTextBlock}"
+                                           Text="Тег"
+                                           Margin="0, 10, 0, 5"/>
+
+                                <!-- Tag Find -->
+                                <TextBox x:Name="tagFind" 
+                                         Style="{StaticResource DataEditTextBox}"
+                                         Height="40" Margin="10, 0, 10, 0"
+                                         MaxLength="20" FontSize="15"
+                                         GotFocus="TagFindGotFocus"
+                                         HorizontalContentAlignment="Left"
+                                         MinWidth="300"
+                                         TextChanged="TagFindTextChanged"/>
                             </StackPanel>
 
-                            <!-- Authors Lists -->
-                            <Grid x:Name="listGrid"/>
+                            <!--#region Genres Elements-->
+                            <WrapPanel x:Name="tagElementsPanel"
+                                       Style="{StaticResource WrapPanelElement}">
+                                <!-- First Genre Element -->
+                                <Border x:Name="tagTagA"
+                                        Style="{StaticResource BorderElement}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock x:Name="tagA" 
+                                                   Style="{StaticResource ElementName}"/>
+                                        <Rectangle Style="{StaticResource Splitter}"/>
+                                        <Button Style="{StaticResource DeleteElementButton}"
+                                                Click="TagARemoveClick">
+                                            <material:PackIcon Style="{StaticResource CrossElement}"/>
+                                        </Button>
+                                    </StackPanel>
+                                </Border>
 
+                                <!-- Second Genre Element -->
+                                <Border x:Name="tagTagB"
+                                        Style="{StaticResource BorderElement}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock x:Name="tagB" 
+                                                   Style="{StaticResource ElementName}"/>
+                                        <Rectangle Style="{StaticResource Splitter}"/>
+                                        <Button Style="{StaticResource DeleteElementButton}"
+                                                Click="TagBRemoveClick">
+                                            <material:PackIcon Style="{StaticResource CrossElement}"/>
+                                        </Button>
+                                    </StackPanel>
+                                </Border>
+
+                                <!-- Third Genre Element -->
+                                <Border x:Name="tagTagC"
+                                        Style="{StaticResource BorderElement}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock x:Name="tagC" 
+                                                   Style="{StaticResource ElementName}"/>
+                                        <Rectangle Style="{StaticResource Splitter}"/>
+                                        <Button Style="{StaticResource DeleteElementButton}"
+                                                Click="TagCRemoveClick">
+                                            <material:PackIcon Style="{StaticResource CrossElement}"/>
+                                        </Button>
+                                    </StackPanel>
+                                </Border>
+                            </WrapPanel>
+                            <!--#endregion-->
+
+                            <!-- Tags Lists -->
+                            <Grid x:Name="listTags"
+                                  Visibility="Hidden"
+                                  IsVisibleChanged="ListsIsVisibleChanged"/>
+                            <!--#endregion-->
 
                         </StackPanel>
 
@@ -258,12 +437,13 @@
                           DockPanel.Dock="Bottom">
 
                         <!-- Save Button -->
-                        <StackPanel VerticalAlignment="Bottom"
-                                    Margin="0, 0, 0, 30">
+                        <StackPanel VerticalAlignment="Center"
+                                    Margin="0, 0, 0, 0">
                             <TextBlock Text="Хотите сохранить комикс?"
                                        HorizontalAlignment="Center"
                                        Margin="0, 0, 0, 5"/>
-                            <Button Style="{StaticResource RegistrationButton}"
+                            <Button x:Name="saveButton" 
+                                    Style="{StaticResource RegistrationButton}"
                                     Grid.Column="1"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Bottom"

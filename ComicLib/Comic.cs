@@ -18,10 +18,10 @@ namespace ComicLib
         public Comic()
         {
             this.ComicAndAuthor = new HashSet<ComicAndAuthor>();
-            this.ComicAndComment = new HashSet<ComicAndComment>();
             this.ComicAndGenre = new HashSet<ComicAndGenre>();
-            this.ComicAndPage = new HashSet<ComicAndPage>();
             this.ComicAndTag = new HashSet<ComicAndTag>();
+            this.Comment = new HashSet<Comment>();
+            this.Page = new HashSet<Page>();
             this.UserAndFavorite = new HashSet<UserAndFavorite>();
         }
     
@@ -36,13 +36,13 @@ namespace ComicLib
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ComicAndAuthor> ComicAndAuthor { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ComicAndComment> ComicAndComment { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ComicAndGenre> ComicAndGenre { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ComicAndPage> ComicAndPage { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ComicAndTag> ComicAndTag { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Comment> Comment { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Page> Page { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserAndFavorite> UserAndFavorite { get; set; }
     }

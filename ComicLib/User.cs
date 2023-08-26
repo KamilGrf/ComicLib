@@ -18,7 +18,7 @@ namespace ComicLib
         public User()
         {
             this.Comic = new HashSet<Comic>();
-            this.UserAndComment = new HashSet<UserAndComment>();
+            this.Comment = new HashSet<Comment>();
             this.UserAndFavorite = new HashSet<UserAndFavorite>();
         }
     
@@ -27,12 +27,12 @@ namespace ComicLib
         public string Email { get; set; }
         public string Password { get; set; }
         public byte[] Avatar { get; set; }
-        public Nullable<decimal> Rank { get; set; }
+        public bool Rank { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comic> Comic { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserAndComment> UserAndComment { get; set; }
+        public virtual ICollection<Comment> Comment { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserAndFavorite> UserAndFavorite { get; set; }
     }

@@ -26,8 +26,10 @@ namespace ComicLib
         {
             InitializeComponent();
 
-            DBHelper.Authors = DBHelper.DBContext.Author.ToList();
-            DBHelper.Comics = DBHelper.DBContext.Comic.ToList();
+            DBHelper.Authors = DBHelper.DBContext.Author.OrderBy(a => a.Name).ToList();
+            DBHelper.Comics = DBHelper.DBContext.Comic.OrderBy(a => a.Title).ToList();
+            DBHelper.Genres = DBHelper.DBContext.Genre.OrderBy(a => a.Title).ToList();
+            DBHelper.Tags = DBHelper.DBContext.Tag.OrderBy(a => a.Title).ToList();
         }
 
         private void CloseClick(object sender, RoutedEventArgs e)
@@ -43,13 +45,9 @@ namespace ComicLib
         private void MaximizeClick(object sender, RoutedEventArgs e)
         {
             if (WindowState == WindowState.Normal)
-            {
                 WindowState = WindowState.Maximized;
-            }
             else
-            {
                 WindowState = WindowState.Normal;
-            }
         }
 
         private void MenuClick(object sender, RoutedEventArgs e)
@@ -58,6 +56,36 @@ namespace ComicLib
             Point pointToScreen = PointToScreen(pointToWindow);
 
             SystemCommands.ShowSystemMenu(this, pointToScreen);
+        }
+
+        private void WindowMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (mainFrame.Content is ViewPort)
+            {
+                if ((mainFrame.Content as ViewPort).viewFrame.Content is ComicInfo)
+                {
+                    if (((mainFrame.Content as ViewPort).viewFrame.Content as ComicInfo).comicInfoFrame.Content is ComicComments)
+                    {
+                        (((mainFrame.Content as ViewPort).viewFrame.Content as ComicInfo).comicInfoFrame.Content as ComicComments).sortBack.Visibility = Visibility.Hidden;
+                    }
+                }
+                else if ((mainFrame.Content as ViewPort).viewFrame.Content is ComicCreatePage)
+                {
+                    ((mainFrame.Content as ViewPort).viewFrame.Content as ComicCreatePage).listGrid.Visibility = Visibility.Hidden;
+                    ((mainFrame.Content as ViewPort).viewFrame.Content as ComicCreatePage).listGrid.Height = 0;
+
+                    ((mainFrame.Content as ViewPort).viewFrame.Content as ComicCreatePage).listGenre.Visibility = Visibility.Hidden;
+                    ((mainFrame.Content as ViewPort).viewFrame.Content as ComicCreatePage).listGenre.Height = 0;
+
+                    ((mainFrame.Content as ViewPort).viewFrame.Content as ComicCreatePage).listTags.Visibility = Visibility.Hidden;
+                    ((mainFrame.Content as ViewPort).viewFrame.Content as ComicCreatePage).listTags.Height = 0;
+
+                    ((mainFrame.Content as ViewPort).viewFrame.Content as ComicCreatePage).mainGrid.Height = double.NaN;
+                    ((mainFrame.Content as ViewPort).viewFrame.Content as ComicCreatePage).splitter.Height = double.NaN;
+                    ((mainFrame.Content as ViewPort).viewFrame.Content as ComicCreatePage).splitter.VerticalAlignment = VerticalAlignment.Stretch;
+                }
+            }
+            clearFocus.Focus();
         }
     }
 }

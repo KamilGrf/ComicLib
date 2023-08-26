@@ -30,12 +30,21 @@ namespace ComicLib.Pages
 
             viewFrame.Content = new ComicListPage();
 
+            if (NavigationService != null)
+            {
+                if (NavigationService.CanGoBack)
+                    NavigationService.RemoveBackEntry();
+            }
+
+            if (DBHelper.CurrentUser.Rank == false)
+                comicAdd.Visibility = Visibility.Hidden;
+            else
+                comicAdd.Visibility = Visibility.Visible;
+
+
             DataContext = DBHelper.CurrentUser;
 
             profileMenu.Visibility = Visibility.Hidden;
-            searchBorder.Visibility = Visibility.Hidden;
-            catalog.ItemsSource = DBHelper.DBContext.Genre.ToList();
-            catalog.Visibility = Visibility.Hidden;
             editComic.Visibility = Visibility.Hidden;
 
             numOfComics.Text = DBHelper.CurrentUser.Comic.Count.ToString();
@@ -47,38 +56,20 @@ namespace ComicLib.Pages
                 IsSender = true;
             
             if (IsSender == false)
-            {
                 ChangeVisible(0);
-            }
 
             if (sender is Border)
                 IsSender = false;
         }
 
-        private void ChangeVisible(int control)
+        public void ChangeVisible(int control)
         {
-            if (searchBorder.IsVisible && !(control == 1))
-            {
-                searchBorder.Visibility = Visibility.Hidden;
-                search.Text = "";
-            }
-
             if (profileMenu.IsVisible && !(control == 2))
-            {
                 profileMenu.Visibility = Visibility.Hidden;
-            }
-
-            if (catalog.IsVisible && !(control == 3))
-            {
-                catalog.Visibility = Visibility.Hidden;
-            }
 
             if (editComic.IsVisible && !(control == 4))
-            {
                 editComic.Visibility = Visibility.Hidden;
-            }
         }
-
 
         private void ProfileIconClick(object sender, RoutedEventArgs e)
         {
@@ -86,6 +77,7 @@ namespace ComicLib.Pages
                 profileMenu.Visibility = Visibility.Hidden;
             else
                 profileMenu.Visibility = Visibility.Visible;
+
             editComic.Visibility = Visibility.Hidden;
 
             ChangeVisible(2);
@@ -100,117 +92,32 @@ namespace ComicLib.Pages
             if (!(viewFrame.Content is ProfileEdit))
             {
                 if (viewFrame.NavigationService.CanGoBack)
-                {
                     viewFrame.NavigationService.RemoveBackEntry();
-                }
+
                 viewFrame.NavigationService.Navigate(new ProfileEdit());
             }
         }
 
         private void MineBookmarksClick(object sender, RoutedEventArgs e)
         {
+            profileMenu.Visibility = Visibility.Hidden;
 
-        }
+            if (!(viewFrame.Content is MyComicAdds))
+            {
+                if (viewFrame.NavigationService.CanGoBack)
+                    viewFrame.NavigationService.RemoveBackEntry();
 
-        private void MineCommentsClick(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void SettingsClick(object sender, RoutedEventArgs e)
-        {
-
+                viewFrame.NavigationService.Navigate(new MyComicAdds(false));
+            }
         }
 
         private void AccLeaveClick(object sender, RoutedEventArgs e)
         {
             if (NavigationService.CanGoBack)
-            {
                 NavigationService.RemoveBackEntry();
-            }
+
             NavigationService.Navigate(new LoginPage());
         }
-        #endregion
-
-
-        #region Search Bar Events
-        private void SearchVisibleClick(object sender, RoutedEventArgs e)
-        {
-            if (searchBorder.IsVisible)
-            {
-                searchBorder.Visibility = Visibility.Hidden;
-                search.Text = "";
-            }
-            else
-            {
-                searchBorder.Visibility = Visibility.Visible;
-            }
-
-            ChangeVisible(1);
-        }
-
-        private void ClearSearchLinkClick(object sender, RoutedEventArgs e)
-        {
-            search.Text = "";
-        }
-
-        private void SearchClick(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void SearchPreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            if (!Regex.Match(e.Text, @"[а-яА-Яa-zA-Z.,0-9]").Success)
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void SearchTextChanged(object sender, TextChangedEventArgs e)
-        {
-            if ((sender as TextBox).Text != "")
-            {
-                backText.Visibility = Visibility.Hidden;
-            }
-            else
-            {
-                backText.Visibility = Visibility.Visible;
-            }
-        }
-        #endregion
-
-
-        #region Catalog Events
-        private void CatalogClick(object sender, RoutedEventArgs e)
-        {
-            if (catalog.IsVisible)
-                catalog.Visibility = Visibility.Hidden;
-            else
-                catalog.Visibility = Visibility.Visible;
-
-            ChangeVisible(3);
-        }
-
-        private void CatalogSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (catalog.SelectedIndex == 0)
-            {
-                MessageBox.Show("We Win");
-            }
-            else if (catalog.SelectedIndex == 1)
-            {
-                MessageBox.Show("We lose");
-            }
-            else if (catalog.SelectedIndex == 2)
-            {
-                if (viewFrame.Content is ProfileEdit)
-                {
-                    (viewFrame.Content as ProfileEdit).email.Text = "swdwdwd";
-                }
-            }
-        }
-
         #endregion
 
         private void CreateComicClick(object sender, RoutedEventArgs e)
@@ -232,9 +139,8 @@ namespace ComicLib.Pages
             if (!(viewFrame.Content is ComicListPage))
             {
                 if (viewFrame.NavigationService.CanGoBack)
-                {
                     viewFrame.NavigationService.RemoveBackEntry();
-                }
+
                 viewFrame.NavigationService.Navigate(new ComicListPage());
             }
         }
@@ -246,10 +152,20 @@ namespace ComicLib.Pages
                 if (!(viewFrame.Content is ComicCreatePage))
                 {
                     if (viewFrame.NavigationService.CanGoBack)
-                    {
                         viewFrame.NavigationService.RemoveBackEntry();
-                    }
+
                     viewFrame.NavigationService.Navigate(new ComicCreatePage(null));
+                }
+                editComic.SelectedItem = null;
+            }
+            else if (editComic.SelectedIndex == 1)
+            {
+                if (!(viewFrame.Content is MyComicAdds))
+                {
+                    if (viewFrame.NavigationService.CanGoBack)
+                        viewFrame.NavigationService.RemoveBackEntry();
+
+                    viewFrame.NavigationService.Navigate(new MyComicAdds(true));
                 }
                 editComic.SelectedItem = null;
             }

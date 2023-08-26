@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="73ac346d5a2241a7ab80fa9ef18ad04d" Name="Diagram1">
+        <EntityTypeShape EntityType="ComicLibModel.Author" Width="1.5" PointX="3" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ComicLibModel.Comic" Width="1.5" PointX="3" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="ComicLibModel.ComicAndAuthor" Width="1.5" PointX="5.25" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ComicLibModel.ComicAndGenre" Width="1.5" PointX="5.25" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ComicLibModel.ComicAndTag" Width="1.5" PointX="5.25" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ComicLibModel.Comment" Width="1.5" PointX="8.25" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ComicLibModel.Genre" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ComicLibModel.Page" Width="1.5" PointX="5.25" PointY="20.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ComicLibModel.Tag" Width="1.5" PointX="3" PointY="16" IsExpanded="true" />
+        <EntityTypeShape EntityType="ComicLibModel.User" Width="1.5" PointX="0.75" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ComicLibModel.UserAndFavorite" Width="1.5" PointX="8.25" PointY="5.75" IsExpanded="true" />
+        <AssociationConnector Association="ComicLibModel.FK_ComicAndAuthor_Author" ManuallyRouted="false" />
+        <AssociationConnector Association="ComicLibModel.FK_Comic_User" ManuallyRouted="false" />
+        <AssociationConnector Association="ComicLibModel.FK_ComicAndAuthor_Comic" ManuallyRouted="false" />
+        <AssociationConnector Association="ComicLibModel.FK_ComicAndGenre_Comic" ManuallyRouted="false" />
+        <AssociationConnector Association="ComicLibModel.FK_ComicAndTag_Comic" ManuallyRouted="false" />
+        <AssociationConnector Association="ComicLibModel.FK_Comment_Comic" ManuallyRouted="false" />
+        <AssociationConnector Association="ComicLibModel.FK_Page_Comic" ManuallyRouted="false" />
+        <AssociationConnector Association="ComicLibModel.FK_UserAndFavorite_Comic" ManuallyRouted="false" />
+        <AssociationConnector Association="ComicLibModel.FK_ComicAndGenre_Genre" ManuallyRouted="false" />
+        <AssociationConnector Association="ComicLibModel.FK_ComicAndTag_Tag" ManuallyRouted="false" />
+        <AssociationConnector Association="ComicLibModel.FK_Comment_User" ManuallyRouted="false" />
+        <AssociationConnector Association="ComicLibModel.FK_UserAndFavorite_User" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

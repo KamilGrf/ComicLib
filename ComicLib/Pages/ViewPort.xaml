@@ -9,19 +9,15 @@
       d:DesignHeight="900" d:DesignWidth="1100"
       Title="ViewPort" WindowTitle="ViewPort">
 
-    <Page.CacheMode>
-        <BitmapCache/>
-    </Page.CacheMode>
-
     <Page.Template>
         <ControlTemplate TargetType="Page">
 
             <Border CornerRadius="0, 0, 3, 3"
                     MouseDown="MainGridMouseDown"
                     Background="Transparent">
-                
+
                 <ContentPresenter/>
-                
+
             </Border>
 
         </ControlTemplate>
@@ -39,7 +35,7 @@
 
 
     <Grid>
-        
+
         <Grid.RowDefinitions>
             <!-- Header -->
             <RowDefinition Height="50"/>
@@ -79,102 +75,8 @@
                             Height="28" Width="28"/>
                 </Button>
 
-                <!-- Catalog Button -->
-                <Button Style="{StaticResource ViewPortHeaderButton}"
-                        Click="CatalogClick">
-
-                    <StackPanel Style="{StaticResource StackPanelStyle}"
-                                Margin="10, 0">
-                        <material:PackIcon Kind="Menu"
-                                           Height="28" Width="28"/>
-                        <TextBlock Text="Каталог"
-                                   Margin="5, 0"
-                                   VerticalAlignment="Center"
-                                   FontSize="20"
-                                   FontWeight="Bold"/>
-                        <material:PackIcon Kind="MenuDown"
-                                           VerticalAlignment="Bottom"
-                                           Height="25" Width="25"/>
-                    </StackPanel>
-
-                </Button>
-
-                <!-- Find Button -->
-                <Button Style="{StaticResource ViewPortHeaderButton}"
-                        Margin="20, 0"
-                        Click="SearchVisibleClick">
-
-                    <StackPanel Style="{StaticResource StackPanelStyle}"
-                                Margin="10, 0">
-                        
-                        <material:PackIcon Kind="Magnify"
-                                           Height="28" Width="28"/>
-                        <TextBlock Text="Поиск"
-                                   Margin="5, 0"
-                                   VerticalAlignment="Center"
-                                   FontSize="20"
-                                   FontWeight="Bold"/>
-                    </StackPanel>
-
-                </Button>
-
             </StackPanel>
             <!--#endregion-->
-
-            <!--#region Search Link -->
-            <Grid Margin="5, 5, 20, 5"
-                  Grid.Column="1"
-                  HorizontalAlignment="Stretch"
-                  x:Name="searchBorder"
-                  Visibility="Visible">
-
-                <!-- Search Link Background -->
-                <Border Background="White"
-                        CornerRadius="4"
-                        Margin="1"/>
-
-                <!-- Search Link Back Text -->
-                <TextBlock x:Name="backText"
-                           Text="Поиск комикса"
-                           Margin="40, 0"
-                           FontSize="20"
-                           VerticalAlignment="Center"
-                           Opacity="0.5"/>
-
-                <!-- Search Link Text Box -->
-                <TextBox x:Name="search"
-                         VerticalContentAlignment="Center"
-                         Padding="30, 5" MaxLength="70"
-                         FontSize="20" FontFamily="Comic Sans MS"
-                         Style="{StaticResource SearchTextBox}"
-                         PreviewTextInput="SearchPreviewTextInput"
-                         TextChanged="SearchTextChanged"
-                         Background="Transparent"/>
-
-                <!-- Search Button -->
-                <Button Style="{StaticResource ViewPortProfileButton}"
-                        Width="40"
-                        HorizontalAlignment="Left">
-                    
-                    <material:PackIcon 
-                        Kind="Magnify"
-                        Height="28" Width="28"/>
-                </Button>
-
-                <!-- Close Button -->
-                <Button Style="{StaticResource ViewPortProfileButton}"
-                        Width="40"
-                        HorizontalAlignment="Right"
-                        Click="ClearSearchLinkClick">
-                    
-                    <material:PackIcon 
-                        Kind="WindowClose"
-                        Height="28" Width="28"/>
-                </Button>
-
-            </Grid>
-            <!--#endregion-->
-
 
             <!--#region Header Right Menu -->
             <StackPanel Grid.Column="3"
@@ -210,7 +112,8 @@
                 </Button>
 
                 <!-- Comic Add Button -->
-                <Button Width="40"
+                <Button x:Name="comicAdd" 
+                        Width="40"
                         Style="{StaticResource ViewPortHeaderButton}"
                         Click="CreateComicClick">
 
@@ -238,35 +141,12 @@
                    NavigationUIVisibility="Hidden"
                    Focusable="False"/>
 
-            <!--#region Catalog Menu-->
-            <StackPanel Width="250"
-                        HorizontalAlignment="Left">
-                
-                <ListBox x:Name="catalog" Margin="10"
-                         Style="{StaticResource ListBoxMenuTemplate}"
-                         Padding="10"
-                         MouseDown="MainGridMouseDown"
-                         Visibility="Visible"
-                         SelectionMode="Single"
-                         SelectionChanged="CatalogSelectionChanged">
-
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Title}"
-                                       Margin="10, 0"/>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-
-                </ListBox>
-                
-            </StackPanel>
-            <!--#endregion-->
-
             <Grid Grid.Column="1"
                     Width="220"
                     Margin="0, 10, 70, 0"
                     HorizontalAlignment="Right">
-                
+
+                <!-- Comic Edit Menu -->
                 <ListBox x:Name="editComic" 
                          Style="{StaticResource ListBoxMenuTemplate}"
                          Padding="10" Height="112"
@@ -298,18 +178,18 @@
                                            Text="1"
                                            Foreground="White"/>
                             </Border>
-                            
+
                         </StackPanel>
                     </ListBoxItem>
 
                 </ListBox>
-                
+
             </Grid>
-            
+
             <!--#region Profile Menu -->
             <Button x:Name="profileMenu" 
                     Visibility="Hidden"
-                    Height="240" Width="250"
+                    Height="160" Width="250"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Top"
                     Grid.Column="1" Margin="0, 10, 10, 0"
@@ -377,20 +257,6 @@
                         </StackPanel>
                     </Button>
 
-                    <Button Click="MineCommentsClick">
-                        <StackPanel Orientation="Horizontal">
-                            <material:PackIcon Kind="Comment"/>
-                            <TextBlock Text="Мои комментарии"/>
-                        </StackPanel>
-                    </Button>
-
-                    <Button Click="SettingsClick">
-                        <StackPanel Orientation="Horizontal">
-                            <material:PackIcon Kind="Cog"/>
-                            <TextBlock Text="Настройки"/>
-                        </StackPanel>
-                    </Button>
-
                     <Button Click="AccLeaveClick">
                         <StackPanel Orientation="Horizontal">
                             <material:PackIcon Kind="ExitToApp"
@@ -409,42 +275,3 @@
         </Grid>
     </Grid>
 </Page>
-
-<!--<Grid Background="#FF292929">
-            <Grid Height="50"
-                  Background="{StaticResource MainBlueBrush}"
-                  VerticalAlignment="Top">
-            </Grid>
-            
-            <Grid>
-                <DockPanel LastChildFill="True"
-                       HorizontalAlignment="Center"
-                       Margin="0, 50, 0, 31">
-
-                    <DockPanel LastChildFill="True"
-                           DockPanel.Dock="Bottom"
-                           Background="Transparent">
-                        <Image Source="/Samples/03.png"
-                           DockPanel.Dock="Left"/>
-                        <Image Source="/Samples/03.jpg"
-                           HorizontalAlignment="Right"/>
-                    </DockPanel>
-
-                </DockPanel>
-
-                <Border Background="White"
-                        Height="50" Width="50"
-                        CornerRadius="25"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Bottom"
-                        Margin="0, 0, 50, 60">
-                    <TextBlock Text="1/12"
-                               HorizontalAlignment="Center"
-                               VerticalAlignment="Center"/>
-                </Border>
-            </Grid>
-            
-            <Border Height="31"
-                    Background="Red"
-                    VerticalAlignment="Bottom"/>
-        </Grid>-->

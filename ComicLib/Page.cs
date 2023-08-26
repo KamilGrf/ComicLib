@@ -14,17 +14,11 @@ namespace ComicLib
     
     public partial class Page
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Page()
-        {
-            this.ComicAndPage = new HashSet<ComicAndPage>();
-        }
-    
         public int Id_Page { get; set; }
+        public Nullable<int> Id_Comic { get; set; }
         public byte[] Photo { get; set; }
         public Nullable<short> Number { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ComicAndPage> ComicAndPage { get; set; }
+        public virtual Comic Comic { get; set; }
     }
 }

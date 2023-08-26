@@ -11,7 +11,8 @@
         Icon="Images/books.png"
         Title="MainWindow" Height="918" Width="1124"
         MinHeight="918" MinWidth="1124"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        MouseDown="WindowMouseDown">
 
     <Window.Resources>
         <Style TargetType="{x:Type local:MainWindow}">
@@ -81,11 +82,8 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <Border
-                CornerRadius="2, 2, 0, 0">
-            <Border.Background>
-                <SolidColorBrush Color="#FF93D8F7"/>
-            </Border.Background>
+        <Border CornerRadius="2, 2, 0, 0"
+                Background="#FF93D8F7">
 
             <Grid Grid.Column="0"
                   WindowChrome.IsHitTestVisibleInChrome="True">
@@ -155,6 +153,12 @@
             </Grid>
         </Border>
 
+        <TextBox x:Name="clearFocus"
+                 Grid.Row="1"
+                 Background="Transparent"
+                 Height="1" Width="1"
+                 Style="{StaticResource DataEditTextBox}"/>
+        
         <!-- Main Frame -->
         <Frame x:Name="mainFrame"
                NavigationUIVisibility="Hidden"
@@ -163,5 +167,6 @@
                Focusable="False">
 
         </Frame>
+        
     </Grid>
 </Window>

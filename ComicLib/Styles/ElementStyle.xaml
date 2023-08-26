@@ -5,11 +5,87 @@
     
     <!-- Header Text Block -->
     <Style TargetType="TextBlock" x:Key="HeaderTextBlock">
-        
+
         <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="FontSize" Value="25"/>
         <Setter Property="Margin" Value="0, 20, 0, 5"/>
         <Setter Property="FontFamily" Value="Comic Sans MS"/>
+        
+    </Style>
+
+    <!-- Regular Password Box -->
+    <Style TargetType="PasswordBox" x:Key="RegularPasswordBox">
+
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="FontFamily" Value="Comic Sans MS"/>
+        <Setter Property="Padding" Value="10, 5"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="PasswordBox">
+
+                    <Border x:Name="border"
+                            CornerRadius="4"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="2"
+                            Background="{TemplateBinding Background}">
+
+                        <ScrollViewer 
+                            x:Name="PART_ContentHost"
+                            Focusable="false"
+                            HorizontalScrollBarVisibility="Hidden"
+                            VerticalScrollBarVisibility="Hidden"/>
+
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Cursor" Value="IBeam"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+    </Style>
+    
+    <!-- Regular Text Box -->
+    <Style TargetType="TextBox" x:Key="RegularTextBox">
+
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="FontFamily" Value="Comic Sans MS"/>
+        <Setter Property="Padding" Value="10, 5"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TextBox">
+
+                    <Border x:Name="border"
+                            CornerRadius="4"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="2"
+                            Background="{TemplateBinding Background}">
+
+                        <ScrollViewer 
+                            x:Name="PART_ContentHost"
+                            Focusable="false"
+                            HorizontalScrollBarVisibility="Hidden"
+                            VerticalScrollBarVisibility="Hidden"/>
+
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Cursor" Value="IBeam"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
         
     </Style>
     
@@ -64,9 +140,9 @@
                             Background="{TemplateBinding Background}">
                         <Grid Margin="6, 0">
                             <ScrollViewer x:Name="PART_ContentHost"
-                                    Focusable="false"
-                                    HorizontalScrollBarVisibility="Hidden"
-                                    VerticalScrollBarVisibility="Hidden"/>
+                                        Focusable="false"
+                                        HorizontalScrollBarVisibility="Hidden"
+                                        VerticalScrollBarVisibility="Hidden"/>
                         </Grid>
                         
                     </Border>
@@ -85,6 +161,7 @@
         
     </Style>
 
+    
     <!-- Menu Content Background Button -->
     <Style TargetType="Button" x:Key="MenuTemplate">
 
@@ -121,7 +198,7 @@
         <Setter Property="Effect">
             <Setter.Value>
                 <DropShadowEffect ShadowDepth="0.5" Opacity="0.4" 
-                                              BlurRadius="10" />
+                                BlurRadius="10" />
             </Setter.Value>
         </Setter>
 
@@ -169,6 +246,45 @@
         
     </Style>
 
+    <!-- Comic List -->
+    <Style TargetType="ListBox" x:Key="ComicsList">
+
+        <Setter Property="ItemContainerStyle">
+            <Setter.Value>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListBoxItem">
+
+                                <Border x:Name="back" Background="White"
+                                        CornerRadius="5"
+                                        Height="{TemplateBinding Height}"
+                                        Margin="2">
+
+                                    <ContentPresenter Margin="10, 0"
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Center"/>
+
+                                </Border>
+
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Cursor" Value="Hand"/>
+                                        <Setter TargetName="back" 
+                                                Property="Background"
+                                                Value="LightGray"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                                
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Setter.Value>
+        </Setter>
+        
+    </Style>
+    
     <!-- Authors List Box -->
     <Style TargetType="ListBox" x:Key="ListBoxAuthorTemplate">
 

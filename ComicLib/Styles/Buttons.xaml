@@ -6,14 +6,13 @@
     <Style TargetType="Button" x:Key="ImageDragAndDropPlace">
 
         <Setter Property="AllowDrop" Value="True"/>
-        <Setter Property="Background" Value="Transparent"/>
 
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
 
                     <Grid Height="{TemplateBinding Height}" Width="150"
-                          Background="Transparent">
+                          Background="{TemplateBinding Background}">
 
                         <StackPanel Orientation="Vertical"
                                     HorizontalAlignment="Center"
@@ -43,8 +42,39 @@
 
     </Style>
 
+    <Style TargetType="Button" x:Key="ComicDeleteButton">
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+
+                    <Border Background="Transparent"
+                            BorderThickness="5"
+                            BorderBrush="#FFF52828"
+                            CornerRadius="10">
+                        <ContentPresenter
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"/>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Cursor" Value="Hand"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        
+    </Style>
+
+    <!-- Delete Button Template -->
     <Style TargetType="Button" x:Key="DeleteElementButton">
 
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="Width" Value="30"/>
+        
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
@@ -92,6 +122,57 @@
             </Setter.Value>
         </Setter>
         
+    </Style>
+
+    <!-- Filter Button -->
+    <Style TargetType="Button" x:Key="FilterButton">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+
+                    <Border x:Name="brd"
+                            Background="Transparent"
+                            CornerRadius="2">
+                        <ContentPresenter/>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="brd" Property="Background" Value="#FFD6D6D6"/>
+                            <Setter Property="Cursor" Value="Hand"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                    
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Comic Read Button Template -->
+    <Style TargetType="Button" x:Key="ComicReadButtonTemplate">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+
+                    <Border x:Name="brd" 
+                            Background="Transparent"
+                            CornerRadius="4"
+                            Opacity="0.9">
+                        <ContentPresenter 
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"/>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Cursor" Value="Hand"/>
+                            <Setter TargetName="brd" Property="Background" Value="#FF404040"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                    
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 
     <!-- Window Control Button -->
@@ -169,14 +250,39 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        
+
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Cursor" Value="Hand"/>
                 <Setter Property="Background" Value="{StaticResource ViewPortMouseDownBackgroundBrush}"/>
             </Trigger>
         </Style.Triggers>
+    </Style>
+
+    <!-- Standart Button -->
+    <Style TargetType="Button" x:Key="StandartButton" BasedOn="{StaticResource ViewPortHeaderButton}">
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+
+                    <Border Background="{TemplateBinding Background}"
+                            CornerRadius="3">
+                        <ContentPresenter
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"/>
+                    </Border>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
         
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Cursor" Value="Hand"/>
+                <Setter Property="Background" Value="{StaticResource TextBoxBorderBrush}"/>
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
     <!-- Profile Button -->
@@ -216,11 +322,35 @@
                             <Setter TargetName="back" Property="Background" Value="#3099C5"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
-                    
+
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+    </Style>
+    <Style TargetType="Button" x:Key="RegistrationButtonX2">
         
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+
+                    <Border x:Name="back" 
+                            Background="{StaticResource MainDimOrangeBrush}"
+                            CornerRadius="5">
+                        <ContentPresenter 
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"/>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Cursor" Value="Hand"/>
+                            <Setter TargetName="back" Property="Background" Value="#3099C5"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
     
     <!-- Text Button -->
@@ -252,14 +382,38 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
+    <!-- Regular Text Button -->
+    <Style TargetType="Button" x:Key="RegularTextButton">
+
+        <Setter Property="FontFamily" Value="Comic Sans MS"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+
+                    <Border Background="Transparent">
+                        <ContentPresenter/>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Cursor" Value="Hand"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <!-- Toggle Switch Button -->
     <Style TargetType="ToggleButton" x:Key="ToggleSwitchButton">
 
         <Setter Property="Template">
             <Setter.Value>
-
                 <ControlTemplate TargetType="ToggleButton">
+                    
                     <Border x:Name="border" 
                             Background="#FFDDDDDD"
                             CornerRadius="15">
@@ -338,6 +492,359 @@
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
 
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Filter Toggle Button -->
+    <Style TargetType="ToggleButton" x:Key="FilterToggleButton">
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+
+                    <Border x:Name="brd"
+                            Background="Transparent"
+                            CornerRadius="2">
+                        <ContentPresenter/>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="brd" Property="Background" Value="#FFD6D6D6"/>
+                            <Setter Property="Cursor" Value="Hand"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+    </Style>
+
+    <!-- Bookmark Toggle Button -->
+    <Style TargetType="ToggleButton" x:Key="BookMarkToggleButton">
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+
+                    <Border x:Name="brd" 
+                            Background="Transparent"
+                            Padding="0, 15">
+
+                        <Border CornerRadius="4"
+                                BorderThickness="1"
+                                Background="White"
+                                BorderBrush="{StaticResource TextBoxBorderBrush}">
+
+                            <Border.Effect>
+                                <DropShadowEffect ShadowDepth="0.5" Opacity="0.4" 
+                                                  BlurRadius="10" />
+                            </Border.Effect>
+
+                            <ContentPresenter
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Top"/>
+                        </Border>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Cursor" Value="Hand"/>
+                        </Trigger>
+                        
+                        <Trigger Property="IsChecked" Value="True">
+
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+
+                                        <ThicknessAnimation 
+                                            Duration="0:0:0:0.1" 
+                                            From="0, 15"
+                                            To="0"
+                                            Storyboard.TargetName="brd"
+                                            Storyboard.TargetProperty="Padding"/>
+
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+
+                                        <ThicknessAnimation 
+                                            Duration="0:0:0:0.1" 
+                                            From="0"
+                                            To="0, 15"
+                                            Storyboard.TargetName="brd"
+                                            Storyboard.TargetProperty="Padding"/>
+
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Real Bookmark Toggle Button -->
+    <Style TargetType="ToggleButton" x:Key="RealBookMarkToggleButton">
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+
+                    <Border x:Name="brd" 
+                            Background="Transparent"
+                            Padding="0, 20">
+
+                        <Border CornerRadius="4"
+                                BorderThickness="1"
+                                Background="White"
+                                BorderBrush="{StaticResource TextBoxBorderBrush}">
+
+                            <Border.Effect>
+                                <DropShadowEffect ShadowDepth="0.5" Opacity="0.4" 
+                                                  BlurRadius="10" />
+                            </Border.Effect>
+
+                            <material:PackIcon x:Name="svg" 
+                                               Kind="Bookmark"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Top"
+                                               Height="25" Width="25"
+                                               Margin="0, 5, 0, 0"
+                                               Foreground="{StaticResource MainOrangeBrush}"/>
+                        </Border>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+
+                            <Setter Property="Cursor" Value="Hand"/>
+
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="svg" Property="Foreground" Value="{StaticResource AcceptGreenBrush}"/>
+
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+
+                                        <ThicknessAnimation 
+                                            Duration="0:0:0:0.1" 
+                                            From="0, 20"
+                                            To="0"
+                                            Storyboard.TargetName="brd"
+                                            Storyboard.TargetProperty="Padding"/>
+
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+
+                                        <ThicknessAnimation 
+                                            Duration="0:0:0:0.1" 
+                                            From="0"
+                                            To="0, 20"
+                                            Storyboard.TargetName="brd"
+                                            Storyboard.TargetProperty="Padding"/>
+
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Bookmark Button Template -->
+    <Style TargetType="Button" x:Key="BookMarkButton">
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+
+                    <Border x:Name="brd" 
+                            Background="Transparent"
+                            Padding="{TemplateBinding Padding}">
+
+                        <Border CornerRadius="4"
+                                BorderThickness="1"
+                                Background="White"
+                                BorderBrush="{StaticResource TextBoxBorderBrush}">
+
+                            <Border.Effect>
+                                <DropShadowEffect ShadowDepth="0.5" Opacity="0.4" 
+                                                  BlurRadius="10" />
+                            </Border.Effect>
+
+                            <ContentPresenter/>
+                        </Border>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+
+                            <Setter Property="Cursor" Value="Hand"/>
+
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+
+                                        <ThicknessAnimation 
+                                            Duration="0:0:0:0.1" 
+                                            From="20, 0"
+                                            To="0"
+                                            Storyboard.TargetName="brd"
+                                            Storyboard.TargetProperty="Padding"/>
+
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+
+                                        <ThicknessAnimation 
+                                            Duration="0:0:0:0.1" 
+                                            From="0"
+                                            To="20, 0"
+                                            Storyboard.TargetName="brd"
+                                            Storyboard.TargetProperty="Padding"/>
+
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Check Box Toggle Button --> 
+    <Style TargetType="ToggleButton" x:Key="CheckBoxToggleButtonTemplate">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <StackPanel Orientation="Horizontal"
+                                Background="Transparent">
+                        <Grid x:Name="box" 
+                              VerticalAlignment="Stretch">
+                            <Border x:Name="BorderBlack"
+                                    Width="{Binding ElementName=box, Path=ActualHeight}"
+                                    BorderThickness="2"
+                                    CornerRadius="2"
+                                    BorderBrush="Black"
+                                    Visibility="Visible"
+                                    Opacity="0.6 "/>
+                            <Border x:Name="BorderBlue" 
+                                    CornerRadius="2"
+                                    BorderThickness="2"
+                                    BorderBrush="#4BB9F8"
+                                    Visibility="Hidden"/>
+                            <material:PackIcon 
+                                Kind="Check"
+                                Margin="3"
+                                Height="20"
+                                Width="20"
+                                Foreground="#4BB9F8"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                x:Name="CheckMark" 
+                                Visibility="Hidden"/>
+                        </Grid>
+
+                        <ContentPresenter 
+                            VerticalAlignment="Center"/>
+                    </StackPanel>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="False">
+                            <Setter Property="Visibility" TargetName="BorderBlack" Value="Visible"/>
+                            <Setter Property="Visibility" TargetName="CheckMark" Value="Hidden"/>
+                            <Setter Property="Visibility" TargetName="BorderBlue" Value="Hidden"/>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter Property="Visibility" TargetName="BorderBlack" Value="Hidden"/>
+                            <Setter Property="Visibility" TargetName="CheckMark" Value="Visible"/>
+                            <Setter Property="Visibility" TargetName="BorderBlue" Value="Visible"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Cursor" Value="Hand"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Check Box Radio Button -->
+    <Style TargetType="RadioButton" x:Key="CheckBoxRadioButtonTemplate">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="RadioButton">
+                    <BulletDecorator x:Name="bulletDecorator"
+                                     SnapsToDevicePixels="True"
+                                     Background="Transparent">
+                        <BulletDecorator.Bullet>
+                            <Grid Width="22" Height="22">
+                                <Border x:Name="BorderBlack" 
+                                        BorderThickness="2"
+                                        BorderBrush="Black"
+                                        Visibility="Visible"
+                                        Opacity="0.6 "/>
+                                <Border x:Name="BorderBlue" 
+                                        BorderThickness="2"
+                                        BorderBrush="#4BB9F8"
+                                        Visibility="Hidden"/>
+                                <!--<Ellipse x:Name="BorderBlue" 
+                                         StrokeThickness="2" 
+                                         Stroke="#4BB9F8" />-->
+                                <Ellipse x:Name="CheckMark" 
+                                         Visibility="Hidden"
+                                         StrokeThickness="2" 
+                                         Margin="6" 
+                                         Fill="#4BB9F8"/>
+                            </Grid>
+                        </BulletDecorator.Bullet>
+                        <ContentPresenter x:Name="presenter"
+                                         Opacity="1"
+                                         Margin="5, -2, 0, 0"
+                                         VerticalAlignment="Center" 
+                                         HorizontalAlignment="Left" 
+                                         RecognizesAccessKey="True"/>
+                    </BulletDecorator>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="False">
+                            <Setter Property="Visibility" TargetName="BorderBlack" Value="Visible"/>
+                            <Setter Property="Visibility" TargetName="CheckMark" Value="Hidden"/>
+                            <Setter Property="Visibility" TargetName="BorderBlue" Value="Hidden"/>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter Property="Visibility" TargetName="BorderBlack" Value="Hidden"/>
+                            <Setter Property="Visibility" TargetName="CheckMark" Value="Visible"/>
+                            <Setter Property="Visibility" TargetName="BorderBlue" Value="Visible"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Cursor" Value="Hand"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>

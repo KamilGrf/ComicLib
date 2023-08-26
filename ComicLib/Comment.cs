@@ -14,21 +14,14 @@ namespace ComicLib
     
     public partial class Comment
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Comment()
-        {
-            this.ComicAndComment = new HashSet<ComicAndComment>();
-            this.UserAndComment = new HashSet<UserAndComment>();
-        }
-    
         public int Id_Comment { get; set; }
+        public Nullable<int> Id_User { get; set; }
+        public Nullable<int> Id_Comic { get; set; }
         public string Text { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
-        public Nullable<short> Rating { get; set; }
+        public short Rating { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ComicAndComment> ComicAndComment { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserAndComment> UserAndComment { get; set; }
+        public virtual Comic Comic { get; set; }
+        public virtual User User { get; set; }
     }
 }

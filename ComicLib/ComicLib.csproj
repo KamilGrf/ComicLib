@@ -74,75 +74,99 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Author.cs">
-      <DependentUpon>ComicLibDB.tt</DependentUpon>
+      <DependentUpon>ComicDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Comic.cs">
-      <DependentUpon>ComicLibDB.tt</DependentUpon>
+      <DependentUpon>ComicDB.tt</DependentUpon>
     </Compile>
     <Compile Include="ComicAndAuthor.cs">
-      <DependentUpon>ComicLibDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ComicAndComment.cs">
-      <DependentUpon>ComicLibDB.tt</DependentUpon>
+      <DependentUpon>ComicDB.tt</DependentUpon>
     </Compile>
     <Compile Include="ComicAndGenre.cs">
-      <DependentUpon>ComicLibDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ComicAndPage.cs">
-      <DependentUpon>ComicLibDB.tt</DependentUpon>
+      <DependentUpon>ComicDB.tt</DependentUpon>
     </Compile>
     <Compile Include="ComicAndTag.cs">
-      <DependentUpon>ComicLibDB.tt</DependentUpon>
+      <DependentUpon>ComicDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="ComicLibDB.cs">
+    <Compile Include="ComicDB.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ComicLibDB.tt</DependentUpon>
+      <DependentUpon>ComicDB.Context.tt</DependentUpon>
     </Compile>
+    <Compile Include="ComicDB.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ComicDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ComicDB.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ComicDB.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="ComicMessageBox.xaml.cs">
+      <DependentUpon>ComicMessageBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ClassHelpers\ItemsDataTemplateSelector.cs" />
+    <Compile Include="ClassHelpers\ImageResizing.cs" />
+    <Compile Include="ClassHelpers\MathConverter.cs" />
+    <Compile Include="ClassHelpers\PageImage.cs" />
     <Compile Include="Comment.cs">
-      <DependentUpon>ComicLibDB.tt</DependentUpon>
+      <DependentUpon>ComicDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Genre.cs">
-      <DependentUpon>ComicLibDB.tt</DependentUpon>
+      <DependentUpon>ComicDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="MathConverter.cs" />
     <Compile Include="Page.cs">
-      <DependentUpon>ComicLibDB.tt</DependentUpon>
+      <DependentUpon>ComicDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Pages\AuthorAdd.xaml.cs">
       <DependentUpon>AuthorAdd.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\ComicComments.xaml.cs">
+      <DependentUpon>ComicComments.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ComicCover.xaml.cs">
+      <DependentUpon>ComicCover.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\ComicCreatePage.xaml.cs">
       <DependentUpon>ComicCreatePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\ComicEditPage.xaml.cs">
+      <DependentUpon>ComicEditPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ComicInfo.xaml.cs">
+      <DependentUpon>ComicInfo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ComicPagesAdd.xaml.cs">
+      <DependentUpon>ComicPagesAdd.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\MyComicAdds.xaml.cs">
+      <DependentUpon>MyComicAdds.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ReadComicPages.xaml.cs">
+      <DependentUpon>ReadComicPages.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ClassHelpers\ScrollViewerHelper.cs" />
+    <Compile Include="ClassHelpers\PasswordHelper.cs" />
     <Compile Include="Tag.cs">
-      <DependentUpon>ComicLibDB.tt</DependentUpon>
+      <DependentUpon>ComicDB.tt</DependentUpon>
     </Compile>
     <Compile Include="User.cs">
-      <DependentUpon>ComicLibDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="UserAndComment.cs">
-      <DependentUpon>ComicLibDB.tt</DependentUpon>
+      <DependentUpon>ComicDB.tt</DependentUpon>
     </Compile>
     <Compile Include="UserAndFavorite.cs">
-      <DependentUpon>ComicLibDB.tt</DependentUpon>
+      <DependentUpon>ComicDB.tt</DependentUpon>
     </Compile>
+    <Page Include="ComicMessageBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Compile Include="ClassHelpers\DBHelper.cs" />
     <Compile Include="ClassHelpers\OtherHelper.cs" />
-    <Compile Include="ComicLibDB.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ComicLibDB.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ComicLibDB.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ComicLibDB.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Pages\BasePage.cs" />
     <Compile Include="Animations\PageAnimation.cs" />
     <Compile Include="App.xaml.cs">
@@ -158,7 +182,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\ComicComments.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ComicCover.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\ComicCreatePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ComicEditPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ComicInfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -166,7 +206,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\ComicPagesAdd.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\LoginPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\MyComicAdds.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ReadComicPages.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -240,12 +292,12 @@
     <Resource Include="Fonts\ComicNeue-Light.ttf" />
     <Resource Include="Fonts\ComicNeue-LightItalic.ttf" />
     <Resource Include="Fonts\ComicNeue-Regular.ttf" />
-    <EntityDeploy Include="ComicLibDB.edmx">
+    <EntityDeploy Include="ComicDB.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ComicLibDB.Designer.cs</LastGenOutput>
+      <LastGenOutput>ComicDB.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="ComicLibDB.edmx.diagram">
-      <DependentUpon>ComicLibDB.edmx</DependentUpon>
+    <None Include="ComicDB.edmx.diagram">
+      <DependentUpon>ComicDB.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -255,24 +307,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Samples\03.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Samples\03.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\comic-smallicon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\comic-icon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\bam-icon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\bamr-icon.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\books.png" />
@@ -287,19 +321,16 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ComicLibDB.Context.tt">
+    <Content Include="ComicDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ComicLibDB.Context.cs</LastGenOutput>
-      <DependentUpon>ComicLibDB.edmx</DependentUpon>
+      <DependentUpon>ComicDB.edmx</DependentUpon>
+      <LastGenOutput>ComicDB.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="ComicLibDB.tt">
+    <Content Include="ComicDB.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ComicLibDB.edmx</DependentUpon>
-      <LastGenOutput>ComicLibDB.cs</LastGenOutput>
+      <DependentUpon>ComicDB.edmx</DependentUpon>
+      <LastGenOutput>ComicDB.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Converter\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.2.1\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.2.1\build\MaterialDesignThemes.targets')" />

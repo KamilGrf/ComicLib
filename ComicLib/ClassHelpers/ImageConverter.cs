@@ -54,5 +54,29 @@ namespace ComicLib
 
             return image;
         }
+
+        public BitmapImage BitmapImageFromByteArrayConvert(byte[] img)
+        {
+            using (MemoryStream byteStream = new MemoryStream(img))
+            {
+                BitmapImage image = new BitmapImage();
+                image.BeginInit();
+                image.CacheOption = BitmapCacheOption.OnLoad;
+                image.StreamSource = byteStream;
+                image.EndInit();
+                return image;
+            }
+        }
+
+        public byte[] GetFromBitmapImageControl(BitmapImage image)
+        {
+            using (MemoryStream memStream = new MemoryStream())
+            {
+                JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+                encoder.Frames.Add(BitmapFrame.Create(image));
+                encoder.Save(memStream);
+                return memStream.ToArray();
+            }
+        }
     }
 }

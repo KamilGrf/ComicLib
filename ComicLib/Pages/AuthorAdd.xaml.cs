@@ -27,6 +27,14 @@ namespace ComicLib.Pages
         public AuthorAdd()
         {
             InitializeComponent();
+
+            if (NavigationService != null)
+            {
+                if (NavigationService.CanGoBack)
+                {
+                    NavigationService.RemoveBackEntry();
+                }
+            }
         }
 
         private void ImageDrop(object sender, DragEventArgs e)
@@ -48,7 +56,9 @@ namespace ComicLib.Pages
         {
             OpenFileDialog openFileDialog = new OpenFileDialog
             {
-                Filter = "Image Files(*.png;*.jpg;*.jpeg)|*.png;*.jpg;*.jpeg"
+                Filter = "Image Files(*.png;*.jpg;*.jpeg)|*.png;*.jpg;*.jpeg",
+                Multiselect = false,
+                Title = "Выберите изображение автора"
             };
             if (openFileDialog.ShowDialog() == true)
             {
@@ -57,6 +67,7 @@ namespace ComicLib.Pages
                 photo.Source = converter.BitmapImageConvert(Path);
                 deleteButton.Visibility = Visibility.Visible;
             }
+            openFileDialog.Reset();
         }
 
         private void SaveClick(object sender, RoutedEventArgs e)
@@ -76,13 +87,18 @@ namespace ComicLib.Pages
             DBHelper.Authors = DBHelper.DBContext.Author.ToList();
 
             ((OtherHelper.MainWindow.mainFrame.Content as ViewPort).viewFrame.Content as ComicCreatePage).listGrid.Children.Clear();
-            ((OtherHelper.MainWindow.mainFrame.Content as ViewPort).viewFrame.Content as ComicCreatePage).AuthorsListBoxCreate(DBHelper.Authors);
-            NavigationService.Content = null;
+
+            ((OtherHelper.MainWindow.mainFrame.Content as ViewPort).viewFrame.Content as ComicCreatePage).listGrid.Children.
+                Add(((OtherHelper.MainWindow.mainFrame.Content as ViewPort).viewFrame.Content as ComicCreatePage).ListCreate(DBHelper.Authors, null, null));
+            ((OtherHelper.MainWindow.mainFrame.Content as ViewPort).viewFrame.Content as ComicCreatePage).listGrid.Children.
+                Add(((OtherHelper.MainWindow.mainFrame.Content as ViewPort).viewFrame.Content as ComicCreatePage).AuthorsNoElementText);
+
+            ((OtherHelper.MainWindow.mainFrame.Content as ViewPort).viewFrame.Content as ComicCreatePage).authorAddFrame.Content = null;
         }
 
         private void CancelClick(object sender, RoutedEventArgs e)
         {
-            NavigationService.Content = null;
+            ((OtherHelper.MainWindow.mainFrame.Content as ViewPort).viewFrame.Content as ComicCreatePage).authorAddFrame.Content = null;
         }
 
         private void DeleteButtonClick(object sender, RoutedEventArgs e)

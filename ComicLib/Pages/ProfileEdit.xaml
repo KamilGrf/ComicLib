@@ -4,10 +4,12 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ComicLib"
-      xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"    
       mc:Ignorable="d" 
       d:DesignHeight="900" d:DesignWidth="1100"
-      Title="ProfileEdit">
+      Title="ProfileEdit"
+      KeepAlive="False"
+      Unloaded="Page_Unloaded">
 
     <Page.Resources>
         <Style x:Key="BorderStyle" TargetType="Border">
@@ -69,7 +71,8 @@
 
         <!-- Main Border -->
         <Border Style="{StaticResource BorderStyle}"
-                Background="White">
+                Background="White"
+                x:Name="mainBorder">
 
             <Border.Effect>
                 <DropShadowEffect ShadowDepth="0.5" Opacity="0.4" 
@@ -77,7 +80,7 @@
             </Border.Effect>
 
             <Grid>
-                
+
                 <!-- Back Button -->
                 <Button Height="60" Width="60"
                         HorizontalAlignment="Left"
@@ -89,7 +92,7 @@
                     <material:PackIcon Kind="NavigateBefore"
                                        Height="60" Width="60"/>
                 </Button>
-                
+
                 <StackPanel>
 
                     <!-- Avatar Edit -->
@@ -99,6 +102,7 @@
                                 HorizontalAlignment="Center">
 
                         <Button Style="{StaticResource ImageDragAndDropPlace}"
+                                Background="Transparent"
                                 Height="150" Width="150"
                                 Content="Нажмите или перетащите сюда изображение для загрузки"
                                 Drop="ImageDrop"
@@ -134,9 +138,9 @@
                                             Visibility="Visible"
                                             Click="DeleteButtonClick"/>
                                 </Grid>
-                               
+
                             </Border>
-                            
+
                         </Grid>
 
                     </StackPanel>
@@ -144,7 +148,8 @@
                     <!-- Nickname Edit -->
                     <TextBlock Text="Никнейм"
                            Style="{StaticResource HeaderTextBlock}"/>
-                    <TextBox x:Name="nick" Text="{Binding Name}"
+                    <TextBox x:Name="nick" 
+                             Text="{Binding Name}"
                              BorderBrush="{StaticResource TextBoxBorderBrush}"
                              BorderThickness="2"
                              Style="{StaticResource DataEditTextBox}"
@@ -188,7 +193,7 @@
                 </StackPanel>
 
                 <!-- Rank Toggle Button -->
-                <TextBlock Text="Разблокировать ранк"
+                <TextBlock Text="Разблокировать ранг"
                            TextWrapping="Wrap" Width="190"
                            TextAlignment="Center"
                            HorizontalAlignment="Right"
@@ -199,13 +204,9 @@
                               VerticalAlignment="Top"
                               Height="30" Width="60"
                               Margin="0, 105, 95, 0"
-                              Checked="RankChecked"
                               Style="{StaticResource ToggleSwitchButton}"/>
             </Grid>
-            
+
         </Border>
-
-
-        
     </Grid>
 </Page>

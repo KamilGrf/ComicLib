@@ -1,0 +1,257 @@
+﻿<Page x:Class="ComicLib.Pages.ComicInfo"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ComicLib.Pages"
+      xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
+      mc:Ignorable="d" 
+      d:DesignHeight="900" d:DesignWidth="1100"
+      Title="ComicInfo"
+      Unloaded="PageUnloaded">
+
+    <Page.Resources>
+        <!-- Author ToolTip Template -->
+        <Style TargetType="ToolTip">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToolTip">
+
+                        <Border CornerRadius="4"
+                                Background="White"
+                                BorderThickness="1"
+                                Margin="10"
+                                BorderBrush="LightGray">
+
+                            <Border.Effect>
+                                <DropShadowEffect 
+                                    ShadowDepth="0.5" Opacity="0.4" 
+                                    BlurRadius="10" />
+                            </Border.Effect>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="2"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Author Photo -->
+                                <Image Source="{Binding Photo, Converter={StaticResource ImgConvert}}"
+                                       Stretch="Uniform"
+                                       VerticalAlignment="Center"
+                                       Width="200"
+                                       Margin="10, 5"/>
+
+                                <!-- Vertical Splitter -->
+                                <Rectangle Grid.Column="1"
+                                           Fill="{StaticResource MainOrangeBrush}"
+                                           Margin="0, 10"/>
+
+                                <DockPanel Grid.Column="2">
+
+                                    <!-- Author Name -->
+                                    <TextBlock Text="{Binding Name}"
+                                               DockPanel.Dock="Top"
+                                               HorizontalAlignment="Center"
+                                               FontWeight="Bold"
+                                               FontSize="20"
+                                               Margin="0, 5"/>
+                                    
+                                    <!-- Author Info -->
+                                    <TextBlock Text="{Binding Info}"
+                                               DockPanel.Dock="Bottom"
+                                               Width="350"
+                                               TextWrapping="Wrap"
+                                               FontSize="16"
+                                               Margin="15, 10"/>
+                                </DockPanel>
+                            </Grid>
+                        </Border>
+
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+
+    <Grid x:Name="mainGrid">
+
+        <!-- Add Into Bookmark Toggle Button -->
+        <ToggleButton x:Name="realBookmark" 
+                      HorizontalAlignment="Left"
+                      VerticalAlignment="Top"
+                      Style="{StaticResource RealBookMarkToggleButton}"
+                      Margin="230, 25, 0, 0"
+                      Height="80" Width="50"
+                      Checked="RealBookmarkChecked"
+                      Unchecked="RealBookmarkUnchecked"/>
+
+        <!-- Comic Info Toggle Button -->
+        <ToggleButton x:Name="infoTB" 
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Top"
+                      Style="{StaticResource BookMarkToggleButton}"
+                      Margin="160, 30, 0, 0"
+                      Height="80" Width="130"
+                      Checked="InfoTBChecked"
+                      Unchecked="InfoTBUnchecked">
+            <TextBlock Text="Информация"
+                       Margin="5, 10"/>
+        </ToggleButton>
+
+        <!-- Comic Comments Toggle Button -->
+        <ToggleButton x:Name="commentsTB" 
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Top"
+                      Style="{StaticResource BookMarkToggleButton}"
+                      Margin="650, 30, 0, 0"
+                      Height="80" Width="130"
+                      Checked="CommentsTBChecked"
+                      Unchecked="CommentsTBUnchecked">
+            <TextBlock Text="Комментарии"
+                       Margin="5, 10"/>
+        </ToggleButton>
+
+        <!-- Get Back Button -->
+        <Button Style="{StaticResource BookMarkButton}"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Left"
+                Padding="20, 0"
+                Height="70" Width="100"
+                Margin="50, 90"
+                Click="GetBackClick">
+
+            <material:PackIcon Kind="NavigateBefore"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"
+                               Height="50" Width="50"/>
+        </Button>
+
+        <!-- Page Main Border -->
+        <Border Background="White"
+                CornerRadius="4"
+                Margin="120, 80, 80, 80"
+                BorderThickness="1"
+                BorderBrush="{StaticResource TextBoxBorderBrush}">
+
+            <Border.Effect>
+                <DropShadowEffect 
+                    ShadowDepth="0.5" Opacity="0.4" 
+                    BlurRadius="10" />
+            </Border.Effect>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="350"/>
+                    <ColumnDefinition Width="2"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Comic Cover -->
+                <Image x:Name="cover" 
+                       Grid.Column="0" 
+                       Source="{Binding Cover, Converter={StaticResource ImgConvert}}"
+                       Stretch="Fill"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Top"
+                       Margin="5, 50"
+                       Width="210" Height="320">
+                    <Image.Effect>
+                        <DropShadowEffect BlurRadius="25" />
+                    </Image.Effect>
+                </Image>
+
+                <!-- Vertical Splitter -->
+                <Rectangle x:Name="splitter" 
+                           Grid.Column="1"
+                           Fill="{StaticResource MainOrangeBrush}"
+                           RadiusX="1" RadiusY="1"
+                           Margin="0, 20, 0, 200"/>
+
+                <StackPanel Orientation="Vertical"
+                            Margin="50, 400, 50, 0"
+                            VerticalAlignment="Top">
+
+                    <!-- Start Reading Button -->
+                    <Button Style="{StaticResource RegistrationButtonX2}"
+                            Height="30" Width="210"
+                            Margin="0, 0, 0, 20"
+                            HorizontalAlignment="Center"
+                            Click="StartReadingClick">
+                        <TextBlock Text="Начать читать"
+                                   FontSize="18"
+                                   Foreground="White"/>
+                    </Button>
+
+                    <!-- Horizontal Splitter -->
+                    <Rectangle Height="2"
+                               HorizontalAlignment="Stretch"
+                               Fill="{StaticResource MainOrangeBrush}"/>
+
+                    <!-- Comic Year -->
+                    <TextBlock Text="Год выпуска:"
+                               Margin="0, 20, 0, 0"
+                               Opacity="0.7"
+                               HorizontalAlignment="Center"/>
+                    <TextBlock FontSize="20"
+                               HorizontalAlignment="Center"
+                               Text="{Binding Year}"/>
+
+                    <!-- Comic Authors -->
+                    <TextBlock Text="Автор/ы"
+                               Margin="0, 10, 0, 0"
+                               Opacity="0.7"
+                               HorizontalAlignment="Center"/>
+
+                    <!-- First Author -->
+                    <Border x:Name="authorTagA" 
+                            Visibility="Hidden"
+                            Margin="0, 5"
+                            CornerRadius="3"
+                            Background="{StaticResource MainOrangeBrush}"
+                            HorizontalAlignment="Center">
+
+                        <Border.ToolTip>
+                            <ToolTip Placement="Top"/>
+                        </Border.ToolTip>
+
+                        <!-- Author Name -->
+                        <TextBlock x:Name="author1"
+                                   Foreground="White"
+                                   Background="Transparent"
+                                   HorizontalAlignment="Center"
+                                   FontSize="20"
+                                   Margin="5, 0"/>
+                    </Border>
+
+                    <!-- Second Author -->
+                    <Border x:Name="authorTagB" 
+                            Visibility="Hidden"
+                            CornerRadius="3"
+                            Background="{StaticResource MainOrangeBrush}"
+                            HorizontalAlignment="Center">
+
+                        <Border.ToolTip>
+                            <ToolTip Placement="Top"/>
+                        </Border.ToolTip>
+
+                        <!-- Author Name -->
+                        <TextBlock x:Name="author2"
+                                   Foreground="White"
+                                   Background="Transparent"
+                                   HorizontalAlignment="Center"
+                                   FontSize="20"
+                                   Margin="5, 0"/>
+                    </Border>
+                </StackPanel>
+
+                <!-- Navigation Frame -->
+                <Frame x:Name="comicInfoFrame"
+                       Grid.Column="2"
+                       ContentRendered="ComicInfoFrameContentRendered"
+                       NavigationUIVisibility="Hidden"/>
+            </Grid>
+        </Border>
+    </Grid>
+</Page>

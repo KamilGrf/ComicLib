@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ComicLib.Animations;
 using ComicLib.ClassHelpers;
+using System.Text.RegularExpressions;
 
 namespace ComicLib.Pages
 {
@@ -25,15 +26,23 @@ namespace ComicLib.Pages
         public LoginPage()
         {
             InitializeComponent();
+
+            if (NavigationService != null)
+            {
+                if (NavigationService.CanGoBack)
+                {
+                    NavigationService.RemoveBackEntry();
+                }
+            }
         }
 
         private void LoginClick(object sender, RoutedEventArgs e)
         {
-            if (name.Text == "" || pas.Text == "")
+            if (login.Text == "" || pas.Text == "")
             {
-                MessageBox.Show("Поля не должны оставаться пустыми");
+                errorMes.Text = "Все поля должны быть заполнены!";
             }
-            else if (DBHelper.GetUser(name.Text, pas.Text, out string mes))
+            else if (DBHelper.GetUser(login.Text, pas.Text, out string mes))
             {
                 if (NavigationService.CanGoBack)
                 {
@@ -43,15 +52,8 @@ namespace ComicLib.Pages
             }
             else
             {
-                MessageBox.Show(mes);
+                errorMes.Text = mes;
             }
-
-
-            //if (NavigationService.CanGoBack)
-            //{
-            //    NavigationService.RemoveBackEntry();
-            //}
-            //NavigationService.Navigate(new ViewPort());
         }
 
         private void RegisterPageClick(object sender, RoutedEventArgs e)
@@ -61,6 +63,27 @@ namespace ComicLib.Pages
                 NavigationService.RemoveBackEntry();
             }
             NavigationService.Navigate(new RegisterPage());
+        }
+
+        private void TextBoxPreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            e.Handled = e.Key == Key.Space;
+        }
+
+        private void LoginPreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!Regex.Match(e.Text, @"[0-9a-zA-Zа-яА-Я]").Success)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void PasswordPreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!Regex.Match(e.Text, @"[0-9a-zA-Z!@#$%^&*()_+=\[{\]};:<>|./?,-]").Success)
+            {
+                e.Handled = true;
+            }
         }
     }
 }

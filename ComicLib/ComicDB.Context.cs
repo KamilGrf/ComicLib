@@ -28,16 +28,13 @@ namespace ComicLib
         public virtual DbSet<Author> Author { get; set; }
         public virtual DbSet<Comic> Comic { get; set; }
         public virtual DbSet<ComicAndAuthor> ComicAndAuthor { get; set; }
-        public virtual DbSet<ComicAndComment> ComicAndComment { get; set; }
         public virtual DbSet<ComicAndGenre> ComicAndGenre { get; set; }
-        public virtual DbSet<ComicAndPage> ComicAndPage { get; set; }
         public virtual DbSet<ComicAndTag> ComicAndTag { get; set; }
         public virtual DbSet<Comment> Comment { get; set; }
         public virtual DbSet<Genre> Genre { get; set; }
         public virtual DbSet<Page> Page { get; set; }
         public virtual DbSet<Tag> Tag { get; set; }
         public virtual DbSet<User> User { get; set; }
-        public virtual DbSet<UserAndComment> UserAndComment { get; set; }
         public virtual DbSet<UserAndFavorite> UserAndFavorite { get; set; }
     }
 }
