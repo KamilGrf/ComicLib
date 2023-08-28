@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ComicLib.Pages;
 using ComicLib.ClassHelpers;
+using ComicLib.Properties;
 
 namespace ComicLib
 {
@@ -30,6 +31,15 @@ namespace ComicLib
             DBHelper.Comics = DBHelper.DBContext.Comic.OrderBy(a => a.Title).ToList();
             DBHelper.Genres = DBHelper.DBContext.Genre.OrderBy(a => a.Title).ToList();
             DBHelper.Tags = DBHelper.DBContext.Tag.OrderBy(a => a.Title).ToList();
+
+            if (Settings.Default.Password != ""
+                && Settings.Default.LastLoginDate.AddMonths(1) > DateTime.Now)
+            {
+                DBHelper.CurrentUser = DBHelper.DBContext.User
+                    .Where(u => u.Name == Settings.Default.Name
+                    && u.Password == Settings.Default.Password).FirstOrDefault();
+                mainFrame.Content = new ViewPort();
+            }
         }
 
         private void CloseClick(object sender, RoutedEventArgs e)

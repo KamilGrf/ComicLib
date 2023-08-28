@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Resources;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,6 +7,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Imaging;
+using ComicLib.Properties;
 
 namespace ComicLib.ClassHelpers
 {
@@ -37,9 +39,7 @@ namespace ComicLib.ClassHelpers
         /// <returns>Значение <see langword="true"/>, если учетная запись найдена; в противном случае - значение <see langword="false"/></returns>
         public static bool GetUser(string login, string pas, out string message)
         {
-            CurrentUser = DBContext.User.Where(u => u.Name == login && u.Password == pas).FirstOrDefault();
-
-            if (CurrentUser != null)
+            if (LoginRemember(login, pas))
             {
                 message = "";
                 return true;
@@ -51,7 +51,7 @@ namespace ComicLib.ClassHelpers
             }
             else
             {
-                message = "Неверный логин!";
+                message = "Пользователь не найден!";
                 return false;
             }
         }
@@ -74,14 +74,43 @@ namespace ComicLib.ClassHelpers
             }
 
             if (Regex.IsMatch(input, @"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"))
-            {
                 return true;
-            }
             else
             {
                 errorMessage = "Неверный формат почты";
                 return false;
             }
+        }
+
+        /// <summary>
+        /// Запоминает пользователя между сеансами приложения для автоматического входа в аккаунт
+        /// </summary>
+        /// <param name="login"></param>
+        /// <param name="pas"></param>
+        /// <returns></returns>
+        public static bool LoginRemember(string login, string pas)
+        {
+            CurrentUser = DBContext.User.Where(u => u.Name == login && u.Password == pas).FirstOrDefault();
+            if (CurrentUser == null)
+                return false;
+
+            Settings.Default.Name = CurrentUser.Name;
+            Settings.Default.Password = CurrentUser.Password;
+            Settings.Default.LastLoginDate = DateTime.Now;
+            Settings.Default.Save();
+            return true;
+        }
+
+        /// <summary>
+        /// Удаляет информацию о последнем авторизованном пользователе
+        /// </summary>
+        public static void LoginForget()
+        {
+            CurrentUser = null;
+            Settings.Default.Name = null;
+            Settings.Default.Password = null;
+            Settings.Default.LastLoginDate = DateTime.MinValue;
+            Settings.Default.Save();
         }
     }
 }

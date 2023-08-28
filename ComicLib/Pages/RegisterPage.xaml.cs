@@ -52,7 +52,8 @@ namespace ComicLib.Pages
                 DBHelper.DBContext.User.Add(user);
                 DBHelper.DBContext.SaveChanges();
 
-                DBHelper.CurrentUser = DBHelper.DBContext.User.Where(u => u.Name == login.Text && u.Password == pas.Text).FirstOrDefault();
+                //DBHelper.CurrentUser = DBHelper.DBContext.User.Where(u => u.Name == login.Text && u.Password == pas.Text).FirstOrDefault();
+                DBHelper.LoginRemember(login.Text, pas.Text);
 
                 if (NavigationService.CanGoBack)
                 {

@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using ComicLib.Animations;
 using ComicLib.ClassHelpers;
 using System.Text.RegularExpressions;
+using ComicLib.Properties;
 
 namespace ComicLib.Pages
 {
@@ -34,6 +35,7 @@ namespace ComicLib.Pages
                     NavigationService.RemoveBackEntry();
                 }
             }
+            DBHelper.LoginForget();
         }
 
         private void LoginClick(object sender, RoutedEventArgs e)
